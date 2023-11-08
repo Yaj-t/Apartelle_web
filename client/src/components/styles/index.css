@@ -25,7 +25,38 @@
 
 .banner {
   margin-top: 40vh;
+  margin-bottom: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+hr {
+  display: inline-block;
+  border: 3px solid;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.list-container {
+    padding: 80px;
+}
+
+.discover-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-container {
+  margin: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+.card-container p {
+  padding: 10px;
 }
