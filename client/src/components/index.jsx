@@ -1,5 +1,6 @@
 import React from 'react'
 import './styles/index.css'
+import Footer from './Footer'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -181,6 +182,8 @@ function index() {
                 />
             </div>
         </div>
+
+        <Footer />
     </div>
   )
 }

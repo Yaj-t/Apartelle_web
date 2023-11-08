@@ -1,0 +1,58 @@
+button {
+  display: flex; /* Use flexbox to center items */
+  align-items: center; /* Vertically center items */
+  gap: 5px;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 24px;
+  border: none;
+  padding: 15px 45px;
+  box-sizing: border-box;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: small;
+}
+
+hr {
+  border: 1px solid;
+  width: 100%;
+}
+
+.footer-container {
+  background-color: #9bbf8b;
+  color: white;
+}
+
+.content-container {
+  margin-top: 10%;
+  padding: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+
+p .MuiSvgIcon-root {
+  font-size: 15px;
+}
+
+.copyright-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0px 80px 0px 80px;
+}
