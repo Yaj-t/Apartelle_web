@@ -10,12 +10,12 @@ Currently, two official plugins are available:
 
 Steps in Creating a React Vite App
 
-1.) npm create vite@latest
-2.) Select **React** as the Framework
-3.) Select **JavaScript** as the Variant
+- npm create vite@latest
+-  Select **React** as the Framework
+-  Select **JavaScript** as the Variant
 
 When Running:
 
-cd <folder_name>
-npm install
-npm run dev
+- cd <folder_name>
+- npm install
+- npm run dev
