@@ -1,31 +1,10 @@
-.nav-container {
-  padding: 0px 50px 0px 70px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#search-btn {
-  width: 3%;
-}
-
-#login-btn {
-  align-items: center;
-  appearance: none;
-  background-color: #f57328;
-  color: white;
-  border-radius: 24px;
-  border: none;
-  padding: 15px 45px;
-  box-sizing: border-box;
-  font-size: 1em;
-  cursor: pointer;
+.banner-container {
+  background-color: #fff9e7;
 }
 
 .banner {
-  margin-top: 40vh;
-  margin-bottom: 40vh;
+  padding-top: 40vh;
+  padding-bottom: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,14 +18,15 @@ hr {
 }
 
 .list-container {
-    padding: 80px;
+  padding: 80px;
 }
 
 .discover-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  padding: 0px 80px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .card-container {

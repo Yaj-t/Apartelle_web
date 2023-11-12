@@ -1,6 +1,7 @@
 import React from 'react'
 import './styles/index.css'
 import Footer from './Footer'
+import NavBarOffline from './NavBars/NavBarOffline'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,17 +9,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 function index() {
   return (
     <div>
-        <div className="nav-container">
-            <img id="search-btn" src="src/assets/search.png" alt="search button.png" />
-            <h1> LOGO </h1>
-            <button id="login-btn"> LOGIN </button>
+        <div className='banner-container'>
+           <NavBarOffline/>
+
+            <div className='banner'>
+                <h1>BANNER</h1>
+            </div>
         </div>
 
-        <div className='banner'>
-            <h1>BANNER</h1>
-        </div>
-
-        <div className='main-container'>
+        <div className='rooms-container'>
             <div className='list-container'>
                 <h1>Lists of <br /> Rooms</h1>
                 <hr />
@@ -164,7 +163,7 @@ function index() {
             </div>
         </div>
 
-        <div className='main-container'>
+        <div className='other-container'>
             <div className='discover-container'>
                 <div className='list-container'>
                     <h1>Discover More About <br /> Marjhun's Apartelle </h1>
@@ -176,7 +175,7 @@ function index() {
                 </div>
                 <CardMedia
                     id='discover-picture'
-                    sx ={{ height: 440, width: 2400 }}
+                    sx ={{ height: 440, width: 1400 }}
                     image="src/assets/Room_Picture.jpg"
                     title = "room picture"
                 />

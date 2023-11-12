@@ -1,0 +1,34 @@
+.photocards-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff9e7;
+}
+
+.room-details {
+  display: flex;
+  padding: 80px;
+  gap: 50vh;
+}
+
+.room-header {
+  display: flex;
+  align-items: first baseline;
+  justify-content: space-between;
+}
+
+.card-details {
+  padding: 50px;
+}
+
+.amenities-container {
+  padding-top: 50px;
+}
+
+.amenities-details {
+  padding-bottom: 50px;
+}
+
+hr {
+  width: 100%;
+}

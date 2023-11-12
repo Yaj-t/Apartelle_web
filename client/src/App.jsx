@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import LandingPage from './components/index'
+import RoomDetails from './components/RoomDetails'
+import AllRooms from './components/AllRooms'
 import './App.css'
 
 function App() {
 
   return (
     <>
-      <LandingPage />
+      {/* <LandingPage /> */}
+      {/* <RoomDetails /> */}
+      <AllRooms />
     </>
   )
 }
