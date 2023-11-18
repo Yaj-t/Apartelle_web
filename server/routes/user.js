@@ -1,8 +1,10 @@
-const express = require("express")
-const router = express.Router()
-const { User } = require("../models")
+const express = require("express");
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const { requireAuth } = require('../middleware/authMiddleware');
+const { User } = require("../models");
 
-router.get('/users', async (req, res) => {
+router.get('/users', requireAuth, async (req, res) => {
   try {
       // Fetch all users from the database
       const users = await User.findAll({
@@ -47,6 +49,7 @@ router.get('/profile/:userId', async (req, res) => {
 
 router.put('/profile/:userId', async (req, res) => {
     try {
+      req.body.password = await bcrypt.hash(req.body.password, 10);
       const user = await User.findByPk(req.params.userId);
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
@@ -55,6 +58,7 @@ router.put('/profile/:userId', async (req, res) => {
       await user.update(req.body);
       res.status(200).send({ message: 'User updated successfully' });
     } catch (error) {
+      console.log(error);
       res.status(500).send({ message: 'Internal server error' });
     }
   });
