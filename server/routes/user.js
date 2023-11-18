@@ -6,7 +6,7 @@ router.get('/users', async (req, res) => {
   try {
       // Fetch all users from the database
       const users = await User.findAll({
-          attributes: ['user_id', 'first_name', 'last_name', 'email', 'user_type', 'contact_number'] // Specify the attributes you want to retrieve
+          attributes: ['user_id', 'first_name', 'last_name', 'email', 'user_type', 'contact_number'] // attributes to retrieve
       });
       
       // Send the users as a response
