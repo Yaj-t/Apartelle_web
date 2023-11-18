@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 *60;
-const createToken = (id) => {
-  return jwt.sign({ id }, 'Apartelle Secret Website', {
+const createToken = (id, user_type) => {
+  return jwt.sign({ id , user_type}, 'Apartelle Secret Website', {
     expiresIn: maxAge
   })
 }
@@ -61,7 +61,8 @@ const register = async (req, res) => {
       contact_number: req.body.contact_number,
       user_type: 'User' // Or based on what you receive in req.body
     });
-    const token = createToken(user.user_id);
+
+    const token = createToken(user.user_id, user.user_type);
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
     res.status(201).send({ message: 'User created successfully'});
   } catch (error) {
@@ -86,7 +87,7 @@ const login = async (req, res) => {
     }
 
     // Generate token
-    const token = createToken(user.user_id);
+    const token = createToken(user.user_id, user.user_type);
     
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
     res.status(200).send({ message: 'Login successful'});
