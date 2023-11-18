@@ -10,7 +10,12 @@ const createToken = (id) => {
 }
 
 function handleErrors(error) {
-  let errors = { email: '', password: '', contact_number: '', first_name: '', last_name: '' };
+  let errors = { email: '', contact_number: ''};
+
+  if(error.message === 'Incorrect Email and Password'){
+    errors.email = 'Incorrect Email and Password';
+    return { status: 401, errors }; // 401 Unauthorized
+  }
 
   // Handling duplicate email or contact number
   if (error.name === 'SequelizeUniqueConstraintError') {
@@ -61,6 +66,7 @@ const register = async (req, res) => {
     res.status(201).send({ message: 'User created successfully'});
   } catch (error) {
     const { status, errors } = handleErrors(error);
+    console.log(error);
     res.status(status).send({ errors });
   }
 };
@@ -70,13 +76,13 @@ const login = async (req, res) => {
     // Find user
     const user = await db.User.findOne({ where: { email: req.body.email } });
     if (!user) {
-      return res.status(404).send({ message: 'User not found' });
+      throw Error('Incorrect Email and Password');
     }
 
     // Check password
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).send({ message: 'Invalid password' });
+      throw Error('Incorrect Email and Password');
     }
 
     // Generate token
