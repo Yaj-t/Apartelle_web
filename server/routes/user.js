@@ -47,7 +47,7 @@ router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res)
     }
   });
 
-router.put('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
+router.put('/profile/:userId', authRole(['ADMIN', 'Staff']), async (req, res) => {
     try {
       req.body.password = await bcrypt.hash(req.body.password, 10);
       const user = await User.findByPk(req.params.userId);

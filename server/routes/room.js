@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Room, RoomType } = require("../models");
+const { requireAuth, authRole} = require("../middleware/authMiddleware")
 
 // Get all rooms
 router.get('/', async (req, res) => {
@@ -32,7 +33,7 @@ router.get('/:roomId', async (req, res) => {
 });
 
 // Create a new room
-router.post('/', async (req, res) => {
+router.post('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
   try {
     const newRoom = await Room.create(req.body);
     res.status(201).json(newRoom);
@@ -43,7 +44,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a room by ID
-router.put('/:roomId', async (req, res) => {
+router.put('/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.roomId);
     if (!room) {
@@ -58,7 +59,7 @@ router.put('/:roomId', async (req, res) => {
 });
 
 // Delete a room by ID
-router.delete('/:roomId', async (req, res) => {
+router.delete('/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.roomId);
     if (!room) {
@@ -71,5 +72,44 @@ router.delete('/:roomId', async (req, res) => {
     res.status(500).send({ message: 'Error deleting room' });
   }
 });
+
+// Get all available rooms
+router.get('/available-rooms/:startDate/:endDate', async (req, res) => {
+  try {
+    const startDate = new Date(req.params.startDate);
+    const endDate = new Date(req.params.endDate);
+
+    // If startDate is greater than endDate, throw an error
+    if (startDate > endDate) {
+      throw new Error('Start date cannot be after end date');
+    }
+
+    const bookedRooms = await Booking.findAll({
+      where: {
+        startDate: {
+          [Op.lte]: endDate
+        },
+        endDate: {
+          [Op.gte]: startDate
+        }
+      }
+    });
+
+    const allRooms = await Room.findAll({
+      include: [RoomType]
+    });
+
+    const availableRooms = allRooms.filter((room) => {
+      const bookedRoom = bookedRooms.find((bookedRoom) => bookedRoom.roomId === room.id);
+      return !bookedRoom;
+    });
+
+    res.status(200).json(availableRooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;
