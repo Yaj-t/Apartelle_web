@@ -1,151 +1,188 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import NavBarOffline from './NavBars/NavBarOffline'
+import NavBarOnline from './NavBars/NavBarOnline';
 import Footer from './Footer';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchIcon from '@mui/icons-material/Search';
 import CardMedia from '@mui/material/CardMedia'
 import Card from '@mui/material/Card'
-import './styles/allRooms.css'
+import AllRoomsCSS from '../styles/allRooms.module.css'
 
 
 function AllRooms() {
   return (
     <div>
-      <NavBarOffline />
+      <NavBarOnline />
       
-      <div className='filter-container'>
-        <form action="" method="" className='search-bar'>
+      <div className={AllRoomsCSS.filterContainer}>
+        <form action="" method="" className={AllRoomsCSS.searchBar}>
           <input type="text" placeholder='Search...'/>
-          <button className='search-btn'><SearchIcon fontSize='small'/></button>
+          <button className={AllRoomsCSS.searchBtn}><SearchIcon fontSize='small'/></button>
         </form>
 
-        <button id='filter-btn'>
+        <button id={AllRoomsCSS.filterBtn}>
           <TuneIcon />
           Filters
         </button>
       </div>
 
-        <div className='card-container'>
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment
-              </p> 
-              <p>100 Small Street, LA, USA</p>
-          </Card>
+      <div className={AllRoomsCSS.cardContainer}>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280  }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
-          
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
 
-          <Card sx={{ width: 280 }}>
-              <CardMedia
-                  sx ={{ height: 240 }}
-                  image="src/assets/Room_Picture.jpg"
-                  title = "room picture"
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-          </Card>
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
+
+        <Link to='/roomDetails'>
+            <Card sx={{ width: 280 }}>
+                <CardMedia
+                    sx ={{ height: 240 }}
+                    image="src/assets/Room_Picture.jpg"
+                    title = "room picture"
+                />
+                <p> Well Furnished Apartment
+                </p> 
+                <p>100 Small Street, LA, USA</p>
+            </Card>
+        </Link>
       </div>  
 
       <Footer />

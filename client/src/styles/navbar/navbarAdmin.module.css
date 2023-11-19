@@ -1,0 +1,24 @@
+.navDashContainer {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    flex: end;
+    align-items: center;
+    background-color: #F57328;
+    height: 100%;
+    width: 100px;
+    padding: 2vh 0vh 2vh 0vh;
+    gap: 310px;
+
+}
+
+.upperLinkContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 46px;
+}
+
+.upperLinkContainer a{
+    color: white;
+}

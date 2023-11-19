@@ -1,4 +1,4 @@
-.banner-container {
+.bannerContainer {
   background-color: #fff9e7;
 }
 
@@ -10,26 +10,25 @@
   justify-content: center;
 }
 
-hr {
+.hr {
   display: inline-block;
   border: 3px solid;
   border-radius: 5px;
   width: 150px;
 }
 
-.list-container {
+.listContainer {
   padding: 80px;
 }
 
-.discover-container {
-  padding: 0px 80px 0px 0px;
+.discoverContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.card-container {
+.cardContainer {
   margin: 5vh;
   display: flex;
   flex-direction: row;
@@ -37,6 +36,6 @@ hr {
   gap: 30px;
 }
 
-.card-container p {
+.cardContainer p {
   padding: 10px;
 }

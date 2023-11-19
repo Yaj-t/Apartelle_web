@@ -1,18 +1,19 @@
 import React from 'react'
 import NavBarOffline from './NavBars/NavBarOffline'
+import NavBarOnline from './NavBars/NavBarOnline';
 import Footer from './Footer';
 import Card from '@mui/material/Card'; 
 import CardMedia from '@mui/material/CardMedia'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import './styles/roomDetails.css'
+import RoomDetailsCSS from '../styles/roomDetails.module.css'
 
 
 function RoomDetails() {
   return (
     <div>
-      <NavBarOffline />
+      <NavBarOnline />
 
-      <div className='photocards-container'>
+      <div className={RoomDetailsCSS.photocardsContainer}>
         <CardMedia
             id='discover-picture'
             sx ={{ height: 700, width: 1000 }}
@@ -21,10 +22,10 @@ function RoomDetails() {
         />
       </div>
 
-      <div className='room-details'>
-        <div className='room-container'>
-            <div className='room-header'>
-                <div className='room-title'>
+      <div className={RoomDetailsCSS.roomDetails}>
+        <div className={RoomDetailsCSS.roomContainer}>
+            <div className={RoomDetailsCSS.roomHeader}>
+                <div className={RoomDetailsCSS.roomTitle}>
                         <h1> Room Type </h1>
                         <h3> Sub-Header</h3>
                 </div>
@@ -36,8 +37,8 @@ function RoomDetails() {
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             
-            <div className='amenities-container'>
-                <div className='amenities-details'>
+            <div className={RoomDetailsCSS.amenitiesContainer}>
+                <div className={RoomDetailsCSS.amenitiesDetails}>
                     <h1>Offered Amenities</h1>
                     <ul>
                         <li> Kitchen </li>
@@ -52,15 +53,19 @@ function RoomDetails() {
             </div>
         </div>
 
-        <div className='room-card'>
+        <div className={RoomDetailsCSS.roomCard}>
             <Card sx={{ width: 400 }}>
-                <div className='card-details'>
-                    <h2> Php 1000 - Php 2000 </h2>
-                    <hr />
+                <div className={RoomDetailsCSS.cardDetails}>
+                    <div id={RoomDetailsCSS.titleHeader}>
+                      <h2> Php 1000 - Php 2000 </h2>
+                      <hr />
+                    </div>
 
-                    <p> Short Period: Php 1000 </p>
-                    <p> Medium Period: Php 2000 </p>
-                    <p> Long Period: Php 2000 </p>
+                    <div id={RoomDetailsCSS.bodyContent}>
+                      <p> Short Period: Php 1000 </p>
+                      <p> Medium Period: Php 2000 </p>
+                      <p> Long Period: Php 2000 </p>
+                    </div>
 
                     <button> Reserve Now </button>
                 </div>

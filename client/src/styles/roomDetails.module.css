@@ -1,31 +1,41 @@
-.photocards-container {
+.photocardsContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff9e7;
 }
 
-.room-details {
+.roomDetails {
   display: flex;
   padding: 80px;
   gap: 50vh;
 }
 
-.room-header {
+.roomHeader {
   display: flex;
   align-items: first baseline;
   justify-content: space-between;
 }
 
-.card-details {
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   padding: 50px;
+  
 }
 
-.amenities-container {
+.cardDetails button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amenitiesContainer {
   padding-top: 50px;
 }
 
-.amenities-details {
+.amenitiesDetails {
   padding-bottom: 50px;
 }
 

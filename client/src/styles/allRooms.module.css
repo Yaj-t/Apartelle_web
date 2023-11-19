@@ -1,11 +1,11 @@
-.filter-container {
+.filterContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 80px 100px;
 }
 
-.search-bar {
+.searchBar {
   width: 100%;
   max-width: 400px;
   height: 100%;
@@ -18,7 +18,7 @@
   backdrop-filter: blur(4px) saturate(180%);
 }
 
-.search-bar input {
+.searchBar input {
   background: transparent;
   flex: 1;
   border: 0;
@@ -28,7 +28,7 @@
   color: rgb(6, 6, 6, 1);
 }
 
-.search-bar button {
+.searchBar button {
   border-radius: 100%;
   width: 30px;
   height: 30px;
@@ -41,7 +41,7 @@
   color: rgb(6, 6, 6, 0.3);
 }
 
-#filter-btn {
+#filterBtn {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -56,7 +56,7 @@
   cursor: pointer;
 }
 
-.card-container {
+.cardContainer {
   margin: 5vh;
   display: flex;
   flex-direction: row;
@@ -65,6 +65,6 @@
   flex-wrap: wrap;
 }
 
-.card-container p {
+.cardContainer p {
     padding: 10px;
   }
