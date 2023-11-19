@@ -1,0 +1,80 @@
+.reservationContainer {
+  display: flex;
+  /* background-color: #fff9e7; */
+  height: 100%;
+}
+
+.contents {
+    margin-left: 100px;
+}
+
+.filterContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 50px 50px;
+  gap: 10px;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 30px;
+  /* background: white; */
+  background: rgb(244, 239, 239);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 5px 10px;
+  backdrop-filter: blur(4px) saturate(180%);
+}
+
+.searchBar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 1rem;
+  color: rgb(6, 6, 6, 1);
+}
+
+.searchBar button {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+::placeholder {
+  color: rgb(6, 6, 6, 0.3);
+}
+
+#dateFilter {
+  display: flex;
+  align-items: center;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 24px;
+  border: none;
+  padding: 8px 25px;
+  box-sizing: border-box;
+  font-size: 1em;
+  width: 200px;
+  cursor: pointer;
+}
+
+.reservationTable td,
+th {
+  border-bottom: 1px solid #ddd;
+  padding: 30px;
+  text-align: center;
+}
+
+.reservationTable {
+  margin: 50px 50px;
+}

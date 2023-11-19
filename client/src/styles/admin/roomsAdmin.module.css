@@ -1,0 +1,11 @@
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  padding: 150px 200px;
+}
+
+.buttonContainer button {
+  padding: 130px;
+  font-size: 5rem;
+}
