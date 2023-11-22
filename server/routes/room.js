@@ -33,7 +33,7 @@ router.get('/:roomId', async (req, res) => {
 });
 
 // Create a new room
-router.post('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
+router.post('/', authRole(['ADMIN']), async (req, res) => {
   try {
     const newRoom = await Room.create(req.body);
     res.status(201).json(newRoom);
@@ -44,7 +44,7 @@ router.post('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
 });
 
 // Update a room by ID
-router.put('/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
+router.put('/:roomId', authRole(['ADMIN']), async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.roomId);
     if (!room) {
@@ -59,7 +59,7 @@ router.put('/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
 });
 
 // Delete a room by ID
-router.delete('/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
+router.delete('/:roomId', authRole(['ADMIN']), async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.roomId);
     if (!room) {

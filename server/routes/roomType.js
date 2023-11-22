@@ -39,7 +39,7 @@ router.post('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
 });
 
 // Update a room type by ID
-router.put('/:roomTypeId', authRole(['ADMIN', 'Staff']), async (req, res) => {
+router.put('/:roomTypeId', authRole(['ADMIN']), async (req, res) => {
   try {
     const roomType = await RoomType.findByPk(req.params.roomTypeId);
     if (!roomType) {
@@ -53,7 +53,7 @@ router.put('/:roomTypeId', authRole(['ADMIN', 'Staff']), async (req, res) => {
 });
 
 // Delete a room type by ID
-router.delete('/:roomTypeId', authRole(['ADMIN', 'Staff']), async (req, res) => {
+router.delete('/:roomTypeId', authRole(['ADMIN']), async (req, res) => {
   try {
     const roomType = await RoomType.findByPk(req.params.roomTypeId);
     if (!roomType) {
