@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 const { requireAuth, authRole } = require('../middleware/authMiddleware');
 const { User } = require("../models");
 
+// Fetch all users from the database
 router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
   try {
-      // Fetch all users from the database
       const users = await User.findAll({
           attributes: ['user_id', 'first_name', 'last_name', 'email', 'user_type', 'contact_number'] // attributes to retrieve
       });
@@ -22,7 +22,7 @@ router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
   }
 });
 
-
+// Fetch a user based on user id
 router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res) => {
     try {
       const user = await User.findByPk(req.params.userId);
@@ -47,7 +47,8 @@ router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res)
     }
   });
 
-router.put('/profile/:userId', authRole(['ADMIN', 'Staff']), async (req, res) => {
+// update a user based on user id
+router.put('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
     try {
       req.body.password = await bcrypt.hash(req.body.password, 10);
       const user = await User.findByPk(req.params.userId);
@@ -63,6 +64,7 @@ router.put('/profile/:userId', authRole(['ADMIN', 'Staff']), async (req, res) =>
     }
   });
 
+// delete a user based on user id
 router.delete('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
     try {
       const user = await User.findByPk(req.params.userId);
@@ -77,6 +79,7 @@ router.delete('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
     }
   });
   
+// fetch logged in user information
 router.get('/myprofile', requireAuth, async (req, res) => {
   try {
     const token = req.cookies.jwt;
