@@ -13,6 +13,8 @@ import PersonnelsAdmin from './components/admin/PersonnelsAdmin'
 import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
+import LoginPage from './components/auth/LogIn'
+import SignUpPage from './components/auth/SignUp'
 import './App.css'
 
 function App() {
@@ -20,6 +22,12 @@ function App() {
   return (
     <>
       {/* <PersonnelDetailsAdmin /> */}
+
+    {/* Auth */}
+    <Routes>
+      <Route path='/Login' element={<LoginPage/>}/>
+      <Route path='/SignUp' element={<SignUpPage/>}/>
+    </Routes>
 
     {/* Uncomment this when using the user page */}
     <Routes>
