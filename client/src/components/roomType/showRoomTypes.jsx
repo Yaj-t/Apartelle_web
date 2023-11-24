@@ -19,9 +19,15 @@ const RoomTypes = () => {
         }
     };
 
-    const handleDelete = (roomTypeID) => {
+    const handleDelete = async (roomTypeID) => {
         console.log('Delete Room Type:', roomTypeID);
-        // Add logic to delete the room type
+        try {
+            const url = `http://localhost:3001/roomType/${roomTypeID}`;
+            const response = await axios.delete(url);
+            setRoomTypes(prevRoomTypes => prevRoomTypes.filter(rt => rt.roomTypeID !== roomTypeID));
+        } catch (error) {
+            
+        }
     };
 
     const handleEdit = (roomTypeID) => {
