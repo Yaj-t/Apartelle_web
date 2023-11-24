@@ -14,7 +14,11 @@ import PersonnelsAdmin from './components/admin/PersonnelsAdmin'
 import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
-import './App.css'
+
+import AddRoomType from './components/roomType/addRoomType'
+import ShowRoomTypes from './components/roomType/showRoomTypes'
+
+// import './App.css'
 
 function App() {
 
@@ -22,7 +26,10 @@ function App() {
     <>
       {/* <PersonnelDetailsAdmin /> */}
 
-
+    <Routes>
+      <Route path='/addRoomType' element={<AddRoomType/>}/>
+      <Route path='/showRoomTypes' element={<ShowRoomTypes/>}/>
+    </Routes>
     {/* Uncomment this when using the user page */}
     <Routes>
       <Route path='/' element={<LandingPage />} />

@@ -1,30 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
     const RoomType = sequelize.define('RoomType', {
-      RoomTypeID: {
+      roomTypeID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      TypeName: {
+      typeName: {
         type: DataTypes.STRING(255),
         allowNull: false
       },
-      TypeDescription: {
+      typeDescription: {
         type: DataTypes.TEXT
       },
-      TypeQuantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      Price: {
+      price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
       },
-      MaxPersons: {
+      capacity: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      BedCount: {
+      bedCount: {
         type: DataTypes.INTEGER,
         allowNull: false
       }
