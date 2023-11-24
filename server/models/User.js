@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       user_type: {
         type: DataTypes.ENUM('ADMIN', 'Employee', 'User'),
-        defaultValue: 'User'
+        defaultValue: 'User',
+        allowNull:false
       },
       first_name: {
         type: DataTypes.STRING(50),
@@ -27,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       contact_number: {
-        type: DataTypes.STRING(20)
+        type: DataTypes.STRING(20),
+        unique: true
       }
     }, {
       tableName: 'users',
@@ -35,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = function(models) {
-        User.hasMany(models.Booking, { foreignKey: 'UserID' });
-        User.hasMany(models.Review, { foreignKey: 'UserID' });
+        User.hasMany(models.Booking, { foreignKey: 'UserID', onDelete: 'CASCADE' });
+        User.hasMany(models.Review, { foreignKey: 'UserID', onDelete: 'CASCADE' });
       };
   
     return User;

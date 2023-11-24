@@ -35,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Booking.associate = function(models) {
-      Booking.belongsTo(models.User, { foreignKey: 'UserID' });
-      Booking.belongsTo(models.Room, { foreignKey: 'RoomID' });
+      Booking.belongsTo(models.User, { foreignKey: 'UserID', onDelete: 'CASCADE' });
+      Booking.belongsTo(models.Room, { foreignKey: 'RoomID', onDelete: 'CASCADE' });
       Booking.hasMany(models.Review, { foreignKey: 'BookingID' });
     };
   

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Room.associate = function(models) {
       Room.belongsTo(models.RoomType, { foreignKey: 'RoomTypeID' });
-      Room.hasMany(models.Booking, { foreignKey: 'RoomID' });
+      Room.hasMany(models.Booking, { foreignKey: 'RoomID', onDelete: 'CASCADE'});
     };
   
     return Room;

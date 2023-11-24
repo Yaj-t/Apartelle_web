@@ -13,8 +13,8 @@ function NavBarDashboard() {
     <div>
         <div className={NavAdminCSS.navDashContainer}>
             <div className={NavAdminCSS.upperLinkContainer}>
-                <Link to='/admin/home'> <img src={Logo} alt="logo" width='80px'/> </Link>
-                <Link to="/admin/home"><HomeIcon /></Link>
+                <Link to='/admin'> <img src={Logo} alt="logo" width='80px'/> </Link>
+                <Link to="/admin"><HomeIcon /></Link>
                 <Link to="/admin/reservation"><EventNoteIcon/></Link>
                 <Link to="/admin/rooms"><BedIcon/></Link>
                 <Link to="/admin/personnel"><GroupsIcon/></Link>

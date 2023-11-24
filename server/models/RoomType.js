@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     RoomType.associate = function(models) {
-      RoomType.hasMany(models.Room, { foreignKey: 'RoomTypeID' });
+      RoomType.hasMany(models.Room, { foreignKey: 'RoomTypeID', onDelete: 'CASCADE' });
     };
   
     return RoomType;
