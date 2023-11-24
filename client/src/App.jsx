@@ -4,6 +4,7 @@ import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
 import Login from './components/Login'
+import Signup from './components/Signup'
 import ReservationAdmin from './components/admin/ReservationAdmin'
 import ReservationDetails from './components/admin/ReservationDetails'
 import RoomsAdmin from './components/admin/RoomsAdmin'
@@ -15,6 +16,7 @@ import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
 import './App.css'
+
 
 function App() {
 
@@ -28,6 +30,7 @@ function App() {
       <Route path='/allRooms' element={<AllRooms />} />
       <Route path='/roomDetails' element={<RoomDetails/>} />
       <Route path='/login' element={<Login />}/>
+      <Route path='/signup' element={<Signup/>}/>
     </Routes>
 
     {/* Uncomment this when using the admin pages */}
