@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
-import Login from './components/auth/Login'
+import Login from './components/Login'
 import ReservationAdmin from './components/admin/ReservationAdmin'
 import ReservationDetails from './components/admin/ReservationDetails'
 import RoomsAdmin from './components/admin/RoomsAdmin'
@@ -14,11 +14,7 @@ import PersonnelsAdmin from './components/admin/PersonnelsAdmin'
 import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
-
-import AddRoomType from './components/roomType/addRoomType'
-import ShowRoomTypes from './components/roomType/showRoomTypes'
-
-// import './App.css'
+import './App.css'
 
 function App() {
 
@@ -36,6 +32,7 @@ function App() {
       <Route path='/allRooms' element={<AllRooms />} />
       <Route path='/roomDetails' element={<RoomDetails/>} />
       <Route path='/login' element={<Login />}/>
+      <Route path='/signup' element={<Signup/>}/>
     </Routes>
 
     {/* Uncomment this when using the admin pages */}
