@@ -4,6 +4,7 @@ import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
 import Login from './components/Login'
+import Signup from './components/Signup'
 import ReservationAdmin from './components/admin/ReservationAdmin'
 import ReservationDetails from './components/admin/ReservationDetails'
 import RoomsAdmin from './components/admin/RoomsAdmin'
@@ -16,18 +17,11 @@ import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
 import './App.css'
 
+
 function App() {
 
   return (
     <>
-      {/* <PersonnelDetailsAdmin /> */}
-
-    {/* Auth */}
-    <Routes>
-      <Route path='/Login' element={<LoginPage/>}/>
-      <Route path='/SignUp' element={<SignUpPage/>}/>
-    </Routes>
-
     {/* Uncomment this when using the user page */}
     <Routes>
       <Route path='/' element={<LandingPage />} />
