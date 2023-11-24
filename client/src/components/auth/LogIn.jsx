@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import '../../styles/auth/styleLogin.css';
+import { Card } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import loginCSS from '../../styles/login.module.css';
+import { Link } from 'react-router-dom';
 
-const Login = () => {
+function Login(){
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -19,31 +22,53 @@ const Login = () => {
   };
 
   return (
-    <div className="signup-container">
-      <form>
-        <h2>Log In</h2>
-        <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" className="input-field" required />
+    <div>
+        <Link to='/'>
+            <div className={loginCSS.backHome}>
+                <ArrowBackIosNewIcon fontSize='very small'/>
+                <p> Back to Home  </p> 
+            </div>
+        </Link>
 
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" className="input-field pass" required />
+        <div className={loginCSS.loginContainer}>
+            <Card>
+                <div className={loginCSS.loginFormContainer}>
+                    <div className={loginCSS.loginHeader}>
+                        <h1>LOG IN</h1>
+                    </div>
 
-        <div className="forgot-password">
-          <a href="#" className="forgot-link">Forgot Password?</a>
+                    <form>
+                        <div className={loginCSS.loginForm}>
+                            <div className={loginCSS.loginInputContainer}>
+                                <div className={loginCSS.loginInput}>
+                                    <label htmlFor="username">Username</label>
+                                    <input type="text" id="username" name="username" placeholder="Type your username" required />
+                                </div>
+
+                                <div className={loginCSS.loginInput}>
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" id="password" name="password" placeholder="Type your password" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={loginCSS.loginInput}>
+                            <Link to='/' className={loginCSS.forPass}>Forgot Password?</Link>
+                            <Link to='/'> <input type="button" value="LOGIN"/> </Link>
+                        </div>
+                    </form>
+
+                    <div className={loginCSS.goToSignUp}>
+                        <p>Don’t have an account?</p> 
+                        <Link to='/signup' className="signup-link"><strong>SIGN-UP</strong></Link>
+                    </div>
+                </div>
+            </Card>
         </div>
-
-        <button type="submit" className="login-button">Log in</button>
-
-        <div className="have-account">
-          <a href="#" className="signup-link">
-            Don’t have an account? <strong>SIGN-UP</strong>
-          </a>
-        </div>
-      </form>
     </div>
   );
 };
 
-export default Login;
+export default Login
 
 

@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
-import Login from './components/Login'
+import Login from './components/auth/Login'
 import ReservationAdmin from './components/admin/ReservationAdmin'
 import ReservationDetails from './components/admin/ReservationDetails'
 import RoomsAdmin from './components/admin/RoomsAdmin'
@@ -14,8 +14,6 @@ import PersonnelsAdmin from './components/admin/PersonnelsAdmin'
 import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
-import LoginPage from './components/auth/LogIn'
-import SignUpPage from './components/auth/SignUp'
 import './App.css'
 
 function App() {
@@ -24,11 +22,6 @@ function App() {
     <>
       {/* <PersonnelDetailsAdmin /> */}
 
-    {/* Auth */}
-    <Routes>
-      <Route path='/Login' element={<LoginPage/>}/>
-      <Route path='/SignUp' element={<SignUpPage/>}/>
-    </Routes>
 
     {/* Uncomment this when using the user page */}
     <Routes>
