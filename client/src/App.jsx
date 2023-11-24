@@ -22,10 +22,12 @@ function App() {
     <>
       {/* <PersonnelDetailsAdmin /> */}
 
+    {/* Auth */}
     <Routes>
-      <Route path='/addRoomType' element={<AddRoomType/>}/>
-      <Route path='/showRoomTypes' element={<ShowRoomTypes/>}/>
+      <Route path='/Login' element={<LoginPage/>}/>
+      <Route path='/SignUp' element={<SignUpPage/>}/>
     </Routes>
+
     {/* Uncomment this when using the user page */}
     <Routes>
       <Route path='/' element={<LandingPage />} />
