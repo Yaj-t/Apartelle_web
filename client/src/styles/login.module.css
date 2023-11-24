@@ -1,0 +1,74 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh;
+}
+
+.loginFormContainer {
+  padding: 70px 100px;
+  width: 50vh;
+  color: white;
+  background-color: #f57328;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.loginInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.loginInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loginInput input {
+  border-radius: 5px;
+  border: 0;
+  outline: none;
+  padding: 8px 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.loginInput input[type="button"] {
+  font-weight: bolder;
+  background-color: white;
+  border: none;
+  border-radius: 100px;
+  color: black;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.forPass {
+  display: flex;
+  justify-content: end;
+  padding: 10px 0px;
+}
+
+.goToSignUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.backHome {
+  display: flex;
+  justify-content: flex-start;
+  align-items:center;
+  margin: 20px 50px;
+}

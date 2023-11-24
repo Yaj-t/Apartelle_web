@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
+import Login from './components/Login'
 import ReservationAdmin from './components/admin/ReservationAdmin'
 import ReservationDetails from './components/admin/ReservationDetails'
 import RoomsAdmin from './components/admin/RoomsAdmin'
@@ -34,6 +35,7 @@ function App() {
       <Route path='/' element={<LandingPage />} />
       <Route path='/allRooms' element={<AllRooms />} />
       <Route path='/roomDetails' element={<RoomDetails/>} />
+      <Route path='/login' element={<Login />}/>
     </Routes>
 
     {/* Uncomment this when using the admin pages */}

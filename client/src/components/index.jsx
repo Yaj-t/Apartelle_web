@@ -11,7 +11,7 @@ function index() {
   return (
     <div>
         <div className={indexCSS.bannerContainer}>
-           <NavBarOnline/>
+           <NavBarOffline/>
 
             <div className={indexCSS.banner}>
                 <h1>BANNER</h1>
