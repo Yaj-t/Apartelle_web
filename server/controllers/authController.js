@@ -3,14 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 *60;
-const createToken = (id, user_type) => {
-  return jwt.sign({ id , user_type}, 'Apartelle Secret Website', {
+const createToken = (id, userType) => {
+  return jwt.sign({ id , userType}, 'Apartelle Secret Website', {
     expiresIn: maxAge
   })
 }
 
 function handleErrors(error) {
-  let errors = { email: '', contact_number: ''};
+  let errors = { email: '', contactNumber: ''};
 
   if(error.message === 'Incorrect Email and Password'){
     errors.email = 'Incorrect Email and Password';
@@ -24,8 +24,8 @@ function handleErrors(error) {
         if (err.path === 'email') {
           errors.email = 'Email already registered';
         }
-        if (err.path === 'contact_number') {
-          errors.contact_number = 'Contact number already registered';
+        if (err.path === 'contactNumber') {
+          errors.contactNumber = 'Contact number already registered';
         }
       });
     }
@@ -47,22 +47,22 @@ function handleErrors(error) {
 }
 
 
-const register = async (req, res) => {
+const signup = async (req, res) => {
   try {
     // Hash password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     // Create user
     const user = await db.User.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
       password: hashedPassword,
-      contact_number: req.body.contact_number,
-      user_type: 'User' // Or based on what you receive in req.body
+      contactNumber: req.body.contactNumber,
+      userType: 'User' // Or based on what you receive in req.body
     });
 
-    const token = createToken(user.user_id, user.user_type);
+    const token = createToken(user.userId, user.userType);
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
     res.status(201).send({ message: 'User created successfully'});
   } catch (error) {
@@ -87,7 +87,7 @@ const login = async (req, res) => {
     }
 
     // Generate token
-    const token = createToken(user.user_id, user.user_type);
+    const token = createToken(user.userId, user.userType);
     
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
     res.status(200).send({ message: 'Login successful'});
@@ -103,7 +103,7 @@ const logout = (req, res) => {
 }
 
 module.exports = {
-  register,
+  signup,
   login,
   logout
 };

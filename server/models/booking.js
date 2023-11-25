@@ -1,45 +1,40 @@
 module.exports = (sequelize, DataTypes) => {
-    const Booking = sequelize.define('Booking', {
-      BookingID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      UserID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      RoomID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      HeadCount: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      DateStart: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-      },
-      DateEnd: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-      },
-      Amount: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
-      }
-    }, {
-      tableName: 'booking',
-      timestamps: true
-    });
+  const Booking = sequelize.define('Booking', {
+    bookingId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    roomId: { 
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    dateStart: { 
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    dateEnd: { 
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    amount: { 
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+  }, {
+    tableName: 'booking',
+    timestamps: true,
+  });
 
-    Booking.associate = function(models) {
-      Booking.belongsTo(models.User, { foreignKey: 'UserID', onDelete: 'CASCADE' });
-      Booking.belongsTo(models.Room, { foreignKey: 'RoomID', onDelete: 'CASCADE' });
-      Booking.hasMany(models.Review, { foreignKey: 'BookingID' });
-    };
-  
-    return Booking;
+  Booking.associate = function (models) {
+    Booking.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' }); 
+    Booking.belongsTo(models.Room, { foreignKey: 'roomId', onDelete: 'CASCADE' }); 
+    Booking.hasMany(models.Review, { foreignKey: 'bookingId' });
   };
-  
+
+  return Booking;
+};
