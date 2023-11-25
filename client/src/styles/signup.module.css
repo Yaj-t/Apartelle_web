@@ -79,8 +79,39 @@
 }
 
 .goToLogIn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.signupButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.error {
+  margin-top: 3px;
+  color: black;
+}
+
+.errorInput {
+  border: 3px solid red !important;
+}
+
+#signupButton {
+  font-weight: bolder;
+  background-color: white;
+  border: none;
+  border-radius: 100px;
+  color: black;
+  width: 200px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

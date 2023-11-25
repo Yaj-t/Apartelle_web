@@ -3,11 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5vh;
 }
 
 .loginFormContainer {
-  padding: 70px 100px;
+  padding: 50px 100px;
   width: 50vh;
   color: white;
   background-color: #f57328;
@@ -69,6 +68,37 @@
 .backHome {
   display: flex;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   margin: 20px 50px;
+}
+
+.loginButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.error {
+  margin-top: 3px;
+  color: black;
+}
+
+.errorInput {
+  border: 3px solid red !important;
+}
+
+#loginButton {
+  font-weight: bolder;
+  background-color: white;
+  border: none;
+  border-radius: 100px;
+  color: black;
+  width: 200px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import SignUpCSS from '../styles/signup.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -20,17 +20,26 @@ const SignupSchema = Yup.object().shape({
     .required('Confirm Password is required'),
 });
 
+
 function Signup() {
+  let navigate = useNavigate();
+
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       console.log(values)
       const response = await axios.post('http://localhost:3001/auth/signup', values);
       console.log('Server response:', response.data);
       resetForm();
+
+      let url = '/login'
+      console.log(url);
+      navigate(url);
     } catch (error) {
       console.error('There was an error submitting the form:', error.message);
     }
     setSubmitting(false);
+
+
   };
 
   return (
@@ -61,40 +70,56 @@ function Signup() {
               validationSchema={SignupSchema}
               onSubmit={handleSubmit}
             >
+              { formik => (
                 <Form>
                   <div className={SignUpCSS.signupForm}>
                     <div className={SignUpCSS.signupInputContainer}>
                       <div className={SignUpCSS.signupInput}>
-                        <Field type="text" name="firstName" placeholder="First Name" />
-                        <ErrorMessage name="firstName" component="div" />
+                        <div>
+                          <Field type="text" name="firstName" placeholder="First Name" className={formik.errors.firstName ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.firstName ? <div className={SignUpCSS.error}> {formik.errors.firstName} </div> : null}
+                        </div>
 
-                        <Field type="text" name="lastName" placeholder="Last Name" />
-                        <ErrorMessage name="lastName" component="div" />
+                        <div>
+                          <Field type="text" name="lastName" placeholder="Last Name" className={formik.errors.lastName ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.lastName ? <div className={SignUpCSS.error}> {formik.errors.lastName} </div> : null}
+                        </div>
                       </div>
 
                       <div className={SignUpCSS.signupInput}>
-                        <Field type="number" name="contactNumber" placeholder="Contact Number" />
-                        <ErrorMessage name="contactNumber" component="div" />
+                        <div>
+                          <Field type="number" name="contactNumber" placeholder="Contact Number" className={formik.errors.contactNumber ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.contactNumber ? <div className={SignUpCSS.error}> {formik.errors.contactNumber} </div> : null}
+                        </div>
 
-                        <Field type="email" name="email" placeholder="Email" />
-                        <ErrorMessage name="email" component="div" />
+                        <div>
+                          <Field type="email" name="email" placeholder="Email" className={formik.errors.email ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.email ? <div className={SignUpCSS.error}> {formik.errors.email} </div> : null}
+                        </div>
                       </div>
 
                       <div className={SignUpCSS.signupInputPassword}>
-                        <Field type="password" name="password" placeholder="Password" />
-                        <ErrorMessage name="password" component="div" />
+                        <div>
+                          <Field type="password" name="password" placeholder="Password" className={formik.errors.password ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.password ? <div className={SignUpCSS.error}> {formik.errors.password} </div> : null}
+                        </div>
 
-                        <Field type="password" name="confirmPassword" placeholder="Confirm Password" />
-                        <ErrorMessage name="confirmPassword" component="div" />
+                        <div>
+                          <Field type="password" name="confirmPassword" placeholder="Confirm Password" className={formik.errors.confirmPassword ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.confirmPassword ? <div className={SignUpCSS.error}> {formik.errors.confirmPassword} </div> : null}
+
+                        </div>
                       </div>
                     </div>
 
-                    <button type="submit">
-                      SIGNUP
-                    </button>
+                    <div className={SignUpCSS.signupButtonContainer}>
+                      <button type="submit" id={SignUpCSS.signupButton}>
+                        SIGNUP
+                      </button>
+                    </div>
                   </div>
                 </Form>
-              
+              )}
             </Formik>
 
             <div className={SignUpCSS.goToLogIn}>
