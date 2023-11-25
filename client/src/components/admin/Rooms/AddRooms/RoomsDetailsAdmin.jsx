@@ -1,9 +1,9 @@
 import React from 'react'
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../../NavBars/NavBarDashboard'
 import Card from '@mui/material/Card'; 
 import CardMedia from '@mui/material/CardMedia'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import RoomsDetailsCSS from '../../styles/admin/roomsDetailsAdmin.module.css'
+import RoomsDetailsCSS from '../../../../styles/admin/roomsDetailsAdmin.module.css'
 
 function RoomsDetailsAdmin() {
   return (

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../NavBars/NavBarDashboard'
 import SearchIcon from '@mui/icons-material/Search';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ReserveCSS from '../../styles/admin/reservationAdmin.module.css'
+import ReserveCSS from '../../../styles/admin/reservationAdmin.module.css'
 
 function ReservationAdmin() {
   return (

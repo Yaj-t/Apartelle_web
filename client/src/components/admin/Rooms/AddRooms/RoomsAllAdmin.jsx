@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import RoomsAllCSS from '../../styles/admin/roomsAllAdmin.module.css'
+import RoomsAllCSS from '../../../../styles/admin/roomsAllAdmin.module.css'
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchIcon from '@mui/icons-material/Search';
 import CardMedia from '@mui/material/CardMedia'
 import Card from '@mui/material/Card'
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../../NavBars/NavBarDashboard'
 
 function RoomsAllAdmin() {
   return (
