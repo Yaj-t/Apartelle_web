@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import AllTypesCSS from '../../../../styles/admin/roomsAllTypesAdmin.module.css'
@@ -6,6 +7,8 @@ import AllTypesCSS from '../../../../styles/admin/roomsAllTypesAdmin.module.css'
 const RoomTypes = () => {
     const [roomTypes, setRoomTypes] = useState([]);
     const [error, setError] = useState('');
+    
+    let navigate = useNavigate()
 
     useEffect(() => {
         fetchRoomTypes();
@@ -34,7 +37,10 @@ const RoomTypes = () => {
 
     const handleEdit = (roomTypeID) => {
         console.log('Edit Room Type:', roomTypeID);
-        // Add logic to navigate to the edit page or open an edit modal
+        let currentpath = window.location.pathname;
+        const url = `${currentpath}/editRoomType/${roomTypeID}`
+        console.log(url)
+        navigate(url)
     };
 
     return (
