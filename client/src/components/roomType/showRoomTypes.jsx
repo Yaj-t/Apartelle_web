@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom'
 
 const RoomTypes = () => {
     const [roomTypes, setRoomTypes] = useState([]);
     const [error, setError] = useState('');
+
+    let navigate = useNavigate()
 
     useEffect(() => {
         fetchRoomTypes();
@@ -26,13 +29,16 @@ const RoomTypes = () => {
             const response = await axios.delete(url);
             setRoomTypes(prevRoomTypes => prevRoomTypes.filter(rt => rt.roomTypeID !== roomTypeID));
         } catch (error) {
-            
+            console.log('test')
         }
     };
 
     const handleEdit = (roomTypeID) => {
-        console.log('Edit Room Type:', roomTypeID);
-        // Add logic to navigate to the edit page or open an edit modal
+    console.log('Edit Room Type:', roomTypeID);
+        const url = `/editRoomType`
+        console.log(url)
+        navigate(url)
+    
     };
 
     return (

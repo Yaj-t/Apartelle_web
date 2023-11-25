@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom'
 import LandingPage from './components'
 import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
@@ -17,6 +17,7 @@ import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
 import AddRoomType from './components/roomType/addRoomType'
 import ShowRoomTypes from './components/roomType/showRoomTypes'
+import EditRoomType  from './components/roomType/EditRoomType'
 import './App.css'
 
 
@@ -27,6 +28,7 @@ function App() {
     <Routes>
       <Route path='/addRoomType' element={<AddRoomType/>}/>
       <Route path='/showRoomTypes' element={<ShowRoomTypes/>}/>
+      <Route path="/editRoomType/:id" element={<EditRoomType/>} />
     </Routes>
     {/* Uncomment this when using the user page */}
     <Routes>
