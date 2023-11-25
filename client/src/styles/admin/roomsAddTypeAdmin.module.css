@@ -1,0 +1,74 @@
+.addContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 250px;
+}
+
+.cardContainer {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardDetails {
+  width: 80vh;
+  padding: 40px;
+  height: 100%;
+  color: white;
+  background-color: #f57328;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formDetails {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.formRow {
+  display: flex;
+  gap: 20px;
+}
+
+.formInput input {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 0;
+  outline: none;
+  padding: 5px 10px;
+  width: 250px;
+  font-size: 1rem;
+}
+
+.formInputDescription textarea {
+  width: 75vh;
+  height: 150px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+#formButton {
+  font-weight: bolder;
+  background-color: white;
+  border: none;
+  border-radius: 100px;
+  color: black;
+
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../NavBars/NavBarDashboard'
 import SearchIcon from '@mui/icons-material/Search';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import PersonnelsCSS from '../../styles/admin/personnelsAdmin.module.css'
+import PersonnelsCSS from '../../../styles/admin/personnelsAdmin.module.css'
 
 function PersonnelsAdmin() {
   return (

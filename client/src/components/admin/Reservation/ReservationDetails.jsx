@@ -1,7 +1,7 @@
 import React from 'react'
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../NavBars/NavBarDashboard'
 import Card from '@mui/material/Card';
-import ReserveDetailsCSS from '../../styles/admin/ReservationDetails.module.css'
+import ReserveDetailsCSS from '../../../styles/admin/ReservationDetails.module.css'
 
 function ReservationDetails() {
   return (

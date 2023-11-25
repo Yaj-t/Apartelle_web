@@ -1,9 +1,9 @@
 import React from 'react'
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import NavBarDashboard from '../../NavBars/NavBarDashboard'
 import Card from '@mui/material/Card';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonnelDetailsCSS from '../../styles/admin/personnelDetailsAdmin.module.css'
+import PersonnelDetailsCSS from '../../../styles/admin/personnelDetailsAdmin.module.css'
 
 function PersonnelDetailsAdmin() {
   return (

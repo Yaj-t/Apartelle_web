@@ -5,18 +5,18 @@ import RoomDetails from './components/RoomDetails'
 import AllRooms from './components/AllRooms'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import ReservationAdmin from './components/admin/ReservationAdmin'
-import ReservationDetails from './components/admin/ReservationDetails'
-import RoomsAdmin from './components/admin/RoomsAdmin'
-import RoomsFormAdmin from './components/admin/RoomsFormAdmin'
-import RoomsAllAdmin from './components/admin/RoomsAllAdmin'
-import RoomsDetailsAdmin from './components/admin/RoomsDetailsAdmin'
-import PersonnelsAdmin from './components/admin/PersonnelsAdmin'
-import PersonnelDetailsAdmin from './components/admin/PersonnelDetailsAdmin'
+import ReservationAdmin from './components/admin/Reservation/ReservationAdmin'
+import ReservationDetails from './components/admin/Reservation/ReservationDetails'
+import RoomsAdmin from './components/admin/Rooms/AddRooms/RoomsAdmin'
+import RoomsFormAdmin from './components/admin/Rooms/AddRooms/RoomsFormAdmin'
+import RoomsAllAdmin from './components/admin/Rooms/AddRooms/RoomsAllAdmin'
+import RoomsDetailsAdmin from './components/admin/Rooms/AddRooms/RoomsDetailsAdmin'
+import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin'
+import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
-import AddRoomType from './components/roomType/addRoomType'
-import ShowRoomTypes from './components/roomType/showRoomTypes'
+import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin'
+import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin'
 import './App.css'
 
 
@@ -25,9 +25,11 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path='/addRoomType' element={<AddRoomType/>}/>
-      <Route path='/showRoomTypes' element={<ShowRoomTypes/>}/>
+      <Route path='admin/rooms/addRoomType' element={<RoomTypeForm/>}/>
+      <Route path='admin/rooms/showRoomTypes' element={<RoomTypes/>}/>
     </Routes>
+
+
     {/* Uncomment this when using the user page */}
     <Routes>
       <Route path='/' element={<LandingPage />} />
