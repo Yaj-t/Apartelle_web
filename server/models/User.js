@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
     contactNumber: {
       type: DataTypes.STRING(20),
       unique: true,
-      validate: {
-        is: /^\d{10}$/i, 
-      },
     },
   }, {
     tableName: 'users',
