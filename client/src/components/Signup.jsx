@@ -1,179 +1,113 @@
-import React, { useState } from 'react'
+import React from 'react';
 import Card from '@mui/material/Card';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import SignUpCSS from '../styles/signup.module.css'
+import SignUpCSS from '../styles/signup.module.css';
 import { Link } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string().required('First Name is required'),
+  lastName: Yup.string().required('Last Name is required'),
+  contactNumber: Yup.string().required('Contact Number is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
 
 function Signup() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dob: '',
-    contactNumber: '',
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission (e.g., send data to server or perform validation)
-    console.log('Form submitted:', formData);
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      console.log(values)
+      const response = await axios.post('http://localhost:3001/auth/signup', values);
+      console.log('Server response:', response.data);
+      resetForm();
+    } catch (error) {
+      console.error('There was an error submitting the form:', error.message);
+    }
+    setSubmitting(false);
   };
 
   return (
     <div>
-        <Link to='/'>
-            <div className={SignUpCSS.backHome}>
-                <ArrowBackIosNewIcon fontSize='very small'/>
-                <p> Back to Home  </p> 
-            </div>
-        </Link>
+      <Link to="/">
+        <div className={SignUpCSS.backHome}>
+          <ArrowBackIosNewIcon fontSize="small" />
+          <p>Back to Home</p>
+        </div>
+      </Link>
 
       <div className={SignUpCSS.signupContainer}>
         <Card>
           <div className={SignUpCSS.signupFormContainer}>
-            <div className={SignUpCSS.signupHeader }>
+            <div className={SignUpCSS.signupHeader}>
               <h1>SIGN UP</h1>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className={SignUpCSS.signupForm}>
-                <div className={SignUpCSS.signupInputContainer}>
-                  <div className={SignUpCSS.signupInput}>
-                    <div>
-                      <label htmlFor="firstName">First Name</label>
-                      <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
+            <Formik
+              initialValues={{
+                firstName: '',
+                lastName: '',
+                contactNumber: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+              }}
+              validationSchema={SignupSchema}
+              onSubmit={handleSubmit}
+            >
+                <Form>
+                  <div className={SignUpCSS.signupForm}>
+                    <div className={SignUpCSS.signupInputContainer}>
+                      <div className={SignUpCSS.signupInput}>
+                        <Field type="text" name="firstName" placeholder="First Name" />
+                        <ErrorMessage name="firstName" component="div" />
 
-                    <div>
-                      <label htmlFor="lastName">Last Name</label>
-                      <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="dob">Date of Birth</label>
-                      <input
-                        type="date"
-                        id="dob"
-                        name="dob"
-                        value={formData.dob}
-                        onChange={handleChange}
-                        required
-                    />
-                    </div>
-                  </div>
-                  
-
-                  <div className={SignUpCSS.signupInput}>
-                    <div>
-                      <label htmlFor="username">Username</label>
-                      <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="contactNumber">Contact Number</label>
-                      <input
-                        type="number"
-                        id="contactNumber"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                        required
-                    />
-                    </div>
-
-                    <div>
-                      <label htmlFor="email">Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    </div>
-                  </div>
-
-                  <div className={SignUpCSS.signupInputContainer}>
-                    <div className={SignUpCSS.signupInputPassword}>
-                      <div>
-                        <label htmlFor="password">Password:</label>
-                        <input
-                          type="password"
-                          id="password"
-                          name="password"
-                          value={formData.password}
-                          onChange={handleChange}
-                          required
-                        />
+                        <Field type="text" name="lastName" placeholder="Last Name" />
+                        <ErrorMessage name="lastName" component="div" />
                       </div>
 
+                      <div className={SignUpCSS.signupInput}>
+                        <Field type="number" name="contactNumber" placeholder="Contact Number" />
+                        <ErrorMessage name="contactNumber" component="div" />
 
-                      <div>
-                        <label htmlFor="confirmPassword">Confirm Password:</label>
-                        <input
-                          type="password"
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          value={formData.confirmPassword}
-                          onChange={handleChange}
-                          required
-                        />
+                        <Field type="email" name="email" placeholder="Email" />
+                        <ErrorMessage name="email" component="div" />
+                      </div>
+
+                      <div className={SignUpCSS.signupInputPassword}>
+                        <Field type="password" name="password" placeholder="Password" />
+                        <ErrorMessage name="password" component="div" />
+
+                        <Field type="password" name="confirmPassword" placeholder="Confirm Password" />
+                        <ErrorMessage name="confirmPassword" component="div" />
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <Link to='/'>
-                  <div className={SignUpCSS.signupInput}>
-                    <input type="button" value="SIGNUP" />
+                    <button type="submit">
+                      SIGNUP
+                    </button>
                   </div>
-                </Link>
-              </div>
+                </Form>
               
-            </form>
-              
+            </Formik>
+
             <div className={SignUpCSS.goToLogIn}>
-              <p> Already have an account? </p>
-              <Link to='/login'>
+              <p>Already have an account?</p>
+              <Link to="/login">
                 <strong>LOG IN</strong>
               </Link>
             </div>
           </div>
         </Card>
       </div>
-
     </div>
   );
-};
+}
 
-export default Signup
+export default Signup;
