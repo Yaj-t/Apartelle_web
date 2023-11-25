@@ -15,9 +15,7 @@ import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin'
 import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin'
 import MainPageAdmin from './components/admin/MainPageAdmin'
 import NavBarOnline from './components/NavBars/NavBarOnline'
-import AddRoomType from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin'
-import ShowRoomTypes from './components/roomType/showRoomTypes'
-import EditRoomType  from './components/roomType/EditRoomType'
+import EditRoomType  from './components/admin/Rooms/AddRoomTypes/RoomEditType'
 import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin'
 import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin'
 import './App.css'
@@ -27,16 +25,39 @@ function App() {
 
   return (
     <>
+    {/* For the admin index modules */}
     <Routes>
-      <Route path='/addRoomType' element={<AddRoomType/>}/>
-      <Route path='/showRoomTypes' element={<ShowRoomTypes/>}/>
-      <Route path="/editRoomType/:id" element={<EditRoomType/>} />
+      <Route path='/admin' element={<MainPageAdmin/>}/>
+      <Route path='/admin/reservation' element={<ReservationAdmin/>}/>
+      <Route path='/admin/rooms' element={<RoomsAdmin/>}/>
+      <Route path='/admin/personnel' element={<PersonnelsAdmin/>}/>
+    </Routes> 
+
+     {/* For the admin room type modules */}
+     <Routes>
+      <Route path="admin/rooms/showRoomTypes/editRoomType/:id" element={<EditRoomType/>} />
       <Route path='admin/rooms/addRoomType' element={<RoomTypeForm/>}/>
       <Route path='admin/rooms/showRoomTypes' element={<RoomTypes/>}/>
     </Routes>
 
+    {/* For the admin rooms modules */}
+    <Routes>
+      <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin/>}/>
+      <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin/>}/>
+      <Route path='/admin/rooms/showAllRooms/roomDetails' element={<RoomsDetailsAdmin/>}/>
+    </Routes>
 
-    {/* Uncomment this when using the user page */}
+    {/* For the admin reservation modules */}
+    <Routes>
+      <Route path='/admin/reservation/details' element={<ReservationDetails/>}/>
+    </Routes>
+
+    {/* For the admin personnel modules */}
+    <Routes>
+      <Route path='/admin/personnel/personnelDetails' element={<PersonnelDetailsAdmin/>}/>
+    </Routes>
+    
+    {/* For the user modules */}
     <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path='/allRooms' element={<AllRooms />} />
@@ -44,19 +65,6 @@ function App() {
       <Route path='/login' element={<Login />}/>
       <Route path='/signup' element={<Signup/>}/>
     </Routes>
-
-    {/* Uncomment this when using the admin pages */}
-    <Routes>
-      <Route path='/admin' element={<MainPageAdmin/>}/>
-      <Route path='/admin/reservation' element={<ReservationAdmin/>}/>
-      <Route path='/admin/rooms' element={<RoomsAdmin/>}/>
-      <Route path='/admin/personnel' element={<PersonnelsAdmin/>}/>
-      <Route path='/admin/reservation/details' element={<ReservationDetails/>}/>
-      <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin/>}/>
-      <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin/>}/>
-      <Route path='/admin/rooms/showAllRooms/roomDetails' element={<RoomsDetailsAdmin/>}/>
-      <Route path='/admin/personnel/personnelDetails' element={<PersonnelDetailsAdmin/>}/>
-    </Routes> 
     </>
   )
 }
