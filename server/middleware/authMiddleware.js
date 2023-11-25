@@ -40,7 +40,7 @@ const authRole = (allowedRoles) => {
         }
       });
     } else {
-      res.redirect('/auth/login');
+      res.status(403).send({ message: 'Access denied. Insufficient permissions.' });
     } 
   };
 };
