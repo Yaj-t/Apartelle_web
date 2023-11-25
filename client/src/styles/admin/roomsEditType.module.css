@@ -61,6 +61,19 @@
   resize: none;
 }
 
+.error {
+  margin-top: 3px;
+  color: black;
+}
+
+.errorInput {
+  border: 3px solid red !important;
+}
+
+.errorInputTextArea {
+  border: 3px solid red !important;
+}
+
 #formSaveButton {
   font-weight: bolder;
   background-color: white;
