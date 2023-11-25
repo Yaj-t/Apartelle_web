@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Card } from '@mui/material';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import EditTypeCSS from '../../../../styles/admin/roomsEditType.module.css'
@@ -65,45 +65,47 @@ const RoomTypeForm = () => {
             <div className={EditTypeCSS.cardDetails}>
               <h1>{id ? `EDIT ROOM TYPE ${id}` : 'ADD NEW ROOM TYPE'}</h1>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} enableReinitialize>
-                  <Form>
-                    <div className={EditTypeCSS.formEditDetails}>
-                      <div className={EditTypeCSS.formEditRow}>
-                          <div className={EditTypeCSS.formEditInput}>
-                            <label htmlFor="typeName">Type Name</label>
-                            <Field id="typeName" name="typeName" />
-                            <ErrorMessage name="typeName" component="div" />
-                          </div>
-
-                          <div className={EditTypeCSS.formEditInput}>
-                            <label htmlFor="price">Price</label>
-                            <Field id="price" name="price" type="number" />
-                            <ErrorMessage name="price" component="div" />
-                          </div>
-                      </div>
-
-                      <div className={EditTypeCSS.formEditRow}>
-                        <div className={EditTypeCSS.formEditInput}>
-                          <label htmlFor="capacity">Capacity</label>
-                          <Field id="capacity" name="capacity" type="number" />
-                          <ErrorMessage name="capacity" component="div" />
+                  {(formik) => (
+                    <Form>
+                      <div className={EditTypeCSS.formEditDetails}>
+                        <div className={EditTypeCSS.formEditRow}>
+                            <div className={EditTypeCSS.formEditInput}>
+                              <label htmlFor="typeName">Type Name</label>
+                              <Field id="typeName" name="typeName" className={formik.errors.typeName ? EditTypeCSS.errorInput : ''}/>
+                              {formik.errors.typeName ? <div className={EditTypeCSS.error}> {formik.errors.typeName} </div> : null}
+                            </div>
+                    
+                            <div className={EditTypeCSS.formEditInput}>
+                              <label htmlFor="price">Price</label>
+                              <Field id="price" name="price" type="number" className={formik.errors.price ? EditTypeCSS.errorInput : ''}/>
+                              {formik.errors.price ? <div className={EditTypeCSS.error}> {formik.errors.price} </div> : null}
+                            </div>
                         </div>
-
-                        <div className={EditTypeCSS.formEditInput}>
-                          <label htmlFor="bedCount">Bed Count</label>
-                          <Field id="bedCount" name="bedCount" type="number" />
-                          <ErrorMessage name="bedCount" component="div" />
+                    
+                        <div className={EditTypeCSS.formEditRow}>
+                          <div className={EditTypeCSS.formEditInput}>
+                            <label htmlFor="capacity">Capacity</label>
+                            <Field id="capacity" name="capacity" type="number" className={formik.errors.capacity ? EditTypeCSS.errorInput : ''} />
+                            {formik.errors.capacity ? <div className={EditTypeCSS.error}> {formik.errors.capacity} </div> : null} 
+                          </div>
+                    
+                          <div className={EditTypeCSS.formEditInput}>
+                            <label htmlFor="bedCount">Bed Count</label>
+                            <Field id="bedCount" name="bedCount" type="number" className={formik.errors.bedCount ? EditTypeCSS.errorInput : ''} />
+                            {formik.errors.bedCount ? <div className={EditTypeCSS.error}> {formik.errors.bedCount} </div> : null} 
+                          </div>
                         </div>
+                    
+                        <div className={EditTypeCSS.formEditInputDescription}>
+                          <label htmlFor="typeDescription">Description</label>
+                          <Field id="typeDescription" name="typeDescription" as="textarea" className={formik.errors.typeDescription ? EditTypeCSS.errorInput : ''} />
+                          {formik.errors.typeDescription ? <div className={EditTypeCSS.error}> {formik.errors.typeDescription} </div> : null}
+                        </div>
+                  
+                        <button type="submit" id={EditTypeCSS.formSaveButton}>SAVE</button>
                       </div>
-
-                      <div className={EditTypeCSS.formEditInputDescription}>
-                        <label htmlFor="typeDescription">Description</label>
-                        <Field id="typeDescription" name="typeDescription" as="textarea" />
-                        <ErrorMessage name="typeDescription" component="div" />
-                      </div>
-
-                      <button type="submit" id={EditTypeCSS.formSaveButton}>SAVE</button>
-                    </div>
-                  </Form>
+                    </Form>
+                  )}
                 </Formik>
             </div>
           </Card>

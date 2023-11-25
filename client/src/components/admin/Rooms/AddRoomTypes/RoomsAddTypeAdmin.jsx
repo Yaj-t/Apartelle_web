@@ -19,7 +19,7 @@ const RoomTypeForm = () => {
         typeName: Yup.string().required('Type Name is required'),
         typeDescription: Yup.string().required('Type Description is required'),
         price: Yup.number().required('Price is required').positive(),
-        capacity: Yup.number().required('capacity is required').positive().integer(),
+        capacity: Yup.number().required('Capacity is required').positive().integer(),
         bedCount: Yup.number().required('Bed count is required').positive().integer(),
     });
     
@@ -52,35 +52,35 @@ const RoomTypeForm = () => {
                                             <div className={AddTypeCSS.formRow}>
                                                 <div className={AddTypeCSS.formInput}>
                                                     <label htmlFor="typeName">Type Name</label>
-                                                    <Field id="typeName" name="typeName" />
-                                                    <ErrorMessage name="typeName" component="div" />
+                                                    <Field id="typeName" name="typeName" className={formik.errors.typeName ? AddTypeCSS.errorInput : ''} />
+                                                    {formik.errors.typeName ? <div className={AddTypeCSS.error}> {formik.errors.typeName} </div> : null}
                                                 </div>
 
                                                 <div className={AddTypeCSS.formInput}>
                                                     <label htmlFor="price">Price</label>
-                                                    <Field id="price" name="price" type="number" />
-                                                    <ErrorMessage name="price" component="div" />
+                                                    <Field id="price" name="price" type="number" className={formik.errors.price ? AddTypeCSS.errorInput : ''}/>
+                                                    {formik.errors.price ? <div className={AddTypeCSS.error}> {formik.errors.price} </div> : null}
                                                 </div>
                                             </div>
 
                                             <div className={AddTypeCSS.formRow}>
                                                 <div className={AddTypeCSS.formInput}>
                                                     <label htmlFor="capacity">Capacity</label>
-                                                    <Field id="capacity" name="capacity" type="number" />
-                                                    <ErrorMessage name="capacity" component="div" />
+                                                    <Field id="capacity" name="capacity" type="number" className={formik.errors.capacity ? AddTypeCSS.errorInput : ''}/>
+                                                    {formik.errors.capacity ? <div className={AddTypeCSS.error}> {formik.errors.capacity} </div> : null} 
                                                 </div>
 
                                                 <div className={AddTypeCSS.formInput}>
                                                     <label htmlFor="bedCount">Bed Count</label>
-                                                    <Field id="bedCount" name="bedCount" type="number" />
-                                                    <ErrorMessage name="bedCount" component="div" />
+                                                    <Field id="bedCount" name="bedCount" type="number" className={formik.errors.bedCount ? AddTypeCSS.errorInput : ''}/>
+                                                    {formik.errors.bedCount ? <div className={AddTypeCSS.error}> {formik.errors.bedCount} </div> : null} 
                                                 </div>
                                             </div>
 
                                             <div className={AddTypeCSS.formInputDescription}>
                                                 <label htmlFor="typeDescription">Description</label>
-                                                <Field id="typeDescription" name="typeDescription" as="textarea"/>
-                                                <ErrorMessage name="typeDescription" component="div" />
+                                                <Field id="typeDescription" name="typeDescription" as="textarea" className={formik.errors.typeDescription ? AddTypeCSS.errorInput : ''}/>
+                                                {formik.errors.typeDescription ? <div className={AddTypeCSS.error}> {formik.errors.typeDescription} </div> : null} 
                                             </div>
 
                                             <div className={AddTypeCSS.formButtonContainer}>
