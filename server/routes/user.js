@@ -8,7 +8,7 @@ const { User } = require("../models");
 router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
   try {
       const users = await User.findAll({
-          attributes: ['user_id', 'first_name', 'last_name', 'email', 'user_type', 'contact_number'] // attributes to retrieve
+          attributes: ['userId', 'firstName', 'lastName', 'email', 'userType', 'contactNumber'] // attributes to retrieve
       });
       
       // Send the users as a response
@@ -33,12 +33,12 @@ router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res)
       res.status(200).json({
         message: 'User profile fetched successfully',
         user: {
-          id: user.user_id,
-          first_name: user.first_name,
-          last_name: user.last_name,
+          id: user.userId,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
-          user_type: user.user_type,
-          contact_number: user.contact_number
+          userType: user.userType,
+          contactNumber: user.contactNumber
         },
       });
     } catch (error) {
@@ -93,12 +93,12 @@ router.get('/myprofile', requireAuth, async (req, res) => {
     res.status(200).json({
       message: 'Profile fetched successfully',
       user: {
-        id: user.user_id,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        id: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
-        user_type: user.user_type,
-        contact_number: user.contact_number
+        userType: user.userType,
+        contactNumber: user.contactNumber
       }
     });
   } catch (error) {
