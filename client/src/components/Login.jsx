@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import Card from '@mui/material/Card';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import loginCSS from '../styles/login.module.css';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+import { Alert, AlertTitle } from '@mui/material';
 
 // Validation schema using Yup
 const LoginSchema = yup.object().shape({
@@ -14,15 +15,25 @@ const LoginSchema = yup.object().shape({
 });
 
 const Login = () => {
+  const [loginError, setLoginError] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleSubmit = (values, { setSubmitting }) => {
     axios.post('http://localhost:3001/auth/login', values)
       .then((response) => {
         console.log('Login successful:', response.data);
         // Handle successful login here
+
+        let url ='/'
+        console.log(url);
+        navigate(url);
       })
       .catch((error) => {
         console.error('Login failed:', error);
-        // Handle login failure here
+        
+        // Show alert 
+        setLoginError(true);
       })
       .finally(() => setSubmitting(false));
   };
@@ -39,6 +50,14 @@ const Login = () => {
       <div className={loginCSS.loginContainer}>
         <Card>
           <div className={loginCSS.loginFormContainer}>
+            {/* Conditionally render the ALert Component */}
+            {loginError && (
+              <Alert severity='warning' onClose={() => setLoginError(false)}>
+                <AlertTitle> Login Unsuccesful </AlertTitle>
+                <strong> Please try again. </strong>
+              </Alert>
+            )}
+
             <div className={loginCSS.loginHeader}>
               <h1>LOG IN</h1>
             </div>
