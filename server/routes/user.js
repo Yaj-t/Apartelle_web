@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { requireAuth, authRole } = require('../middleware/authMiddleware');
 const { User } = require("../models");
+const jwt = require('jsonwebtoken');
 
 // Fetch all users from the database
 router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
