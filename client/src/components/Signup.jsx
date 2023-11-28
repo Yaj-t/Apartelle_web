@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import SignUpCSS from '../styles/signup.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { Alert, AlertTitle } from '@mui/material';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
@@ -20,18 +21,46 @@ const SignupSchema = Yup.object().shape({
     .required('Confirm Password is required'),
 });
 
+
 function Signup() {
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  let navigate = useNavigate();
+
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [signupError, setSignupError] = useState(false);
+
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
       console.log(values)
       const response = await axios.post('http://localhost:3001/auth/signup', values);
       console.log('Server response:', response.data);
-      resetForm();
-    } catch (error) {
+
+      // Shows pop up that sign up is successful
+      setSignupSuccess(true);
+
+    } catch (error) { 
       console.error('There was an error submitting the form:', error.message);
+
+      // Shows pop up that sign up is not successful
+      // setSignupError(true);
+
+      setSignupError(
+        error.response && error.response.status === 409
+          ? 'User already exists. Please use a different email or log in.'
+          : 'There was an error with the signup. Please try again later.'
+      );
     }
     setSubmitting(false);
   };
+
+  const handleSuccessfulAlertClose = () =>{
+    //close the alert component
+    setSignupSuccess(false);
+
+    // Navigate to another module
+    let url = '/login';
+    console.log(url);
+    navigate(url);
+  }
 
   return (
     <div>
@@ -45,6 +74,21 @@ function Signup() {
       <div className={SignUpCSS.signupContainer}>
         <Card>
           <div className={SignUpCSS.signupFormContainer}>
+            {/* Conditionally render the Alert component */}
+            {signupSuccess && (
+            <Alert severity="success" onClose={handleSuccessfulAlertClose}>
+                <AlertTitle>Success</AlertTitle>
+                Signed Up Successfully — <strong>Please go back to Log In!</strong>
+              </Alert>
+            )}
+
+            {signupError && (
+            <Alert severity="error" onClose={() => setSignupError(false)}>
+                <AlertTitle>Error</AlertTitle>
+                <strong> {signupError}  </strong>
+              </Alert>
+            )}
+
             <div className={SignUpCSS.signupHeader}>
               <h1>SIGN UP</h1>
             </div>
@@ -61,40 +105,57 @@ function Signup() {
               validationSchema={SignupSchema}
               onSubmit={handleSubmit}
             >
+              { formik => (
                 <Form>
                   <div className={SignUpCSS.signupForm}>
                     <div className={SignUpCSS.signupInputContainer}>
                       <div className={SignUpCSS.signupInput}>
-                        <Field type="text" name="firstName" placeholder="First Name" />
-                        <ErrorMessage name="firstName" component="div" />
+                        <div>
+                          <label htmlFor="firstName"> First Name </label>
+                          <Field type="text" name="firstName" placeholder="First Name" className={formik.errors.firstName ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.firstName ? <div className={SignUpCSS.error}> {formik.errors.firstName} </div> : null}
+                        </div>
 
-                        <Field type="text" name="lastName" placeholder="Last Name" />
-                        <ErrorMessage name="lastName" component="div" />
-                      </div>
+                        <div>
+                          <label htmlFor="lastName"> Last Name </label>
+                          <Field type="text" name="lastName" placeholder="Last Name" className={formik.errors.lastName ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.lastName ? <div className={SignUpCSS.error}> {formik.errors.lastName} </div> : null}
+                        </div>
 
-                      <div className={SignUpCSS.signupInput}>
-                        <Field type="number" name="contactNumber" placeholder="Contact Number" />
-                        <ErrorMessage name="contactNumber" component="div" />
+                        <div>
+                          <label htmlFor="number"> Number </label>
+                          <Field type="text" name="contactNumber" placeholder="(09)" maxLength="11" className={formik.errors.contactNumber ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.contactNumber ? <div className={SignUpCSS.error}> {formik.errors.contactNumber} </div> : null}
+                        </div>
 
-                        <Field type="email" name="email" placeholder="Email" />
-                        <ErrorMessage name="email" component="div" />
-                      </div>
+                        <div>
+                          <label htmlFor="email"> Email </label>
+                          <Field type="email" name="email" placeholder="Email" className={formik.errors.email ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.email ? <div className={SignUpCSS.error}> {formik.errors.email} </div> : null}
+                        </div>
+ 
+                        <div>
+                          <label htmlFor="password"> Password </label>
+                          <Field type="password" name="password" placeholder="Password" className={formik.errors.password ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.password ? <div className={SignUpCSS.error}> {formik.errors.password} </div> : null}
+                        </div>
 
-                      <div className={SignUpCSS.signupInputPassword}>
-                        <Field type="password" name="password" placeholder="Password" />
-                        <ErrorMessage name="password" component="div" />
-
-                        <Field type="password" name="confirmPassword" placeholder="Confirm Password" />
-                        <ErrorMessage name="confirmPassword" component="div" />
+                        <div>
+                          <label htmlFor="confirmPassword"> Confirm Password </label>
+                          <Field type="password" name="confirmPassword" placeholder="Confirm Password" className={formik.errors.confirmPassword ? SignUpCSS.errorInput : ''}/>
+                          {formik.errors.confirmPassword ? <div className={SignUpCSS.error}> {formik.errors.confirmPassword} </div> : null}
+                        </div>
                       </div>
                     </div>
 
-                    <button type="submit">
-                      SIGNUP
-                    </button>
+                    <div className={SignUpCSS.signupButtonContainer}>
+                      <button type="submit" id={SignUpCSS.signupButton}>
+                        SIGNUP
+                      </button>
+                    </div>
                   </div>
                 </Form>
-              
+              )}
             </Formik>
 
             <div className={SignUpCSS.goToLogIn}>
