@@ -1,16 +1,17 @@
-.container {
+.account-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 20px;
 }
 
-.header {
+.account-header {
   margin-bottom: 1px;
 }
 
-.subheader {
+.account-subheader {
   margin-bottom: 80px;
   font-weight: normal;
 }

@@ -4,9 +4,9 @@ import "./AccountSettings.css";
 
 const AccountSettings = () => {
   return (
-    <div className="container">
-      <h1 className="header">Account Settings</h1>
-      <h2 className="subheader">Organize your stay and experience</h2>
+    <div className="account-container">
+      <h1 className="account-header">Account Settings</h1>
+      <h2 className="account-subheader">Organize your stay and experience</h2>
       <div className="button-container">
         <Link to="/PersonalDetails">
           <button>
@@ -17,13 +17,15 @@ const AccountSettings = () => {
             </div>
           </button>
         </Link>
-        <button>
-          <img src="/Security.png" alt="Security" />
-          <div>
-            <h3>Security</h3>
-            <p>Manage your account security</p>
-          </div>
-        </button>
+        <Link to="/Security">
+          <button>
+            <img src="/Security.png" alt="Security" />
+            <div>
+              <h3>Security</h3>
+              <p>Manage your account security</p>
+            </div>
+          </button>
+        </Link>
         <button>
           <img src="/Booking.png" alt="Booking" />
           <div>
