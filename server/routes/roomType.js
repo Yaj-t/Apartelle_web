@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const { authRole } = require("../middleware/authMiddleware");
+
 const { RoomType } = require("../models");
+
 
 // Get all room types
 router.get('/', async (req, res) => {
@@ -26,7 +29,7 @@ router.get('/:roomTypeId', async (req, res) => {
 });
 
 // Create a new room type
-router.post('/', async (req, res) => {
+router.post('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
   try {
     const roomType = await RoomType.create(req.body);
     res.status(201).json(roomType);
@@ -36,7 +39,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a room type by ID
-router.put('/:roomTypeId', async (req, res) => {
+router.put('/:roomTypeId', authRole(['ADMIN']), async (req, res) => {
   try {
     const roomType = await RoomType.findByPk(req.params.roomTypeId);
     if (!roomType) {
@@ -50,7 +53,7 @@ router.put('/:roomTypeId', async (req, res) => {
 });
 
 // Delete a room type by ID
-router.delete('/:roomTypeId', async (req, res) => {
+router.delete('/:roomTypeId', authRole(['ADMIN']), async (req, res) => {
   try {
     const roomType = await RoomType.findByPk(req.params.roomTypeId);
     if (!roomType) {

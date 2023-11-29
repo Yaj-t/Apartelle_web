@@ -1,0 +1,41 @@
+.bannerContainer {
+  background-color: #fff9e7;
+}
+
+.banner {
+  padding-top: 40vh;
+  padding-bottom: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hr {
+  display: inline-block;
+  border: 3px solid;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.listContainer {
+  padding: 80px;
+}
+
+.discoverContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardContainer {
+  margin: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+.cardContainer p {
+  padding: 10px;
+}

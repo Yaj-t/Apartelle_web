@@ -1,0 +1,37 @@
+.footerContainer {
+  background-color: #9bbf8b;
+  color: white;
+}
+
+.contentContainer {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10vh;
+}
+
+.mainContainer{
+  margin-top: 10%;
+  padding: 80px 80px 10px 80px;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+
+p .MuiSvgIcon-root {
+  font-size: 15px;
+}
+
+.copyrightContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0px 80px 0px 80px;
+}
+
+#footerHR {
+  border: 1px solid;
+  width: 100%;
+}

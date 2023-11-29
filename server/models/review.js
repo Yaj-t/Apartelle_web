@@ -1,36 +1,35 @@
 module.exports = (sequelize, DataTypes) => {
-    const Review = sequelize.define('Review', {
-      ReviewID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      BookingID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      UserID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      Message: {
-        type: DataTypes.TEXT,
-        allowNull: false
-      },
-      ReviewDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-      }
-    }, {
-      tableName: 'reviews',
-      timestamps: true
-    });
-  
-    Review.associate = function(models) {
-      Review.belongsTo(models.Booking, { foreignKey: 'BookingID' });
-      Review.belongsTo(models.User, { foreignKey: 'UserID' });
-    };
-    
-    return Review;
+  const Review = sequelize.define('Review', {
+    reviewId: { 
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    bookingId: { 
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    userId: { 
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    message: { 
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    reviewDate: { 
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'reviews',
+    timestamps: true,
+  });
+
+  Review.associate = function (models) {
+    Review.belongsTo(models.Booking, { foreignKey: 'bookingId' }); 
+    Review.belongsTo(models.User, { foreignKey: 'userId' }); 
   };
-  
+
+  return Review;
+};

@@ -1,0 +1,49 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 100px;
+}
+
+.photocardsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 70px;
+}
+
+.roomDetails {
+  display: flex;
+  padding: 80px;
+  gap: 25vh;
+}
+
+.roomHeader {
+  display: flex;
+  align-items: first baseline;
+  justify-content: space-between;
+}
+
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 50px;
+}
+
+.cardDetails button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amenitiesContainer {
+  padding-top: 50px;
+}
+
+.amenitiesDetails {
+  padding-bottom: 50px;
+}
+
+hr {
+  width: 100%;
+}
