@@ -83,7 +83,8 @@ router.delete('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
 // fetch logged in user information
 router.get('/myprofile', requireAuth, async (req, res) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.header('accessToken');
+    console.log(token)
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
     const user = await User.findByPk(decodedToken.id);
 
@@ -111,7 +112,7 @@ router.get('/myprofile', requireAuth, async (req, res) => {
 // PUT /myprofile - Update own profile
 router.put('/myprofile', requireAuth, async (req, res) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.header('accessToken');
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
     const user = await User.findByPk(decodedToken.id);
 
@@ -134,7 +135,7 @@ router.put('/myprofile', requireAuth, async (req, res) => {
 // DELETE /myprofile - Delete own profile
 router.delete('/myprofile', requireAuth, async (req, res) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.header('accessToken')
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
     const user = await User.findByPk(decodedToken.id);
 
