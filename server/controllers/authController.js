@@ -63,7 +63,7 @@ const signup = async (req, res) => {
     });
 
     const token = createToken(user.userId, user.userType);
-    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
+    // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
     res.status(201).send({ message: 'User created successfully'});
   } catch (error) {
     const { status, errors } = handleErrors(error);
@@ -89,8 +89,8 @@ const login = async (req, res) => {
     // Generate token
     const token = createToken(user.userId, user.userType);
     
-    res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000})
-    res.setHeader('Set-Cookie', `jwt=${token}; max-age=${maxAge}; httpOnly`);
+    // res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000})
+    // res.setHeader('Set-Cookie', `jwt=${token}; max-age=${maxAge}; httpOnly`);
     res.status(200).json({'accessToken': token});
   } catch (error) {
     const { status, errors } = handleErrors(error);
