@@ -19,7 +19,7 @@ router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
       });
   } catch (error) {
       console.error(error);
-      res.status(500).send({ message: 'Internal server error' });
+      res.status(500).send({ message: 'Internal server error', error });
   }
 });
 
