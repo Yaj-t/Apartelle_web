@@ -1,0 +1,36 @@
+.bookings-container {
+    display: flex;
+    height: 100vh;
+    padding-top: 60px;
+}
+
+.divider-vertical-bookings{
+    width: 1px;
+    height: 50%;
+    background-color: #ccc;
+    margin-left: 200px;
+}
+
+.main-content{
+    padding-left: 20px;
+}
+
+.bookings-header{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0px 0px;
+}
+
+.bookings-subheader{
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 1px;
+}
+
+.divider-bookings {
+    width: 1000px;
+    height: 1px;
+    border: none;
+    background-color: #ccc;
+    margin-bottom: 20px;
+  }
