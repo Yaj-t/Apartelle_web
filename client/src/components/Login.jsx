@@ -24,8 +24,9 @@ const Login = () => {
       .post('http://localhost:3001/auth/login', values)
       .then(response => {
         console.log('Login successful:', response.data);
+        sessionStorage.setItem("accessToken", response.data.accessToken)
 
-        // Handle successful login here
+        // Handle successful login here 
         let url = '/';
         console.log(url);
         // navigate(url);

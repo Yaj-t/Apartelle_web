@@ -18,11 +18,17 @@ import NavBarOnline from './components/NavBars/NavBarOnline';
 import EditRoomType from './components/admin/Rooms/AddRoomTypes/RoomEditType';
 import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin';
 import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin';
+import UserProfile from './components/user/UserProfile'
+import UpdateUserProfile from './components/user/UpdateProfile'
 import './App.css';
 
 function App() {
   return (
     <>
+    <Routes>
+      <Route path='/myProfile' element={<UserProfile/>}></Route>
+      <Route path='/myProfile/update' element={<UpdateUserProfile/>}></Route>
+    </Routes>
       {/* For the admin index modules */}
       <Routes>
         <Route path='/admin' element={<MainPageAdmin />} />
@@ -31,15 +37,12 @@ function App() {
         <Route path='/admin/personnel' element={<PersonnelsAdmin />} />
       </Routes>
 
-      {/* For the admin room type modules */}
-      <Routes>
-        <Route
-          path='admin/rooms/showRoomTypes/editRoomType/:id'
-          element={<EditRoomType />}
-        />
-        <Route path='admin/rooms/addRoomType' element={<RoomTypeForm />} />
-        <Route path='admin/rooms/showRoomTypes' element={<RoomTypes />} />
-      </Routes>
+     {/* For the admin room type modules */}
+     <Routes>
+      <Route path="admin/rooms/showRoomTypes/editRoomType/:id" element={<EditRoomType/>} />
+      <Route path='admin/rooms/addRoomType' element={<RoomTypeForm/>}/>
+      <Route path='admin/rooms/showRoomTypes' element={<RoomTypes/>}/>
+    </Routes>
 
       {/* For the admin rooms modules */}
       <Routes>

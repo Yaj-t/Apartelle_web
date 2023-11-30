@@ -1,0 +1,54 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.account-header {
+  margin-bottom: 1px;
+}
+
+.account-subheader {
+  margin-bottom: 80px;
+  font-weight: normal;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.button-container button {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 25px; 
+  width: 600px;
+  font-size: 18px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #adadad;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.button-container button img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.button-container button div {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container button h3,
+.button-container button p {
+  margin: 0;
+  text-align: left;
+  margin-left: 50px;
+}
