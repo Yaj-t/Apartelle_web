@@ -14,21 +14,19 @@ import RoomsDetailsAdmin from './components/admin/Rooms/AddRooms/RoomsDetailsAdm
 import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin';
 import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin';
 import MainPageAdmin from './components/admin/MainPageAdmin';
-import NavBarOnline from './components/NavBars/NavBarOnline';
 import EditRoomType from './components/admin/Rooms/AddRoomTypes/RoomEditType';
 import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin';
 import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin';
-import UserProfile from './components/user/UserProfile'
-import UpdateUserProfile from './components/user/UpdateProfile'
+import UserProfile from './components/user/UserProfile';
+import UpdateUserProfile from './components/user/UpdateProfile';
 import './App.css';
+import AccountSettings from './components/settings/AccountSettings';
+import Security from './components/settings/SecuritySettings';
+import ReservationsSettings from './components/settings/ReservationsSettings';
 
 function App() {
   return (
     <>
-    <Routes>
-      <Route path='/myProfile' element={<UserProfile/>}></Route>
-      <Route path='/myProfile/update' element={<UpdateUserProfile/>}></Route>
-    </Routes>
       {/* For the admin index modules */}
       <Routes>
         <Route path='/admin' element={<MainPageAdmin />} />
@@ -37,12 +35,15 @@ function App() {
         <Route path='/admin/personnel' element={<PersonnelsAdmin />} />
       </Routes>
 
-     {/* For the admin room type modules */}
-     <Routes>
-      <Route path="admin/rooms/showRoomTypes/editRoomType/:id" element={<EditRoomType/>} />
-      <Route path='admin/rooms/addRoomType' element={<RoomTypeForm/>}/>
-      <Route path='admin/rooms/showRoomTypes' element={<RoomTypes/>}/>
-    </Routes>
+      {/* For the admin room type modules */}
+      <Routes>
+        <Route
+          path='admin/rooms/showRoomTypes/editRoomType/:id'
+          element={<EditRoomType />}
+        />
+        <Route path='admin/rooms/addRoomType' element={<RoomTypeForm />} />
+        <Route path='admin/rooms/showRoomTypes' element={<RoomTypes />} />
+      </Routes>
 
       {/* For the admin rooms modules */}
       <Routes>
@@ -77,6 +78,20 @@ function App() {
         <Route path='/roomDetails' element={<RoomDetails />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+      </Routes>
+
+      {/* For the settings module */}
+      <Routes>
+        <Route path='/settings' element={<AccountSettings />} />
+        <Route path='/settings/security' element={<Security />} />
+        <Route path='/settings/manage-account' element={<user />} /> {/* userprofile */}
+        <Route path='/settings/reservation' element={<ReservationsSettings />} />
+      </Routes>
+
+      {/* For the user profile modules */}
+      <Routes>
+        <Route path='/myProfile' element={<UserProfile />}></Route>
+        <Route path='/myProfile/update' element={<UpdateUserProfile />}></Route>
       </Routes>
     </>
   );

@@ -1,20 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import indexCSS from '../styles/index.module.css';
 import Footer from './Footer';
-import NavBarOffline from './NavBars/NavBarOffline';
-import NavBarOnline from './NavBars/NavBarOnline';
+import UserNavBar from './NavBars/UserNavBar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
+import ContainerSVG from '../assets/photo-container.svg';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function index() {
   return (
     <div>
       <div className={indexCSS.bannerContainer}>
-        <NavBarOffline />
+        <UserNavBar />
 
         <div className={indexCSS.banner}>
-          <h1>BANNER</h1>
+          <img src={ContainerSVG} alt='photo-container' />
+          <div className={indexCSS.bannerHeader}>
+            <div>
+              <h1>“A Stay in a Headland”</h1>
+              <h2>
+                Embrace Tranquility: Your Coastal Retreat at A Stay in a
+                Headland. Where Every Sunset Beckons Serenity and Adventure only
+                on Marjhun’s Apartelle!
+              </h2>
+            </div>
+
+            <Link to='/login'>
+              <button id={indexCSS.bookButton}> BOOK NOW </button>
+            </Link>
+          </div>
         </div>
       </div>
 

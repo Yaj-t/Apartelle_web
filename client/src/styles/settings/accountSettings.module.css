@@ -1,31 +1,35 @@
-.account-container {
+.accountContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding: 20px;
+  margin-top: 10vh;
 }
 
-.account-header {
+.accountHeader {
   margin-bottom: 1px;
 }
 
-.account-subheader {
+.accountSubHeader {
   margin-bottom: 80px;
   font-weight: normal;
 }
 
-.button-container {
+.buttonContainer {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.button-container button {
+.buttonContainer button {
   display: flex;
   align-items: center;
+  justify-content: start;
   margin: 10px;
-  padding: 25px; 
-  width: 600px;
+  padding: 25px;
+  width: 400px;
+  gap: 30px;
   font-size: 18px;
   background-color: #ffffff;
   color: #000000;
@@ -35,20 +39,14 @@
   outline: none;
 }
 
-.button-container button img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.button-container button div {
-  display: flex;
-  flex-direction: column;
-}
-
-.button-container button h3,
-.button-container button p {
+.buttonContainer button h3,
+.buttonContainer button p {
   margin: 0;
   text-align: left;
-  margin-left: 50px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

@@ -29,7 +29,7 @@ const Login = () => {
         // Handle successful login here 
         let url = '/';
         console.log(url);
-        // navigate(url);
+        navigate(url);
       })
       .catch(error => {
         console.error('Login failed:', error);

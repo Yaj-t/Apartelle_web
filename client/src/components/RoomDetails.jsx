@@ -1,6 +1,5 @@
 import React from 'react';
-import NavBarOffline from './NavBars/NavBarOffline';
-import NavBarOnline from './NavBars/NavBarOnline';
+import UserNavBar from './NavBars/UserNavBar';
 import Footer from './Footer';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +9,7 @@ import RoomDetailsCSS from '../styles/roomDetails.module.css';
 function RoomDetails() {
   return (
     <div>
-      <NavBarOnline />
+      <UserNavBar />
 
       <div className={RoomDetailsCSS.photocardsContainer}>
         <CardMedia

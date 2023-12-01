@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import NavBarOffline from './NavBars/NavBarOffline';
-import NavBarOnline from './NavBars/NavBarOnline';
+import UserNavBar from './NavBars/UserNavBar';
 import Footer from './Footer';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +11,7 @@ import AllRoomsCSS from '../styles/allRooms.module.css';
 function AllRooms() {
   return (
     <div>
-      <NavBarOnline />
+      <UserNavBar />
 
       <div className={AllRoomsCSS.filterContainer}>
         <form action='' method='' className={AllRoomsCSS.searchBar}>
