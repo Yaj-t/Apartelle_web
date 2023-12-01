@@ -91,7 +91,7 @@ const login = async (req, res) => {
     
     // res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000})
     // res.setHeader('Set-Cookie', `jwt=${token}; max-age=${maxAge}; httpOnly`);
-    res.status(200).json({'message': 'Log In Successful','accessToken': token});
+    res.status(200).json({'message': 'Log In Successful','userType': user.userType,'accessToken': token});
   } catch (error) {
     const { status, errors } = handleErrors(error);
     res.status(status).send({ errors });
