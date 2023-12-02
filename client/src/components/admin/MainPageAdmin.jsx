@@ -1,12 +1,12 @@
-import React from 'react'
-import NavBarDashboard from '../NavBars/NavBarDashboard'
+import React from 'react';
+import NavBarDashboard from '../NavBars/NavBarDashboard';
 
 function PersonnelDetailsAdmin() {
-    return (
-      <div>
-        <NavBarDashboard />
-     </div>
-  ) 
+  return (
+    <div>
+      <NavBarDashboard />
+    </div>
+  );
 }
 
-export default PersonnelDetailsAdmin
+export default PersonnelDetailsAdmin;

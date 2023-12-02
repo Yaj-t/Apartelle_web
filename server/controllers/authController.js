@@ -2,17 +2,17 @@ const db = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const maxAge = 3 * 24 * 60 *60;
+const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id, userType) => {
-  return jwt.sign({ id , userType}, 'Apartelle Secret Website', {
+  return jwt.sign({ id, userType }, 'Apartelle Secret Website', {
     expiresIn: maxAge
-  })
-}
+  });
+};
 
 function handleErrors(error) {
-  let errors = { email: '', contactNumber: ''};
+  let errors = { email: '', contactNumber: '' };
 
-  if(error.message === 'Incorrect Email and Password'){
+  if (error.message === 'Incorrect Email and Password') {
     errors.email = 'Incorrect Email and Password';
     return { status: 401, errors }; // 401 Unauthorized
   }
@@ -20,7 +20,7 @@ function handleErrors(error) {
   // Handling duplicate email or contact number
   if (error.name === 'SequelizeUniqueConstraintError') {
     if (error.errors && error.errors.length > 0) {
-      error.errors.forEach((err) => {
+      error.errors.forEach(err => {
         if (err.path === 'email') {
           errors.email = 'Email already registered';
         }
@@ -46,7 +46,6 @@ function handleErrors(error) {
   return { status: 500, errors: { message: 'Internal Server Error' } };
 }
 
-
 const signup = async (req, res) => {
   try {
     // Hash password
@@ -64,7 +63,7 @@ const signup = async (req, res) => {
 
     const token = createToken(user.userId, user.userType);
     // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
-    res.status(201).send({ message: 'User created successfully'});
+    res.status(201).send({ message: 'User created successfully' });
   } catch (error) {
     const { status, errors } = handleErrors(error);
     console.log(error);
@@ -81,17 +80,24 @@ const login = async (req, res) => {
     }
 
     // Check password
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
     if (!isPasswordValid) {
       throw Error('Incorrect Email and Password');
     }
 
     // Generate token
     const token = createToken(user.userId, user.userType);
-    
+
     // res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge * 1000})
     // res.setHeader('Set-Cookie', `jwt=${token}; max-age=${maxAge}; httpOnly`);
-    res.status(200).json({'message': 'Log In Successful','userType': user.userType,'accessToken': token});
+    res.status(200).json({
+      message: 'Log In Successful',
+      userType: user.userType,
+      accessToken: token
+    });
   } catch (error) {
     const { status, errors } = handleErrors(error);
     res.status(status).send({ errors });
@@ -99,9 +105,9 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.cookie('jwt', '', {maxAge: 1})
+  res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/home');
-}
+};
 
 module.exports = {
   signup,

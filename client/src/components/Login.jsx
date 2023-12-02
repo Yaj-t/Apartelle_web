@@ -5,13 +5,13 @@ import axios from 'axios';
 import Card from '@mui/material/Card';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import loginCSS from '../styles/login.module.css';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Alert, AlertTitle } from '@mui/material';
 
 // Validation schema using Yup
 const LoginSchema = yup.object().shape({
   email: yup.string().required('Email is required'),
-  password: yup.string().required('Password is required'),
+  password: yup.string().required('Password is required')
 });
 
 const Login = () => {
@@ -20,20 +20,21 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values, { setSubmitting }) => {
-    axios.post('http://localhost:3001/auth/login', values)
-      .then((response) => {
+    axios
+      .post('http://localhost:3001/auth/login', values)
+      .then(response => {
         console.log('Login successful:', response.data);
         sessionStorage.setItem("accessToken", response.data.accessToken)
-        // Handle successful login here 
 
-        let url ='/'
+        // Handle successful login here 
+        let url = '/';
         console.log(url);
         navigate(url);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Login failed:', error);
-        
-        // Show alert 
+
+        // Show alert
         setLoginError(true);
       })
       .finally(() => setSubmitting(false));
@@ -41,9 +42,9 @@ const Login = () => {
 
   return (
     <div>
-      <Link to="/">
+      <Link to='/'>
         <div className={loginCSS.backHome}>
-          <ArrowBackIosNewIcon fontSize="very small" />
+          <ArrowBackIosNewIcon fontSize='very small' />
           <p>Back to Home</p>
         </div>
       </Link>
@@ -66,37 +67,62 @@ const Login = () => {
             <Formik
               initialValues={{
                 email: '',
-                password: '',
+                password: ''
               }}
               validationSchema={LoginSchema}
-              onSubmit={handleSubmit}
-            >
-              { formik => (
+              onSubmit={handleSubmit}>
+              {formik => (
                 <Form>
                   <div className={loginCSS.loginForm}>
                     <div className={loginCSS.loginInputContainer}>
                       <div className={loginCSS.loginInput}>
-                        <label htmlFor="email">Email</label>
-                        <Field type="text" id="email" name="email" className={formik.errors.email ? loginCSS.errorInput : ''}/> 
-                        {formik.errors.email ? <div className={loginCSS.error}> {formik.errors.email} </div> : null}
+                        <label htmlFor='email'>Email</label>
+                        <Field
+                          type='text'
+                          id='email'
+                          name='email'
+                          className={
+                            formik.errors.email ? loginCSS.errorInput : ''
+                          }
+                        />
+                        {formik.errors.email ? (
+                          <div className={loginCSS.error}>
+                            {formik.errors.email}
+                          </div>
+                        ) : null}
                       </div>
-    
-                      <div className={loginCSS.loginInput}>
-                        <label htmlFor="password">Password</label>
-                        <Field type="password" id="password" name="password" className={formik.errors.password ? loginCSS.errorInput : ''}/>
-                        {formik.errors.password ? <div className={loginCSS.error}> {formik.errors.password} </div> : null}
 
+                      <div className={loginCSS.loginInput}>
+                        <label htmlFor='password'>Password</label>
+                        <Field
+                          type='password'
+                          id='password'
+                          name='password'
+                          className={
+                            formik.errors.password ? loginCSS.errorInput : ''
+                          }
+                        />
+                        {formik.errors.password ? (
+                          <div className={loginCSS.error}>
+                            {formik.errors.password}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
-    
+
                     <div className={loginCSS.forPass}>
-                      <Link to="/">
+                      <Link to='/'>
                         <p>Forgot Password?</p>
                       </Link>
                     </div>
 
                     <div className={loginCSS.loginButtonContainer}>
-                      <button id={loginCSS.loginButton} type="submit" disabled={!formik.isValid || formik.isSubmitting}>LOGIN</button>
+                      <button
+                        id={loginCSS.loginButton}
+                        type='submit'
+                        disabled={!formik.isValid || formik.isSubmitting}>
+                        LOGIN
+                      </button>
                     </div>
                   </div>
                 </Form>
@@ -105,7 +131,7 @@ const Login = () => {
 
             <div className={loginCSS.goToSignUp}>
               <p>Don't have an account?</p>
-              <Link to="/signup">
+              <Link to='/signup'>
                 <strong>SIGN-UP</strong>
               </Link>
             </div>

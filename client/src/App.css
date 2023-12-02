@@ -13,17 +13,19 @@ body {
 }
 
 button {
+  font-family: 'Montserrat', sans-serif;
   display: flex; /* Use flexbox to center items */
   align-items: center; /* Vertically center items */
   gap: 5px;
   appearance: none;
   background-color: #f57328;
   color: white;
-  border-radius: 24px;
+  border-radius: 30px;
   border: none;
   padding: 15px 45px;
   box-sizing: border-box;
   font-size: 1em;
+  font-weight: 900;
   cursor: pointer;
 }
 
@@ -37,7 +39,7 @@ ul {
   font-size: small;
 }
 
-a{
+a {
   color: black;
   text-decoration: none;
 }
