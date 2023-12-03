@@ -32,22 +32,14 @@ const RoomTypeForm = () => {
   const validationSchema = Yup.object().shape({
     typeName: Yup.string().required('Type Name is required'),
     typeDescription: Yup.string().required('Type Description is required'),
-    price: Yup.number().required('Price is required').positive(),
-    capacity: Yup.number()
-      .required('Capacity is required')
-      .positive()
-      .integer(),
-    bedCount: Yup.number()
-      .required('Bed count is required')
-      .positive()
-      .integer()
   });
 
   const onSubmit = async values => {
     try {
       const response = await axios.put(
         `http://localhost:3001/roomType/${id}`,
-        values
+        values,
+        {headers: { accessToken: sessionStorage.getItem('accessToken') }},
       );
       console.log('Room Type Updated:', response.data);
       // Redirect or handle success message
@@ -61,9 +53,6 @@ const RoomTypeForm = () => {
   const initialValues = roomType || {
     typeName: '',
     typeDescription: '',
-    price: '',
-    capacity: '',
-    bedCount: ''
   };
 
   return (
@@ -98,63 +87,6 @@ const RoomTypeForm = () => {
                           {formik.errors.typeName ? (
                             <div className={EditTypeCSS.error}>
                               {formik.errors.typeName}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <div className={EditTypeCSS.formEditInput}>
-                          <label htmlFor='price'>Price</label>
-                          <Field
-                            id='price'
-                            name='price'
-                            type='number'
-                            className={
-                              formik.errors.price ? EditTypeCSS.errorInput : ''
-                            }
-                          />
-                          {formik.errors.price ? (
-                            <div className={EditTypeCSS.error}>
-                              {formik.errors.price}
-                            </div>
-                          ) : null}
-                        </div>
-                      </div>
-
-                      <div className={EditTypeCSS.formEditRow}>
-                        <div className={EditTypeCSS.formEditInput}>
-                          <label htmlFor='capacity'>Capacity</label>
-                          <Field
-                            id='capacity'
-                            name='capacity'
-                            type='number'
-                            className={
-                              formik.errors.capacity
-                                ? EditTypeCSS.errorInput
-                                : ''
-                            }
-                          />
-                          {formik.errors.capacity ? (
-                            <div className={EditTypeCSS.error}>
-                              {formik.errors.capacity}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <div className={EditTypeCSS.formEditInput}>
-                          <label htmlFor='bedCount'>Bed Count</label>
-                          <Field
-                            id='bedCount'
-                            name='bedCount'
-                            type='number'
-                            className={
-                              formik.errors.bedCount
-                                ? EditTypeCSS.errorInput
-                                : ''
-                            }
-                          />
-                          {formik.errors.bedCount ? (
-                            <div className={EditTypeCSS.error}>
-                              {formik.errors.bedCount}
                             </div>
                           ) : null}
                         </div>

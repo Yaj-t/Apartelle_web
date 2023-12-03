@@ -28,7 +28,7 @@ const RoomTypes = () => {
     console.log('Delete Room Type:', roomTypeID);
     try {
       const url = `http://localhost:3001/roomType/${roomTypeID}`;
-      const response = await axios.delete(url);
+      const response = await axios.delete(url, {headers: { accessToken: sessionStorage.getItem('accessToken') }},);
       setRoomTypes(prevRoomTypes =>
         prevRoomTypes.filter(rt => rt.roomTypeID !== roomTypeID)
       );
@@ -55,9 +55,6 @@ const RoomTypes = () => {
             <tr>
               <th>Type Name</th>
               <th>Description</th>
-              <th>Price</th>
-              <th>Capacity</th>
-              <th>Bed Count</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -65,10 +62,7 @@ const RoomTypes = () => {
             {roomTypes.map(roomType => (
               <tr key={roomType.roomTypeID}>
                 <td>{roomType.typeName}</td>
-                <td>{roomType.typeDescription}</td>
-                <td>{roomType.price}</td>
-                <td>{roomType.capacity}</td>
-                <td>{roomType.bedCount}</td>
+                <td>{roomType.typeDescription}</td>   
                 <td>
                   <button onClick={() => handleEdit(roomType.roomTypeID)}>
                     Edit
