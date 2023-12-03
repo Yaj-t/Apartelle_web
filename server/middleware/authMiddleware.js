@@ -30,11 +30,12 @@ const authRole = (allowedRoles) => {
           res.status(403).send({error: "not logged in"});
         } else {
           console.log(decodedToken);
-          const userType = decodedToken.user_type;
+          const userType = decodedToken.userType;
     
           if (allowedRoles.includes(userType)) {
             next(); // User has an allowed role, proceed to the next middleware or route handler
           } else {
+            console.log("not authorized")
             res.status(403).send({ message: 'Access denied. Insufficient permissions.', error: 'Not Authorized' });
           }
         }
