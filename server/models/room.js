@@ -37,7 +37,6 @@
 
     Room.associate = function (models) {
       Room.belongsTo(models.RoomType, { foreignKey: 'roomTypeId' }); 
-      Room.hasMany(models.Booking, { foreignKey: 'roomId', onDelete: 'CASCADE' }); 
     };
 
     return Room;

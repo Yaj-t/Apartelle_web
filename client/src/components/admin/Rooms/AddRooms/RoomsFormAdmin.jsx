@@ -33,7 +33,29 @@
       fetchRoomTypes().then((types) => setRoomTypes(types));
     }, []);
 
-    
+    const handleSubmit = async (values) => {
+      console.log(values);
+      axios.post('http://localhost:3001/room', values, {
+          headers: { accessToken: sessionStorage.getItem('accessToken') },
+      })
+      .then((response) => {
+          console.log('Room added successfully', response.data);
+          //add code to Reset the form
+
+          // Optionally, display a success message to the user or redirect
+          alert('Room added successfully');
+          // If you have a navigation mechanism, you might want to redirect the user
+          // navigate('/success-page'); // Assuming you're using something like React Router
+      })
+      .catch((error) => {
+          console.error('Error adding room:', error);
+          // Display an error message to the user
+          alert('Failed to add room. Please try again.');
+          // If the error is specific and you want to display it:
+          // alert(`Error: ${error.response.data.message}`);
+      });
+  }
+  
 
     return (
       <div>
@@ -49,28 +71,14 @@
               <div className={RoomsFormCSS.formDetails}>
                 <Formik
                   initialValues={{
-                    roomTypeId: 0,
+                    roomTypeId: '',
                     price: 0.00,
                     roomNumber: '',
                     capacity: 0,
                     description: '',
                   }}
                   validationSchema={schema}
-                  onSubmit={(values) => {
-                    console.log(values)
-                    axios.post('http://localhost:3001/room', values,
-                    {headers: { accessToken: sessionStorage.getItem('accessToken') }},
-                    )
-                      .then(() => {
-                        // Handle successful submission
-                        console.log('Room added successfully');
-                        // Reset the form
-                        formik.resetForm();
-                      })
-                      .catch((error) => {
-                        console.error('Error adding room:', error);
-                      });
-                  }}
+                  onSubmit={handleSubmit}
                   
                 >
                   {(formik) => (
@@ -80,8 +88,9 @@
                           <div className={RoomsFormCSS.formInput}>
                             <label htmlFor='roomTypeId'>Room Type</label>
                             <Field as='select' name='roomTypeId'>
+                              <option value={-1}>Not Set</option>
                               {roomTypes.map((roomType) => (
-                                <option key={roomType.roomTypeID} value={roomType.roomTypeID}>
+                                <option key={roomType.roomTypeId} value={roomType.roomTypeId}>
                                   {roomType.typeName}
                                 </option>
                               ))}
