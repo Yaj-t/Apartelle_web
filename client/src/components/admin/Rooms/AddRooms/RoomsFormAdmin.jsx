@@ -37,19 +37,10 @@ function RoomsFormAdmin() {
 
                   <div className={RoomsFormCSS.formRoom}>
                     <div className={RoomsFormCSS.formInput}>
-                      <label htmlFor='max'>Max Persons</label>
+                      <label htmlFor='capacity'>Capacity</label>
                       <input type='number' />
                     </div>
 
-                    <div className={RoomsFormCSS.formInput}>
-                      <label htmlFor='adults'>Adults</label>
-                      <input type='number' />
-                    </div>
-
-                    <div className={RoomsFormCSS.formInput}>
-                      <label htmlFor='children'>Children</label>
-                      <input type='number' />
-                    </div>
                   </div>
 
                   <div className={RoomsFormCSS.formRoom}>
