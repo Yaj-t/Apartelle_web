@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import ContainerSVG from '../assets/photo-container.svg';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AllRooms from './01test/allRooms'
 
 function index() {
   return (
@@ -32,55 +33,14 @@ function index() {
           </div>
         </div>
       </div>
-
       <div className={indexCSS.roomsContainer}>
         <div className={indexCSS.listContainer}>
           <h1>
             Lists of <br /> Rooms
           </h1>
           <hr className={indexCSS.hr} />
-
-          <div className={indexCSS.cardContainer}>
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment</p>
-              <p>100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-          </div>
+          <AllRooms>
+          </AllRooms>
         </div>
       </div>
 
@@ -134,58 +94,6 @@ function index() {
           </div>
         </div>
       </div>
-
-      <div className={indexCSS.roomsContainer}>
-        <div className={indexCSS.listContainer}>
-          <h1>
-            Lists of <br /> Rooms
-          </h1>
-          <hr className={indexCSS.hr} />
-
-          <div className={indexCSS.cardContainer}>
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment</p>
-              <p>100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-          </div>
-        </div>
-      </div>
-
       <div className={indexCSS.otherContainer}>
         <div className={indexCSS.discoverContainer}>
           <div className={indexCSS.listContainer}>
