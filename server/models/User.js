@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'User',
       allowNull: false,
     },
+    isActive: {
+      type: DataTypes.Boolean,
+      defaultValue: true,
+      allowNull: false,
+    },
     firstName: {
       type: DataTypes.STRING(50),
       allowNull: false,

@@ -12,6 +12,7 @@
       roomNumber: {
         type: DataTypes.STRING(20),
         allowNull: false,
+        unique: true,
       },
       price: {
         type: DataTypes.DECIMAL(10, 2),
@@ -21,11 +22,7 @@
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      bedCount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      Description: {
+      description: {
         type: DataTypes.TEXT,
       },
     }, {

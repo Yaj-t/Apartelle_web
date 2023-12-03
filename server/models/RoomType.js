@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const RoomType = sequelize.define('RoomType', {
-    roomTypeID: {
+    roomTypeId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
   }, {
-    tableName: 'roomtypes',
+    tableName: 'roomTypes',
     timestamps: true,
   });
 
