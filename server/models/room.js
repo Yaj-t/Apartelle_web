@@ -9,6 +9,11 @@
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      isVisible: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+      },
       roomNumber: {
         type: DataTypes.STRING(20),
         allowNull: false,
