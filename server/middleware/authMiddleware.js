@@ -8,14 +8,14 @@ const requireAuth = (req, res, next) => {
     jwt.verify(token, 'Apartelle Secret Website', (err, decodedToken) => {
       if (err) {  
         console.log(err.message);
-        res.json({error: "not logged in"});   
+        res.status(403).json({error: "not logged in"});   
       } else {
         console.log(decodedToken);
         next();
       }
     });
   } else {
-    res.json({error: "not logged in"});
+    res.status(403).json({error: "not logged in"});
   }
 };
 
@@ -35,12 +35,12 @@ const authRole = (allowedRoles) => {
           if (allowedRoles.includes(userType)) {
             next(); // User has an allowed role, proceed to the next middleware or route handler
           } else {
-            res.status(403).send({ message: 'Access denied. Insufficient permissions.' });
+            res.status(403).send({ message: 'Access denied. Insufficient permissions.', error: 'Not Authorized' });
           }
         }
       });
     } else {
-      res.status(403).send({ message: 'Access denied. Insufficient permissions.' });
+      res.status(403).send({ message: 'Access denied. Insufficient permissions.', error: 'Not Authorized' });
     } 
   };
 };
