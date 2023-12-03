@@ -1,27 +1,42 @@
-module.exports = (sequelize, DataTypes) => {
-  const Room = sequelize.define('Room', {
-    roomId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    roomTypeId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    roomNumber: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-    },
-  }, {
-    tableName: 'rooms',
-    timestamps: true,
-  });
+  module.exports = (sequelize, DataTypes) => {
+    const Room = sequelize.define('Room', {
+      roomId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      roomTypeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      roomNumber: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+      },
+      price: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      capacity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      bedCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      Description: {
+        type: DataTypes.TEXT,
+      },
+    }, {
+      tableName: 'rooms',
+      timestamps: true,
+    });
 
-  Room.associate = function (models) {
-    Room.belongsTo(models.RoomType, { foreignKey: 'roomTypeId' }); 
-    Room.hasMany(models.Booking, { foreignKey: 'roomId', onDelete: 'CASCADE' }); 
+    Room.associate = function (models) {
+      Room.belongsTo(models.RoomType, { foreignKey: 'roomTypeId' }); 
+      Room.hasMany(models.Booking, { foreignKey: 'roomId', onDelete: 'CASCADE' }); 
+    };
+
+    return Room;
   };
-
-  return Room;
-};

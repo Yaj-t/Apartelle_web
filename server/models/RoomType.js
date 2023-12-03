@@ -12,18 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     typeDescription: {
       type: DataTypes.TEXT,
     },
-    price: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-    },
-    capacity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    bedCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   }, {
     tableName: 'roomtypes',
     timestamps: true,
