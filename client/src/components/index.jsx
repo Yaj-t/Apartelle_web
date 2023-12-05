@@ -6,18 +6,21 @@ import UserNavBar from './NavBars/UserNavBar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import ContainerSVG from '../assets/photo-container.svg';
+import Logo from '../assets/logo.png';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function index() {
   return (
     <div>
+      <UserNavBar />
       <div className={indexCSS.bannerContainer}>
-        <UserNavBar />
-
         <div className={indexCSS.banner}>
           <img src={ContainerSVG} alt='photo-container' />
           <div className={indexCSS.bannerHeader}>
             <div>
+              <div className={indexCSS.logo}>
+                <img src={Logo} alt='logo' width='200px' />
+              </div>
               <h1>“A Stay in a Headland”</h1>
               <h2>
                 Embrace Tranquility: Your Coastal Retreat at A Stay in a

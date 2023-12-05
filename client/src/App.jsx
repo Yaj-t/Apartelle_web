@@ -23,6 +23,7 @@ import './App.css';
 import AccountSettings from './components/settings/AccountSettings';
 import Security from './components/settings/SecuritySettings';
 import ReservationsSettings from './components/settings/ReservationsSettings';
+import PersonalDetails from './PersonalDetails';
 
 function App() {
   return (
@@ -84,14 +85,21 @@ function App() {
       <Routes>
         <Route path='/settings' element={<AccountSettings />} />
         <Route path='/settings/security' element={<Security />} />
-        <Route path='/settings/manage-account' element={<user />} /> {/* userprofile */}
-        <Route path='/settings/reservation' element={<ReservationsSettings />} />
+        <Route
+          path='/settings/manage-account'
+          element={<PersonalDetails />}
+        />{' '}
+        {/* userprofile in progress*/}
+        <Route
+          path='/settings/reservation'
+          element={<ReservationsSettings />}
+        />
       </Routes>
 
       {/* For the user profile modules */}
       <Routes>
-        <Route path='/myProfile' element={<UserProfile />}></Route>
-        <Route path='/myProfile/update' element={<UpdateUserProfile />}></Route>
+        <Route path='/myProfile' element={<UserProfile />} />
+        <Route path='/myProfile/update' element={<UpdateUserProfile />} />
       </Routes>
     </>
   );
