@@ -63,7 +63,11 @@ const signup = async (req, res) => {
 
     const token = createToken(user.userId, user.userType);
     // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000})
-    res.status(201).send({ message: 'User created successfully' });
+    res.status(200).json({
+      message: 'Signup Successful',
+      userType: user.userType,
+      accessToken: token
+    });
   } catch (error) {
     const { status, errors } = handleErrors(error);
     console.log(error);

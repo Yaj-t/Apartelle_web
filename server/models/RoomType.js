@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const RoomType = sequelize.define('RoomType', {
-    roomTypeID: {
+    roomTypeId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -8,24 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     typeName: {
       type: DataTypes.STRING(255),
       allowNull: false,
+      unique: true,
     },
     typeDescription: {
       type: DataTypes.TEXT,
     },
-    price: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-    },
-    capacity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    bedCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   }, {
-    tableName: 'roomtypes',
+    tableName: 'roomTypes',
     timestamps: true,
   });
 

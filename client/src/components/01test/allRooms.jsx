@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import axios
-import RoomsAllCSS from '../../../../styles/admin/roomsAllAdmin.module.css';
+import RoomsAllCSS from './../../styles/admin/roomsAllAdmin.module.css';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchIcon from '@mui/icons-material/Search';
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
-import NavBarDashboard from '../../../NavBars/NavBarDashboard';
-import RoomImage from '../../../../assets/Room_Picture.jpg';
+import RoomImage from '../../assets/Room_Picture.jpg';
 
 function RoomsAllAdmin() {
   const [rooms, setRooms] = useState([]); // State to store room data
@@ -26,8 +25,6 @@ function RoomsAllAdmin() {
 
   return (
     <div>
-      <NavBarDashboard />
-
       <div className={RoomsAllCSS.roomContainer}>
         <div className={RoomsAllCSS.filterContainer}>
           <form action='' method='' className={RoomsAllCSS.searchBar}>
