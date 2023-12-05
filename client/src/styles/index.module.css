@@ -61,11 +61,28 @@
   padding: 10px;
 }
 
+.roomCards {
+  display: flex;
+  align-items: center;
+}
+
 #bookButton {
   font-size: 1.3rem;
 }
 
-.logo {
+#backIcon,
+#nextIcon {
+  appearance: none;
+  background-color: white;
+  color: black;
+  border-radius: 30px;
+  border: none;
+  padding: 0px 0px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#logo {
   display: flex;
   justify-content: center;
 }

@@ -8,7 +8,9 @@ import CardMedia from '@mui/material/CardMedia';
 import ContainerSVG from '../assets/photo-container.svg';
 import Logo from '../assets/logo.png';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import AllRooms from './01test/allRooms'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import AllRooms from './01test/allRooms';
 
 function index() {
   return (
@@ -19,7 +21,7 @@ function index() {
           <img src={ContainerSVG} alt='photo-container' />
           <div className={indexCSS.bannerHeader}>
             <div>
-              <div className={indexCSS.logo}>
+              <div id={indexCSS.logo}>
                 <img src={Logo} alt='logo' width='200px' />
               </div>
               <h1>“A Stay in a Headland”</h1>
@@ -42,58 +44,66 @@ function index() {
             Lists of <br /> Rooms
           </h1>
           <hr className={indexCSS.hr} />
-          <AllRooms>
-          </AllRooms>
+          <AllRooms /> {/* this is just a test, this needs to be fixed */}
         </div>
       </div>
 
       <div className={indexCSS.roomsContainer}>
         <div className={indexCSS.listContainer}>
           <h1>
-            Lists of <br /> Rooms
+            Top Rated <br /> Rooms
           </h1>
           <hr className={indexCSS.hr} />
 
-          <div className={indexCSS.cardContainer}>
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment</p>
-              <p>100 Small Street, LA, USA</p>
-            </Card>
+          <div className={indexCSS.roomCards}>
+            <button id={indexCSS.nextIcon}>
+              <NavigateBeforeIcon fontSize='large' />
+            </button>
+            <div className={indexCSS.cardContainer}>
+              <Card sx={{ width: 280 }}>
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image='src/assets/Room_Picture.jpg'
+                  title='room picture'
+                />
+                <p> Well Furnished Apartment</p>
+                <p>100 Small Street, LA, USA</p>
+              </Card>
 
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
+              <Card sx={{ width: 280 }}>
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image='src/assets/Room_Picture.jpg'
+                  title='room picture'
+                />
+                <p> Well Furnished Apartment </p>
+                <p> 100 Small Street, LA, USA</p>
+              </Card>
 
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
+              <Card sx={{ width: 280 }}>
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image='src/assets/Room_Picture.jpg'
+                  title='room picture'
+                />
+                <p> Well Furnished Apartment </p>
+                <p> 100 Small Street, LA, USA</p>
+              </Card>
 
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
+              <Card sx={{ width: 280 }}>
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image='src/assets/Room_Picture.jpg'
+                  title='room picture'
+                />
+                <p> Well Furnished Apartment </p>
+                <p> 100 Small Street, LA, USA</p>
+              </Card>
+            </div>
+
+            <button id={indexCSS.backIcon}>
+              <NavigateNextIcon fontSize='large' />
+            </button>
           </div>
         </div>
       </div>

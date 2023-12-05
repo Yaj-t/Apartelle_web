@@ -85,10 +85,7 @@ function App() {
       <Routes>
         <Route path='/settings' element={<AccountSettings />} />
         <Route path='/settings/security' element={<Security />} />
-        <Route
-          path='/settings/manage-account'
-          element={<PersonalDetails />}
-        />{' '}
+        <Route path='/settings/manage-account' element={<PersonalDetails />} />
         {/* userprofile in progress*/}
         <Route
           path='/settings/reservation'
