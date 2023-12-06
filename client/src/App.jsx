@@ -24,10 +24,14 @@ import AccountSettings from './components/settings/AccountSettings';
 import Security from './components/settings/SecuritySettings';
 import ReservationsSettings from './components/settings/ReservationsSettings';
 import PersonalDetails from './PersonalDetails';
+import RoomDetail from './components/01test/RoomDetail'
 
 function App() {
   return (
     <>
+      <Routes>
+        <Route path='/room/:roomId' element={<RoomDetail/>}></Route>
+      </Routes>
       {/* For the admin index modules */}
       <Routes>
         <Route path='/admin' element={<MainPageAdmin />} />
