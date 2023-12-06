@@ -40,7 +40,8 @@ const SecuritySettings = () => {
                 <p className={SecurityCSS.contentParagraph}>Active Sessions</p>
                 <span className={SecurityCSS.additionalText}>
                   Selecting 'Sign Out' will sign you out from all devices except
-                  this one. The process can take up to 10 minutes.
+                  this one. <br />
+                  The process can take up to 10 minutes.
                 </span>
                 <Link to='/ActiveSessions' className={SecurityCSS.actionText}>
                   Sign Out
@@ -53,8 +54,10 @@ const SecuritySettings = () => {
               <div className={SecurityCSS.details}>
                 <p className={SecurityCSS.contentParagraph}>Delete</p>
                 <span className={SecurityCSS.additionalText}>
-                  Selecting 'Sign Out' will sign you out from all devices except
-                  this one. The process can take up to 10 minutes.
+                  Deleting your account will remove all your information,
+                  including the reservations
+                  <br /> you made in this site. Will you proceed to delete your
+                  account?
                 </span>
                 <Link to='/DeleteAccount' className={SecurityCSS.actionText}>
                   Delete <br />

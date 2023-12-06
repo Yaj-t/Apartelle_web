@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Sidebar from "./Sidebar";
+import Sidebar from "../src/components/NavBars/SettingsSidebar";
 import "./PersonalDetails.css";
 
 const PersonalDetails = () => {

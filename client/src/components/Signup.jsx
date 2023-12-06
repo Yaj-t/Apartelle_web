@@ -110,7 +110,7 @@ function Signup() {
                     <div className={SignUpCSS.signupInputContainer}>
                       <div className={SignUpCSS.signupInput}>
                         <div>
-                          <label htmlFor='firstName'> First Name </label>
+                          <label htmlFor='firstName'> First Name* </label>
                           <Field
                             type='text'
                             name='firstName'
@@ -129,7 +129,7 @@ function Signup() {
                         </div>
 
                         <div>
-                          <label htmlFor='lastName'> Last Name </label>
+                          <label htmlFor='lastName'> Last Name* </label>
                           <Field
                             type='text'
                             name='lastName'
@@ -146,7 +146,7 @@ function Signup() {
                         </div>
 
                         <div>
-                          <label htmlFor='number'> Number </label>
+                          <label htmlFor='number'> Number* </label>
                           <Field
                             type='text'
                             name='contactNumber'
@@ -166,7 +166,7 @@ function Signup() {
                         </div>
 
                         <div>
-                          <label htmlFor='email'> Email </label>
+                          <label htmlFor='email'> Email* </label>
                           <Field
                             type='email'
                             name='email'
@@ -183,7 +183,7 @@ function Signup() {
                         </div>
 
                         <div>
-                          <label htmlFor='password'> Password </label>
+                          <label htmlFor='password'> Password* </label>
                           <Field
                             type='password'
                             name='password'
@@ -201,7 +201,7 @@ function Signup() {
 
                         <div>
                           <label htmlFor='confirmPassword'>
-                            Confirm Password
+                            Confirm Password*
                           </label>
                           <Field
                             type='password'

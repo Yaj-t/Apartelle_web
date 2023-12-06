@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FooterCSS from '../styles/footer.module.css';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import CopyrightIcon from '@mui/icons-material/Copyright';
@@ -10,15 +11,19 @@ function Footer() {
         <div className={FooterCSS.mainContainer}>
           <div className={FooterCSS.contentContainer}>
             <div className={FooterCSS.about}>
-              <h1> LOGO </h1>
+              <h1>MARJHUN'S APARTELLE</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit,
                 sed do eiusmod tempor incididunt <br /> ut labore et dolore
                 magna aliqua.
               </p>
-              <button>
-                <FacebookIcon /> Facebook
-              </button>
+              <Link
+                to='https://www.facebook.com/marjhunsapartelle'
+                target='https://www.facebook.com/marjhunsapartelle'>
+                <button>
+                  <FacebookIcon /> Facebook
+                </button>
+              </Link>
             </div>
 
             <div className={FooterCSS.linkContainer}>
@@ -58,9 +63,10 @@ function Footer() {
         </div>
 
         <div className={FooterCSS.copyrightContainer}>
-          <p>
-            <CopyrightIcon /> 2022 thecreation.design | All rights raserved
-          </p>
+          <div id={FooterCSS.rights}>
+            <CopyrightIcon fontSize='very small' />
+            <p>2022 thecreation.design | All rights raserved</p>
+          </div>
           <p> Created with love by thecreation.design </p>
         </div>
       </div>

@@ -27,8 +27,8 @@
   align-items: center;
   justify-content: start;
   margin: 10px;
-  padding: 25px;
-  width: 400px;
+  padding: 25px 50px;
+  width: 450px;
   gap: 30px;
   font-size: 18px;
   background-color: #ffffff;
@@ -43,6 +43,11 @@
 .buttonContainer button p {
   margin: 0;
   text-align: left;
+  font-size: bold;
+}
+
+.buttonContainer p {
+  font-weight: normal;
 }
 
 .label {

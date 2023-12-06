@@ -13,11 +13,12 @@ function RoomsAllAdmin() {
 
   useEffect(() => {
     // Fetch room data from 'http://localhost:3001/room/'
-    axios.get('http://localhost:3001/room/')
-      .then((response) => {
+    axios
+      .get('http://localhost:3001/room/')
+      .then(response => {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error fetching room data:', error);
         // Handle the error appropriately
       });
@@ -41,8 +42,10 @@ function RoomsAllAdmin() {
         </div>
 
         <div className={RoomsAllCSS.cardContainer}>
-          {rooms.map((room) => (
-            <Link to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`} key={room.id}>
+          {rooms.map(room => (
+            <Link
+              to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`}
+              key={room.id}>
               <Card sx={{ width: 280 }}>
                 <CardMedia
                   sx={{ height: 240 }}

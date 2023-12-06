@@ -7,7 +7,7 @@
 }
 
 .signupFormContainer {
-  padding: 140px 0px;
+  padding: 200px 0px;
   width: 100vh;
   height: 60vh;
   color: white;
@@ -59,7 +59,7 @@
   font-size: 1rem;
 }
 
-.signupInput input[type="button"] {
+.signupInput input[type='button'] {
   font-weight: bolder;
   background-color: white;
   border: none;

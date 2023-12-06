@@ -28,11 +28,11 @@
 }
 
 .dropdownMenu li {
-  width: 150px;
-  padding: 10px 5px;
+  width: 160px;
+  padding: 10px 10px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .dropdownMenu li:hover {

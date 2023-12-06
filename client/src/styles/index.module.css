@@ -12,21 +12,22 @@
   flex-direction: column;
   text-align: end;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  margin-top: 10vh;
   padding: 20px 30px;
   color: #483838;
   gap: 70px;
 }
 
 .bannerHeader h1 {
-  font-size: 3.5rem;
+  font-size: 3.2rem;
   font-family: 'Petrona', serif;
   margin: 1px;
 }
 
 .bannerHeader h2 {
   font-size: 1.1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-weight: normal;
   margin: 0px 20px 0px 0px;
 }
 
@@ -60,6 +61,28 @@
   padding: 10px;
 }
 
+.roomCards {
+  display: flex;
+  align-items: center;
+}
+
 #bookButton {
   font-size: 1.3rem;
+}
+
+#backIcon,
+#nextIcon {
+  appearance: none;
+  background-color: white;
+  color: black;
+  border-radius: 30px;
+  border: none;
+  padding: 0px 0px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#logo {
+  display: flex;
+  justify-content: center;
 }

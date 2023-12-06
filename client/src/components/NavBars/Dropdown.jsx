@@ -33,11 +33,11 @@ function Dropdown() {
   });
 
   const logout = () => {
-    sessionStorage.clear();
     let url = '/';
     console.log(url);
-    window.location.reload(true);
     navigate('/');
+    sessionStorage.clear();
+    window.location.reload(true);
   };
 
   return (
@@ -53,7 +53,7 @@ function Dropdown() {
             menuVisible ? DropdownCSS.visible : ''
           }`}>
           <ul>
-            <Link to='/manage-account'>
+            <Link to='settings/manage-account'>
               <li>
                 <PersonIcon />
                 Manage Account

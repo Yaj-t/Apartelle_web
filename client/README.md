@@ -1,9 +1,16 @@
 # Things I updated
 
-- Updated index page
-- Updated some fonts in the App.css and index.html
-- Updated navigation bars when logging in and out
-- Updated the styles for the account settings for the users
-- Added a dropdown menu when logging in
-- Initially Rearranged the files for the account settings and putted in the "settings" folder under components and styles
+- Fixed the horizontal scrollbar
+- Put a next and back icons in the "Top Rated Rooms" Section but no functions so far
+- put "\*" after the labels in the Sign-Up page for the required inputs
+- Relocated the UserProfile and UpdateProfile to the settings folder
+- Fixed the styles for the UserProfile
 
+# What to Fix
+
+- The List of Rooms should only show the rooms with next and back icons
+- When the admin logs in, it directly goes to the admin dashboard
+- When the link hovers, an animation must occur and make it that it is focused
+- When a user logs in, the "Book Now" button should be transformed to something else
+- Contents of the UpdateProfile
+- Change some styling in the global css
