@@ -25,6 +25,7 @@ const Login = () => {
       .then(response => {
         console.log('Login successful:', response.data);
         sessionStorage.setItem("accessToken", response.data.accessToken)
+        sessionStorage.setItem("userType", response.data.userType)
 
         // Handle successful login here 
         let url = '/';
