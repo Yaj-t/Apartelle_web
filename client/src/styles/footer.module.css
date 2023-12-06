@@ -41,3 +41,19 @@ p .MuiSvgIcon-root {
   border: 1px solid;
   width: 100%;
 }
+
+.about button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  padding: 15px 45px;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-weight: 900;
+  cursor: pointer;
+}

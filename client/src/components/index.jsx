@@ -13,6 +13,8 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import AllRooms from './01test/allRooms';
 
 function index() {
+  const auth = sessionStorage.getItem('accessToken');
+
   return (
     <div>
       <UserNavBar />
@@ -32,9 +34,13 @@ function index() {
               </h2>
             </div>
 
-            <Link to='/login'>
-              <button id={indexCSS.bookButton}> BOOK NOW </button>
-            </Link>
+            {auth ? (
+              <div></div> // what to design
+            ) : (
+              <Link to='/login'>
+                <button id={indexCSS.bookButton}> BOOK NOW </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -123,7 +129,7 @@ function index() {
               animi, id est laborum et dolorum fuga.
             </p>
 
-            <button id='login-btn'> Discover More! </button>
+            <button id={indexCSS.loginBtn}> Discover More! </button>
           </div>
           <CardMedia
             id='discover-picture'
