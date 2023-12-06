@@ -40,7 +40,8 @@
 #editProfile {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 20px;
 }
 
 #editProfile button {
@@ -84,7 +85,7 @@
 }
 
 .userInfoHeader h1 {
-  margin: 0;
+  margin: 0px 0px 30px;
 }
 
 .userInfoHeader p {
