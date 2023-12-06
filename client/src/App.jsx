@@ -45,11 +45,11 @@ function App() {
 
           {/* For the admin room type modules */}
           <Route
-            path='admin/rooms/showRoomTypes/editRoomType/:id'
+            path='/admin/rooms/showRoomTypes/editRoomType/:id'
             element={<EditRoomType />}
           />
-          <Route path='admin/rooms/addRoomType' element={<RoomTypeForm />} />
-          <Route path='admin/rooms/showRoomTypes' element={<RoomTypes />} />
+          <Route path='/admin/rooms/addRoomType' element={<RoomTypeForm />} />
+          <Route path='/admin/rooms/showRoomTypes' element={<RoomTypes />} />
 
           {/* For the admin rooms modules */}
           <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />

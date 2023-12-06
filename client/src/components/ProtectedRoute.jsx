@@ -1,15 +1,11 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoutes = ({ children }) => {
+const ProtectedRoutes = () => {
   const userType = sessionStorage.getItem('userType');
-  // console.log(userType);
+  console.log(userType);
 
-  if (userType !== 'ADMIN') {
-    return <Navigate to='/unauthorized' />;
-  } 
-  // Render the children if sessionStorage is not empty and userType is ADMIN
-  return children;
+  return userType === 'ADMIN' ? <Outlet /> : <Navigate to='/unauthorized' />;
 };
 
 export default ProtectedRoutes;
