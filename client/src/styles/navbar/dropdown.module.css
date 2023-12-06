@@ -7,11 +7,20 @@
 
 .dropdown button {
   margin: 10px 10px;
+  padding: 5px 5px;
   width: 70px;
+  display: flex;
   align-items: center;
   justify-content: end;
+  gap: 5px;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
   border-radius: 25px;
-  padding: 5px 5px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-weight: 900;
 }
 
 .dropdownMenu {
@@ -25,6 +34,15 @@
   pointer-events: none;
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
   transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.dropdownMenu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
 }
 
 .dropdownMenu li {
@@ -33,6 +51,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  font-size: small;
 }
 
 .dropdownMenu li:hover {
