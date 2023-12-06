@@ -17,8 +17,8 @@ import MainPageAdmin from './components/admin/MainPageAdmin';
 import EditRoomType from './components/admin/Rooms/AddRoomTypes/RoomEditType';
 import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin';
 import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin';
-import UserProfile from './components/user/UserProfile';
-import UpdateUserProfile from './components/user/UpdateProfile';
+import UserProfile from './components/settings/user/UserProfile';
+import UpdateUserProfile from './components/settings/user/UpdateProfile';
 import './App.css';
 import AccountSettings from './components/settings/AccountSettings';
 import Security from './components/settings/SecuritySettings';
@@ -85,7 +85,11 @@ function App() {
       <Routes>
         <Route path='/settings' element={<AccountSettings />} />
         <Route path='/settings/security' element={<Security />} />
-        <Route path='/settings/manage-account' element={<PersonalDetails />} />
+        <Route path='/settings/manage-account' element={<UserProfile />} />
+        <Route
+          path='/settings/manage-account/update'
+          element={<UpdateUserProfile />}
+        />
         {/* userprofile in progress*/}
         <Route
           path='/settings/reservation'
@@ -94,10 +98,10 @@ function App() {
       </Routes>
 
       {/* For the user profile modules */}
-      <Routes>
+      {/* <Routes>
         <Route path='/myProfile' element={<UserProfile />} />
         <Route path='/myProfile/update' element={<UpdateUserProfile />} />
-      </Routes>
+      </Routes> */}
     </>
   );
 }
