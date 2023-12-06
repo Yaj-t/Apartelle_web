@@ -20,17 +20,23 @@ router.get('/', async (req, res) => {
 router.get('/:roomId', async (req, res) => {
   try {
     const room = await Room.findByPk(req.params.roomId, {
-      include: [RoomType]
+      include: [{
+        model: RoomType,
+        as: 'RoomType' // This alias should match the alias used in association, if any
+      }]
     });
+
     if (!room) {
       return res.status(404).send({ message: 'Room not found' });
     }
+
     res.status(200).json(room);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+
 
 // Create a new room
 router.post('/', authRole(['ADMIN']), async (req, res) => {

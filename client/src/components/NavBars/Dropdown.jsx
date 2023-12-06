@@ -53,31 +53,22 @@ function Dropdown() {
             menuVisible ? DropdownCSS.visible : ''
           }`}>
           <ul>
-            <Link to='settings/manage-account'>
-              <li>
-                <PersonIcon />
-                Manage Account
-              </li>
-            </Link>
-            <Link to='settings/reservation'>
-              <li>
-                <LibraryBooksIcon />
-                Reservations
-              </li>
-            </Link>
-            <Link to='/settings'>
-              <li>
-                <SettingsIcon />
-                Settings
-              </li>
-            </Link>
-
-            <Link>
-              <li onClick={logout}>
-                <LogoutIcon id={DropdownCSS.logoutIcon} />
-                Log Out
-              </li>
-            </Link>
+            <li onClick={() => navigate('/settings/manage-account')}>
+              <PersonIcon />
+              Manage Account
+            </li>
+            <li onClick={() => navigate('/settings/reservation')}>
+              <LibraryBooksIcon />
+              Reservations
+            </li>
+            <li onClick={() => navigate('/settings/')}>
+              <SettingsIcon />
+              Settings
+            </li>
+            <li onClick={logout}>
+              <LogoutIcon id={DropdownCSS.logoutIcon} />
+              Log Out
+            </li>
           </ul>
         </div>
       </div>
