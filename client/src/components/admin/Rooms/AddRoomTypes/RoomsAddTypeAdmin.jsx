@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Card } from '@mui/material';
+import { Card, Alert, AlertTitle } from '@mui/material';
 import axios from 'axios';
 import * as Yup from 'yup';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import AddTypeCSS from '../../../../styles/admin/roomsAddTypeAdmin.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const RoomTypeForm = () => {
+  const navigate = useNavigate();
+
+  const [addSuccess, setAddSuccess] = useState(false);
+  const [addError, setAddError] = useState(false);
+
   const initialValues = {
     typeName: '',
-    typeDescription: '',
+    typeDescription: ''
   };
 
   const validationSchema = Yup.object().shape({
     typeName: Yup.string().required('Type Name is required'),
-    typeDescription: Yup.string().required('Type Description is required'),
+    typeDescription: Yup.string().required('Type Description is required')
   });
 
   const onSubmit = async values => {
@@ -24,14 +30,28 @@ const RoomTypeForm = () => {
       const response = await axios.post(
         'http://localhost:3001/roomType',
         values,
-        {headers: { accessToken: sessionStorage.getItem('accessToken') }},
+        { headers: { accessToken: sessionStorage.getItem('accessToken') } }
       );
       console.log('Room Type Added:', response.data);
       // Additional success handling (e.g., notification or redirect)
+
+      setAddSuccess(true);
     } catch (error) {
       console.error('Error submitting form:', error);
       // Error handling (e.g., displaying error message)
+
+      setAddError(true);
     }
+  };
+
+  const handleSuccessfulAlertClose = () => {
+    //close the alert component
+    setAddSuccess(false);
+
+    // Navigate to another module
+    let url = '/admin/rooms';
+    console.log(url);
+    navigate(url);
   };
 
   return (
@@ -42,6 +62,23 @@ const RoomTypeForm = () => {
         <div className={AddTypeCSS.cardContainer}>
           <Card>
             <div className={AddTypeCSS.cardDetails}>
+              {/* Conditionally render the Alert component */}
+              {addSuccess && (
+                <Alert severity='success' onClose={handleSuccessfulAlertClose}>
+                  <AlertTitle>
+                    <strong>Room type added successfully</strong>
+                  </AlertTitle>
+                </Alert>
+              )}
+
+              {addError && (
+                <Alert severity='error' onClose={() => setAddError(false)}>
+                  <AlertTitle>
+                    <strong>Failed to add room type. Please try again.</strong>
+                  </AlertTitle>
+                </Alert>
+              )}
+
               <h1>ADD ROOM TYPE</h1>
               <Formik
                 initialValues={initialValues}
