@@ -8,6 +8,7 @@ For Users:
 
 - Fixed the issue where Users can access admin page even if logged in as users
 - When the link hovers, an animation occurs
+- Added react-slick as the carousels for the index page, so *npm install* again
 
 For Admins:
 
