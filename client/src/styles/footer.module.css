@@ -20,6 +20,10 @@
   gap: 100px;
 }
 
+.infoContainer li {
+  padding: 5px 0px;
+}
+
 p .MuiSvgIcon-root {
   font-size: 15px;
 }

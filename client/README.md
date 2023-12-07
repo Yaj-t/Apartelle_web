@@ -4,6 +4,7 @@
 - When the admin logs in, it redirects to the dashboard
 - When the link hovers, an animation occurs
 - Fixed the stylings that was changed because of the global css
+- Added a Logout function on the Admin Navigation Sidebar
 
 # What to Fix
 
