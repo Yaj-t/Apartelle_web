@@ -8,7 +8,9 @@ For Users:
 
 - Fixed the issue where Users can access admin page even if logged in as users
 - When the link hovers, an animation occurs
-- Added react-slick as the carousels for the index page, so *npm install* again
+- Added react-slick as the carousels for the index page, so _npm install_ again
+- All Rooms Can now search filter
+- All Rooms can now use the filter button, where it can filter its room types and prices in ascending and descending order
 
 For Admins:
 
@@ -21,6 +23,9 @@ For Admins:
 
 # What to Fix
 
-- The List of Rooms should only show the rooms with next and back icons
+For User:
+
 - When a user logs in, the "Book Now" button should be transformed to something else
 - Contents of the UpdateProfile
+- The filter button for the All Rooms should be focused to avoid confusion
+- All Rooms filter "Price" can be ascending or descending
