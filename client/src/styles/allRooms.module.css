@@ -11,7 +11,7 @@
   height: 100%;
   max-height: 30px;
   background: transparent;
-  border: 1px solid rgb(148, 143, 143, .5);
+  border: 1px solid rgb(148, 143, 143, 0.5);
   display: flex;
   align-items: center;
   border-radius: 60px;
@@ -28,7 +28,6 @@
   font-size: 1rem;
   color: rgb(6, 6, 6, 1);
 }
-
 
 ::placeholder {
   color: rgb(6, 6, 6, 0.3);
@@ -61,5 +60,55 @@
 }
 
 .cardContainer p {
-  padding: 10px;
+  margin: 10px 0px;
+  padding: 0px 10px;
+}
+
+.dropdownFilter {
+  display: flex;
+  justify-content: end;
+  position: relative;
+  right: 0;
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0rem);
+  background-color: #fff8e4;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.dropdownMenu ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownMenu li {
+  width: 120px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: small;
+  font-weight: 600;
+}
+
+.dropdownMenu li:hover,
+.dropdownMenu li:focus {
+  background-color: #fff0c7;
+}
+
+.dropdownMenu.visible {
+  opacity: 1;
+  transform: translateY(0px);
+  pointer-events: auto;
 }
