@@ -56,18 +56,31 @@
   justify-content: space-evenly;
   gap: 30px;
 }
+.roomCarousel {
+  margin: 5vh;
+}
+
+.cardDetails {
+  padding: 10px 20px;
+}
 
 .cardContainer p {
   padding: 10px;
 }
 
-.roomCards {
-  display: flex;
-  align-items: center;
-}
-
-#bookButton {
+#bookButton,
+#loginBtn {
   font-size: 1.3rem;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  padding: 15px 45px;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-weight: 900;
+  cursor: pointer;
 }
 
 #backIcon,

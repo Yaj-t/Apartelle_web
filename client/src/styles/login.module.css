@@ -40,7 +40,7 @@
   font-size: 1rem;
 }
 
-.loginInput input[type="button"] {
+.loginInput input[type='button'] {
   font-weight: bolder;
   background-color: white;
   border: none;
@@ -67,7 +67,6 @@
 
 .backHome {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   margin: 20px 50px;
 }
@@ -91,14 +90,18 @@
 #loginButton {
   font-weight: bolder;
   background-color: white;
-  border: none;
-  border-radius: 100px;
   color: black;
   width: 200px;
   text-decoration: none;
   margin: 4px 2px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  appearance: none;
+  border-radius: 30px;
+  border: none;
+  padding: 15px 45px;
+  box-sizing: border-box;
+  font-size: 1em;
+  cursor: pointer;
 }

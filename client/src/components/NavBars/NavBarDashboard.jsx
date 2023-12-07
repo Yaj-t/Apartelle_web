@@ -4,8 +4,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import BedIcon from '@mui/icons-material/Bed';
 import GroupsIcon from '@mui/icons-material/Groups';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Logo from '../../assets/logo.png';
+import DropdownDashboardSettings from './DropdownDashboardSettings';
 import NavAdminCSS from '../../styles/navbar/navbarAdmin.module.css';
 
 function NavBarDashboard() {
@@ -29,7 +29,8 @@ function NavBarDashboard() {
             <GroupsIcon />
           </Link>
         </div>
-        <SettingsIcon />
+
+        <DropdownDashboardSettings />
       </div>
     </div>
   );
