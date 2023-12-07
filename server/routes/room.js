@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Room, RoomType } = require("../models");
+const { Room, RoomType, Booking } = require("../models");
 const { requireAuth, authRole} = require("../middleware/authMiddleware")
+const { Op } = require('sequelize');
+
 
 // Get all rooms
 router.get('/', async (req, res) => {
@@ -37,6 +39,53 @@ router.get('/:roomId', async (req, res) => {
   }
 });
 
+router.get('/available-rooms', async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+
+    // First, find all bookings that are within the date range
+    const bookedRooms = await Booking.findAll({
+      where: {
+        [Op.or]: [
+          {
+            dateStart: {
+              [Op.lte]: endDate,
+              [Op.gte]: startDate,
+            },
+          },
+          {
+            dateEnd: {
+              [Op.lte]: endDate,
+              [Op.gte]: startDate,
+            },
+          },
+          {
+            [Op.and]: [
+              { dateStart: { [Op.lte]: startDate } },
+              { dateEnd: { [Op.gte]: endDate } },
+            ],
+          },
+        ],
+        isCancelled: false,
+      },
+      attributes: ['roomId'],
+    });
+
+    // Extract roomIds from bookings
+    const bookedRoomIds = bookedRooms.map(booking => booking.roomId);
+
+    // Now, find all rooms that are not in the bookedRoomIds
+    const availableRooms = await Room.findAll({
+      where: {
+        roomId: { [Op.notIn]: bookedRoomIds },
+      },
+    });
+
+    res.json(availableRooms);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error', error });
+  }
+});
 
 // Create a new room
 router.post('/', authRole(['ADMIN']), async (req, res) => {
