@@ -80,12 +80,30 @@ router.post('/', requireAuth, async (req, res) => {
     const bookingData = req.body;
     bookingData.userId = userId;
 
+    // Check if the room is available in the given date range
+    const conflictingBookings = await Booking.findAll({
+      where: {
+        roomId: bookingData.roomId,
+        [Op.and]: [
+          { dateStart: { [Op.lte]: bookingData.dateEnd } },
+          { dateEnd: { [Op.gte]: bookingData.dateStart } }
+        ],
+        isCancelled: false
+      }
+      
+    });
+
+    if (conflictingBookings && conflictingBookings.length > 0) {
+      return res.status(400).send({ message: 'Room is not available for the selected dates' });
+    }
+
     const booking = await Booking.create(bookingData);
     res.status(201).json(booking);
   } catch (error) {
     res.status(500).send({ message: 'Error creating booking', error });
   }
 });
+
 
 
 // Get the users bookings
