@@ -28,6 +28,7 @@ function index() {
       .get('http://localhost:3001/room/')
       .then(response => {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
+        console.log(response.data)
       })
       .catch(error => {
         console.error('Error fetching room data:', error);
@@ -83,7 +84,7 @@ function index() {
             <Slider {...settings}>
               {rooms.map(room => (
                 <Link
-                  to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`}
+                  to={`/roomDetails/${room.roomId}`}
                   key={room.id}>
                   <Card sx={{ width: 280 }}>
                     <CardMedia
