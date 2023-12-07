@@ -29,12 +29,14 @@ import ProtectedRoutes from './components/ProtectedRoute';
 import UnauthorizeError from './components/errorpages/UnauthorizeError';
 import AvailableRooms from './components/01test/AvailableRooms';
 
+
 function App() {
   return (
     <>
-      {/* <Routes>
-        <Route path='/room/:roomId' element={<RoomDetail/>}></Route>
-      </Routes> */}
+      <Routes>
+        <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
+
+      </Routes>
       
 
      
@@ -82,7 +84,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/allRooms' element={<AllRooms />} />
         <Route path='/roomDetails/:roomId' element={<RoomDetails />} />
-        <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>
+        
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
