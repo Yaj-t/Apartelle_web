@@ -166,7 +166,7 @@ function AllRooms() {
 
       <div className={AllRoomsCSS.cardContainer}>
         {rooms.map(room => (
-          <Link key={room.id} to={`/roomDetails/${room.id}`}>
+          <Link key={room.id} to={`/roomDetails/${room.roomId}`}>
             <Card sx={{ width: 280 }}>
               <CardMedia
                 sx={{ height: 240 }}
