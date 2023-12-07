@@ -24,7 +24,7 @@ router.get('/available-rooms', async (req, res) => {
     const { startDate, endDate } = req.query;
 
     // Check if startDate and endDate are valid
-    if (!startDate || !endDate || new Date(startDate) > new Date(endDate)) {
+    if (!startDate || !endDate || new Date(startDate) >= new Date(endDate)) {
       return res.status(400).send({ message: 'Invalid date range' });
     }
 
