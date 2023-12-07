@@ -97,12 +97,30 @@ router.post('/', requireAuth, async (req, res) => {
       return res.status(400).send({ message: 'Room is not available for the selected dates' });
     }
 
+    // Fetch the room price
+    const room = await Room.findByPk(bookingData.roomId);
+    if (!room) {
+      return res.status(404).send({ message: 'Room not found' });
+    }
+
+    // Calculate the number of days
+    const startDate = new Date(bookingData.dateStart);
+    const endDate = new Date(bookingData.dateEnd);
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Calculate the amount
+    bookingData.amount = room.price * diffDays;
+
+    // Create the booking
     const booking = await Booking.create(bookingData);
     res.status(201).json(booking);
   } catch (error) {
+    console.error('Error creating booking:', error);
     res.status(500).send({ message: 'Error creating booking', error });
   }
 });
+
 
 
 
