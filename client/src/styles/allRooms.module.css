@@ -10,7 +10,8 @@
   max-width: 400px;
   height: 100%;
   max-height: 30px;
-  background: rgb(244, 239, 239);
+  background: transparent;
+  border: 1px solid rgb(148, 143, 143, .5);
   display: flex;
   align-items: center;
   border-radius: 60px;
@@ -28,29 +29,6 @@
   color: rgb(6, 6, 6, 1);
 }
 
-.searchBar button {
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-}
-
-.searchBtn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  appearance: none;
-  background-color: #f57328;
-  color: white;
-  border-radius: 30px;
-  border: none;
-  padding: 15px 45px;
-  box-sizing: border-box;
-  font-size: 1em;
-  font-weight: 900;
-}
 
 ::placeholder {
   color: rgb(6, 6, 6, 0.3);
@@ -72,11 +50,13 @@
 }
 
 .cardContainer {
-  margin: 5vh;
+  margin: 8vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 80px;
   flex-wrap: wrap;
 }
 
