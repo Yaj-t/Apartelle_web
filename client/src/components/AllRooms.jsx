@@ -5,6 +5,8 @@ import Footer from './Footer';
 import TuneIcon from '@mui/icons-material/Tune';
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AllRoomsCSS from '../styles/allRooms.module.css';
 import axios from 'axios'; // Import axios
 import RoomImage from '../assets/Room_Picture.jpg';
@@ -15,30 +17,38 @@ function AllRooms() {
   const [rooms, setRooms] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
+  const [sortOrder, setSortOrder] = useState(''); // 'asc' for ascending, 'desc' for descending
 
-  useEffect(() => {
-    // Function to fetch rooms based on the current query
-    const fetchRooms = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/room');
+  // Inside the useEffect, modify the fetchRooms function
+  const fetchRooms = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/room');
 
-        // Apply search query filter
-        const filteredRooms = response.data.filter(
-          room =>
-            room.description.toLowerCase().includes(query.toLowerCase()) &&
-            (selectedRoomTypes.length === 0 ||
-              selectedRoomTypes.includes(room.roomTypeId))
-        );
+      let filteredRooms = response.data.filter(
+        room =>
+          room.description.toLowerCase().includes(query.toLowerCase()) &&
+          (selectedRoomTypes.length === 0 ||
+            selectedRoomTypes.includes(room.roomTypeId))
+      );
 
-        setRooms(filteredRooms);
-      } catch (error) {
-        console.error('Error fetching rooms:', error);
+      // Sort the filtered rooms based on price
+      if (sortOrder === 'asc') {
+        filteredRooms = filteredRooms.sort((a, b) => a.price - b.price);
+      } else if (sortOrder === 'desc') {
+        filteredRooms = filteredRooms.sort((a, b) => b.price - a.price);
       }
-    };
 
-    // Fetch rooms when the component mounts and whenever the query changes
+      setRooms(filteredRooms);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
+  };
+
+  // Update the dependency array to include sortOrder
+  useEffect(() => {
+    // Fetch rooms when the component mounts and whenever the query, selected room types, or sort order changes
     fetchRooms();
-  }, [query, selectedRoomTypes]); // Include query as a dependency to re-run the effect when it changes
+  }, [query, selectedRoomTypes, sortOrder]);
 
   const fetchRoomTypes = async () => {
     try {
@@ -93,6 +103,17 @@ function AllRooms() {
     console.log('success:', roomTypeId);
   };
 
+  const handleSortOrderChange = () => {
+    // If sortOrder is 'asc', change it to 'desc'
+    // If sortOrder is 'desc', change it to null (no sorting)
+    // If sortOrder is null, change it to 'asc'
+    setSortOrder(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return null;
+      return 'asc';
+    });
+  };
+
   return (
     <div>
       <UserNavBar />
@@ -125,7 +146,19 @@ function AllRooms() {
                   {roomType.typeName}
                 </li>
               ))}
-              <li>Price</li>
+              <li onClick={handleSortOrderChange}>
+                {sortOrder === 'asc' ? (
+                  <>
+                    Price <ArrowUpwardIcon fontSize='1rem'/>
+                  </>
+                ) : sortOrder === 'desc' ? (
+                  <>
+                    Price <ArrowDownwardIcon fontSize='1rem'/>
+                  </>
+                ) : (
+                  'Price'
+                )}
+              </li>
             </ul>
           </div>
         </div>

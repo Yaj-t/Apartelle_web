@@ -10,7 +10,7 @@ For Users:
 - When the link hovers, an animation occurs
 - Added react-slick as the carousels for the index page, so _npm install_ again
 - All Rooms Can now search filter
-- All Rooms can now use the filter button, where it can filter its room types
+- All Rooms can now use the filter button, where it can filter its room types and prices in ascending and descending order
 
 For Admins:
 
