@@ -17,15 +17,16 @@ const ProfileEditSchema = Yup.object().shape({
   lastName: Yup.string().required('Last Name is required'),
   contactNumber: Yup.string()
     .required('Contact Number is required')
-    .min(10, 'must be at least 10 digits'),
+    .min(10, 'Must be at least 10 digits'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .oneOf([Yup.ref('password'), ''], 'Passwords must match')
     .when('password', (password, field) =>
-      password ? field.required('Confirm Password is required') : field
+      password != '' ? field.required('Confirm Password is required') : field
     )
 });
+
 
 const EditProfileForm = () => {
   const [profile, setProfile] = useState(null);
@@ -59,42 +60,31 @@ const EditProfileForm = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     try {
-  //       const response = await Axios.get(
-  //         'http://localhost:3001/user/myprofile/',
-  //         {
-  //           headers: { accessToken: sessionStorage.getItem('accessToken') }
-  //         }
-  //       );
-  //       const profileData = response.data.user;
-  //       setProfile(profileData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchProfile();
-  // }, []);
-
-  // if (!profile) {
-  //   return <div>Loading...</div>;
-  // }
-
   const handleSubmit = values => {
     console.log('updating');
-    Axios.put('http://localhost:3001/user/myprofile', values, {
+    const requestData = {  
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      contactNumber: values.contactNumber,
+    };
+  
+    if (values.password) {
+      requestData.password = values.password;
+    }
+  
+    Axios.put('http://localhost:3001/user/myprofile', requestData, {
       headers: { accessToken: sessionStorage.getItem('accessToken') }
     })
       .then(response => {
         console.log('Profile updated successfully');
-        navigate('/myprofile'); // Redirect to the profile page or another appropriate page
+        navigate('/settings/manage-account/'); // Redirect to the profile page or another appropriate page
       })
       .catch(error => {
         console.error('Error updating profile', error);
       });
   };
+  
 
   return (
     <div>
@@ -108,74 +98,8 @@ const EditProfileForm = () => {
             <h2>Update your personal information</h2>
           </div>
 
-          <div className={UserProfileEditCSS.userInfoContainer}>
-            <div className={UserProfileEditCSS.photoDetails}>
-              <Card className={UserProfileEditCSS.userPhotoCard}>
-                <div className={UserProfileEditCSS.userPhoto}>
-                  <AccountCircleIcon id={UserProfileEditCSS.userPhotoIcon} />
-                  <h4>Upload Photo</h4>
-                </div>
-              </Card>
 
-              <div id={UserProfileEditCSS.saveProfile}>
-                <Link to='update'>
-                  <button>Update Profile</button>
-                </Link>
-              </div>
-            </div>
-
-            <div className={UserProfileEditCSS.userInfoDetails}>
-              <div className={UserProfileEditCSS.userInfoHeader}>
-                <h1>Hello, {/* {profile.firstName} {profile.lastName} */}</h1>
-                <p>Joined in </p>
-              </div>
-
-              <div className={UserProfileEditCSS.userAbout}>
-                <h3> About </h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Beatae itaque odit tempora exercitationem quod magnam fuga
-                  tenetur nobis aliquam, libero doloribus voluptates consequatur
-                  eveniet, eaque dolores similique iusto eius corrupti.
-                </p>
-              </div>
-
-              <div className={UserProfileEditCSS.userAddresstoAge}>
-                <div className={UserProfileEditCSS.userContainer}>
-                  <h3>Address</h3>
-                  <p>Purok 7, Bunga-Mar, Jagna, Bohol</p>
-                </div>
-
-                <div className={UserProfileEditCSS.userContainer}>
-                  <h3>Date of Birth</h3>
-                  <p>12/03/2003</p>
-                </div>
-
-                <div className={UserProfileEditCSS.userContainer}>
-                  <h3> Age </h3>
-                  <p>20</p>
-                </div>
-              </div>
-
-              <div className={UserProfileEditCSS.userEmailtoPass}>
-                <p>
-                  <b>Email:</b>
-                </p>
-                <p>
-                  <b>Contact Number:</b>
-                </p>
-                <div className={UserProfileEditCSS.userPassword}>
-                  <p>
-                    <b> Password: </b>
-                  </p>
-                  <VisibilityIcon />
-                  <VisibilityOffIcon />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* <Formik
+          <Formik
             initialValues={initialValues}
             validationSchema={ProfileEditSchema}
             onSubmit={handleSubmit}
@@ -210,7 +134,7 @@ const EditProfileForm = () => {
 
               <button type='submit'>Update Profile</button>
             </Form>
-          </Formik> */}
+          </Formik>
         </div>
       </div>
       <Footer />
