@@ -9,7 +9,7 @@
   import { useParams } from 'react-router-dom';
   import RoomImage from '../assets/Room_Picture.jpg';
   import { Link } from 'react-router-dom'
-  import BookRoom from './01test/BookRoom';
+  import BookRoom from './BookRoom';
 
   const RoomDetails = () => {
     const { roomId } = useParams();

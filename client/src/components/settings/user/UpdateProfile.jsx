@@ -73,17 +73,38 @@ const EditProfileForm = ({ handleCloseModal }) => {
     }
 
     Axios.put("http://localhost:3001/user/myprofile", requestData, {
-      headers: { accessToken: sessionStorage.getItem("accessToken") },
-    })
+        headers: { accessToken: sessionStorage.getItem("accessToken") },
+      })
       .then((response) => {
         console.log("Profile updated successfully");
-        handleCloseModal();
-        navigate("/settings/manage-account/"); // Redirect to the profile page or another appropriate page
+
+        // Refetch user data
+        return Axios.get("http://localhost:3001/user/myprofile", {
+          headers: { accessToken: sessionStorage.getItem("accessToken") },
+        });
+      })
+      .then((response) => {
+        // Update the local state with the refetched data
+        const updatedProfileData = response.data.user;
+        setInitialValues({
+          firstName: updatedProfileData.firstName,
+          lastName: updatedProfileData.lastName,
+          email: updatedProfileData.email,
+          contactNumber: updatedProfileData.contactNumber,
+          password: "",
+          confirmPassword: "",
+        });
+
+        handleCloseModal();   
+        window.location.reload();
+
+        navigate("/settings/manage-account/");
+        
       })
       .catch((error) => {
         console.error("Error updating profile", error);
       });
-  };
+    };
 
   return (
     <Dialog

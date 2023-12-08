@@ -4,7 +4,7 @@ import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import RoomsDetailsCSS from '../../../../styles/admin/roomsEditDetailsAdmin.module.css';
 import { Card, Alert, AlertTitle } from '@mui/material';
-import { Formik, Form, Field, FieldArray } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -27,61 +27,21 @@ const fetchRoomTypes = async () => {
   }
 };
 
-function RoomsEditDetailsAdmin() {
+const RoomsEditDetailsAdmin = () => {
   const navigate = useNavigate();
-
-  const [roomTypes, setRoomTypes] = React.useState([]);
-  const [room, setRoom] = useState(null);
   const { id } = useParams();
-
+  const [room, setRoom] = useState(null);
+  const [roomTypes, setRoomTypes] = useState([]);
+ 
   const [addSuccess, setAddSuccess] = useState(false);
   const [addError, setAddError] = useState(false);
-
-  React.useEffect(() => {
-    fetchRoomTypes().then(types => setRoomTypes(types));
-  }, []);
-
-  const handleSubmit = async values => {
-    console.log(values);
-    axios
-      .post('http://localhost:3001/room', values, {
-        headers: { accessToken: sessionStorage.getItem('accessToken') }
-      })
-      .then(response => {
-        console.log('Room added successfully', response.data);
-        //add code to Reset the form
-
-        // Optionally, display a success message to the user or redirect
-        setAddSuccess(true);
-
-        // If you have a navigation mechanism, you might want to redirect the user
-        // navigate('/success-page'); // Assuming you're using something like React Router
-      })
-      .catch(error => {
-        console.error('Error adding room:', error);
-        // Display an error message to the user
-        setAddError(true);
-        // If the error is specific and you want to display it:
-        // alert(`Error: ${error.response.data.message}`);
-      });
-  };
-
-  const handleSuccessfulAlertClose = () => {
-    //close the alert component
-    setAddSuccess(false);
-
-    // Navigate to another module
-    let url = '/admin/rooms';
-    console.log(url);
-    navigate(url);
-  };
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/room/${id}`);
+        // console.log(response.data);
         setRoom(response.data);
-        console.log(response.data);
       } catch (err) {
         console.error('Error fetching room type', err);
       }
@@ -90,8 +50,40 @@ function RoomsEditDetailsAdmin() {
     if (id) {
       fetchRoom();
     }
+    console.log(room);
   }, [id]);
+  useEffect(() => {
+    fetchRoomTypes().then(types => setRoomTypes(types));
+  }, []);
 
+  // useEffect(() => {
+  //   console.log(room);
+  // }, [room])
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    console.log(values);
+    try {
+      await axios.put(`http://localhost:3001/room/${id}`, values, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') }
+      });
+      console.log('Room added successfully');
+      setAddSuccess(true);
+    } catch (error) {
+      console.error('Error adding room:', error);
+      setAddError(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleSuccessfulAlertClose = () => {
+    setAddSuccess(false);
+    let url = '/admin/rooms';
+    console.log(url);
+    navigate(url);
+  };
+
+  
   return (
     <div>
       <NavBarDashboard />
@@ -102,11 +94,10 @@ function RoomsEditDetailsAdmin() {
         <ArrowBackIosNewIcon fontSize='small' />
         Back to Rooms
       </div>
-
-      <div className={RoomsDetailsCSS.formContainer}>
+      {room && (
+        <div className={RoomsDetailsCSS.formContainer}>
         <Card>
           <div className={RoomsDetailsCSS.cardDetails}>
-            {/* Conditionally render the Alert component */}
             {addSuccess && (
               <Alert severity='success' onClose={handleSuccessfulAlertClose}>
                 <AlertTitle>
@@ -125,17 +116,17 @@ function RoomsEditDetailsAdmin() {
 
             <div className={RoomsDetailsCSS.formHeader}>
               <h1>ADD ROOM</h1>
-              <h3>fill up the form below to add a room</h3>
+              <h3>Fill up the form below to add a room</h3>
             </div>
 
             <div className={RoomsDetailsCSS.formDetails}>
               <Formik
                 initialValues={{
-                  roomTypeId: room.roomTypeId,
-                  price: room.price,
-                  roomNumber: room.roomNumber,
-                  capacity: room.capacity,
-                  description: room.description
+                  roomTypeId: room?.roomTypeId || -1,
+                  price: room?.price || '',
+                  roomNumber: room?.roomNumber || '',
+                  capacity: room?.capacity || '',
+                  description: room?.description || ''
                 }}
                 validationSchema={schema}
                 onSubmit={handleSubmit}>
@@ -233,8 +224,10 @@ function RoomsEditDetailsAdmin() {
           </div>
         </Card>
       </div>
+      )}
+      
     </div>
   );
-}
+};
 
 export default RoomsEditDetailsAdmin;

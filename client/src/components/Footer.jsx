@@ -33,7 +33,6 @@ function Footer() {
                   <li>About Us</li>
                   <li>Legal Information</li>
                   <li>Contact Us</li>
-                  <li>Blogs</li>
                 </ul>
               </div>
 
@@ -41,10 +40,7 @@ function Footer() {
                 <h2> HELP CENTER </h2>
                 <ul>
                   <li>Find a Room</li>
-                  <li>How to Host?</li>
                   <li>Why Us?</li>
-                  <li>FAQs</li>
-                  <li>Rental Guides</li>
                 </ul>
               </div>
 

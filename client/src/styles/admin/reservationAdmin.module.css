@@ -92,3 +92,9 @@
 .reservationTable {
   margin: 50px 50px;
 }
+
+#checkbox {
+  height: 15px;
+  width: 15px;
+  accent-color: #f57328;
+}

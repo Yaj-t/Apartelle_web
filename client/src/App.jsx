@@ -10,7 +10,7 @@ import ReservationDetails from './components/admin/Reservation/ReservationDetail
 import RoomsAdmin from './components/admin/Rooms/AddRooms/RoomsAdmin';
 import RoomsFormAdmin from './components/admin/Rooms/AddRooms/RoomsFormAdmin';
 import RoomsAllAdmin from './components/admin/Rooms/AddRooms/RoomsAllAdmin';
-import RoomsDetailsAdmin from './components/admin/Rooms/AddRooms/RoomsDetailsAdmin';
+import RoomsEditDetailsAdmin from './components/admin/Rooms/AddRooms/RoomEditDetails';
 import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin';
 import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin';
 import MainPageAdmin from './components/admin/MainPageAdmin';
@@ -29,12 +29,21 @@ import ProtectedRoutes from './components/ProtectedRoute';
 import UnauthorizeError from './components/errorpages/UnauthorizeError';
 import AvailableRooms from './components/01test/AvailableRooms';
 import BookRoom from './components/01test/BookRoom';
-
+import AddReview from './components/01test/AddReview';
+import UserBoookings from './components/01test/UserBookings'
+import UserReviews from './components/01test/UserReviews'
+import UpdateReview from './components/01test/UpdateReview';
+import BookingsList from './components/01test/BookingList';
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/booking-list' element={<BookingsList/>}></Route>
+        <Route path="/update-review/:reviewIdParam" element={<UpdateReview/>} />
+        <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
+        <Route path='/user-bookings' element={<UserBoookings/>} />
+        <Route path='/addReview/:bookingIdParam' element={<AddReview/>}/>
         <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
         <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
       </Routes>
@@ -62,8 +71,8 @@ function App() {
           <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />
           <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin />} />
           <Route
-            path='/admin/rooms/showAllRooms/roomDetails'
-            element={<RoomsDetailsAdmin />}
+            path='/admin/rooms/showAllRooms/editRoom/:id'
+            element={<RoomsEditDetailsAdmin />}
           />
 
           {/* For the admin reservation modules */}

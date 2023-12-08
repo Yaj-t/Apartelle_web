@@ -1,11 +1,29 @@
+.allRooms {
+  display: flex;
+}
+
 .filterContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 80px 100px;
+  margin: 80px 20px;
+  font-size: 1rem;
 }
 
-.searchBar {
+.filterMenu {
+  height: calc(100% + 20vh);
+  padding-right: 70px;
+  border-right: 1px solid rgb(148, 140, 140, 0.5);
+  box-sizing: border-box;
+}
+
+.filterMenu ul {
+  min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.datePickers {
   width: 100%;
   max-width: 400px;
   height: 100%;
@@ -19,12 +37,12 @@
   backdrop-filter: blur(4px) saturate(180%);
 }
 
-.searchBar input {
+.datePickers input {
   background: transparent;
   flex: 1;
   border: 0;
   outline: none;
-  padding: 24px 20px;
+  padding: 24px 28px;
   font-size: 1rem;
   color: rgb(6, 6, 6, 1);
 }
@@ -33,83 +51,15 @@
   color: rgb(6, 6, 6, 0.3);
 }
 
-#filterBtn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  appearance: none;
-  background-color: #f57328;
-  color: white;
-  border-radius: 24px;
-  border: none;
-  padding: 8px 25px;
-  box-sizing: border-box;
-  font-size: 1em;
-  cursor: pointer;
-}
-
 .cardContainer {
-  margin: 8vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   justify-content: flex-start;
   align-content: center;
-  gap: 80px;
+  display: flex;
   flex-wrap: wrap;
+  gap: 25px;
 }
 
 .cardContainer p {
   margin: 10px 0px;
   padding: 0px 10px;
-}
-
-.dropdownFilter {
-  display: flex;
-  justify-content: end;
-  position: relative;
-  right: 0;
-}
-
-.dropdownMenu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0rem);
-  background-color: #fff8e4;
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
-  transform: translateY(-10px);
-  cursor: pointer;
-}
-
-.dropdownMenu ul {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
-
-.dropdownMenu li {
-  width: 120px;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  font-size: small;
-  font-weight: 600;
-}
-
-.dropdownMenu li:hover,
-.dropdownMenu li:focus {
-  background-color: #fff0c7;
-}
-
-.dropdownMenu.visible {
-  opacity: 1;
-  transform: translateY(0px);
-  pointer-events: auto;
 }

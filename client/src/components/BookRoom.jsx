@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { useParams } from 'react-router-dom';
-import Bookroom from './../../styles/admin/bookRooms.module.css';
+import { useParams } from 'react-router-dom'; 
+import Bookroom from '../styles/admin/bookRooms.module.css';
 
 function BookRoom({ room }) {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
@@ -22,6 +22,18 @@ function BookRoom({ room }) {
             setTotalPrice(diffDays * roomPrice);
         }
     }, [startDate, endDate, roomPrice]);
+
+    useEffect(() => {
+        if (startDate && endDate && endDate <= startDate) {
+          setEndDate(null);
+        }
+      }, [startDate, endDate]);
+    
+    useEffect(() => {
+        if (startDate && endDate && endDate <= startDate) {
+            setEndDate(null);
+        }
+        }, [startDate, endDate]);
 
     const handleBooking = async () => {
         if (!startDate || !endDate || startDate >= endDate) {
@@ -66,11 +78,11 @@ function BookRoom({ room }) {
                 <div>
                 <label htmlFor="Date-start">Date start</label>
                 </div>
-                <DatePicker selected={startDate} onChange={date => setStartDate(date)} className={Bookroom['date-box']}/> 
+                <DatePicker selected={startDate} onChange={date => setStartDate(date)} placeholderText="Start Date" className={Bookroom['date-box']} minDate={new Date()} maxDate={endDate}/> 
                 <div>
                 <label htmlFor="Date-end">Date end</label>
                 </div>
-                <DatePicker selected={endDate} onChange={date => setEndDate(date)} className={Bookroom['date-box']} />
+                <DatePicker selected={endDate} onChange={date => setEndDate(date)} className={Bookroom['date-box']} placeholderText='End Date' minDate={new Date(new Date().getTime() + (24 * 60 * 60 * 1000))}/>
                 <p>Total Price: <strong>{totalPrice}</strong></p>
                 <button className={Bookroom['button']} onClick={handleBooking}>Book Now</button>
             </div>
