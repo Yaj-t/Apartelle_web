@@ -8,16 +8,7 @@ const jwt = require('jsonwebtoken');
 // Fetch all users from the database
 router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
   try {
-    const users = await User.findAll({
-      attributes: [
-        'userId',
-        'firstName',
-        'lastName',
-        'email',
-        'userType',
-        'contactNumber'
-      ] // attributes to retrieve
-    });
+    const users = await User.findAll();
 
     // Send the users as a response
     res.status(200).json({

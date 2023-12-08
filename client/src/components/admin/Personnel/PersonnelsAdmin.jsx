@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { format, isValid } from 'date-fns';
 import NavBarDashboard from '../../NavBars/NavBarDashboard';
-import SearchIcon from '@mui/icons-material/Search';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PersonnelsCSS from '../../../styles/admin/personnelsAdmin.module.css';
 import axios from 'axios';
 
 function PersonnelsAdmin() {
   const [users, setUsers] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState({});
 
   useEffect(() => {
     fetchUsers();
@@ -22,8 +20,42 @@ function PersonnelsAdmin() {
       });
       console.log('users:', response.data);
       setUsers(response.data.users);
+
+      // Initialize selectedStatus based on the isActive field
+      const initialSelectedStatus = {};
+      response.data.users.forEach(user => {
+        initialSelectedStatus[user.userId] = user.isActive
+          ? 'active'
+          : 'inactive';
+        console.log(user.isActive);
+      });
+      setSelectedStatus(initialSelectedStatus);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleStatusChange = async (userId, value) => {
+    try {
+      // Make a PUT request to update the active status
+      await axios.put(
+        `http://localhost:3001/user/profile/${userId}`,
+        { isActive: value === 'active' },
+        {
+          headers: {
+            accessToken: sessionStorage.getItem('accessToken')
+          }
+        }
+      );
+
+      // Update the local state with the new active status
+      setSelectedStatus(prevStatus => ({
+        ...prevStatus,
+        [userId]: value
+      }));
+    } catch (error) {
+      console.error(error);
+      // Handle errors here, e.g., show an error message to the user
     }
   };
 
@@ -76,7 +108,16 @@ function PersonnelsAdmin() {
                       : 'Invalid Date'}
                   </td>
                   <td> Last Login</td>
-                  <td>{user.isActive ? 'Active' : 'Not Active'}</td>
+                  <td>
+                    <select
+                      value={selectedStatus[user.userId]}
+                      onChange={e =>
+                        handleStatusChange(user.userId, e.target.value)
+                      }>
+                      <option value='active'>Active</option>
+                      <option value='inactive'>Not Active</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>
