@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function PersonnelsAdmin() {
   const [users, setUsers] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState({});
+  const [selectedStatus, setSelectedStatus] = useState();
 
   useEffect(() => {
     fetchUsers();
@@ -25,8 +25,8 @@ function PersonnelsAdmin() {
       const initialSelectedStatus = {};
       response.data.users.forEach(user => {
         initialSelectedStatus[user.userId] = user.isActive
-          ? 'active'
-          : 'inactive';
+          // ? 'active'
+          // : 'inactive';
         console.log(user.isActive);
       });
       setSelectedStatus(initialSelectedStatus);
@@ -36,11 +36,15 @@ function PersonnelsAdmin() {
   };
 
   const handleStatusChange = async (userId, value) => {
+    console.log('Request Payload:', { isActive: value });
+    console.log(userId);
+    console.log(selectedStatus)
+
     try {
       // Make a PUT request to update the active status
       await axios.put(
         `http://localhost:3001/user/profile/${userId}`,
-        { isActive: value === 'active' },
+        { isActive: value },
         {
           headers: {
             accessToken: sessionStorage.getItem('accessToken')
@@ -90,34 +94,41 @@ function PersonnelsAdmin() {
             </thead>
 
             <tbody>
-              {users.map(user => (
-                <tr key={user.userId}>
-                  <td>
-                    <input type='checkbox' id={PersonnelsCSS.checkbox} />
-                  </td>
-                  <td>{user.userType}</td>
-                  <td>
-                    {user.firstName} {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.contactNumber}</td>
-                  <td>
-                    {isValid(new Date(user.createdAt))
-                      ? format(new Date(user.createdAt), 'MM/dd/yyyy HH:mm:ss')
-                      : 'Invalid Date'}
-                  </td>
-                  <td>
-                    <select
-                      value={selectedStatus[user.userId]}
-                      onChange={e =>
-                        handleStatusChange(user.userId, e.target.value)
-                      }>
-                      <option value='active'>Active</option>
-                      <option value='inactive'>Not Active</option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
+              {users.map(
+                user =>
+                  // Check if the user type is not ADMIN before rendering the row
+                  user.userType !== 'ADMIN' && (
+                    <tr key={user.userId}>
+                      <td>
+                        <input type='checkbox' id={PersonnelsCSS.checkbox} />
+                      </td>
+                      <td>{user.userType}</td>
+                      <td>
+                        {user.firstName} {user.lastName}
+                      </td>
+                      <td>{user.email}</td>
+                      <td>{user.contactNumber}</td>
+                      <td>
+                        {isValid(new Date(user.createdAt))
+                          ? format(
+                              new Date(user.createdAt),
+                              'MM/dd/yyyy HH:mm:ss'
+                            )
+                          : 'Invalid Date'}
+                      </td>
+                      <td>
+                        <select
+                          value={selectedStatus}
+                          onChange={e =>
+                            handleStatusChange(user.userId, e.target.value)
+                          }>
+                          <option value='1'>Active</option>
+                          <option value='0'>Not Active</option>
+                        </select>
+                      </td>
+                    </tr>
+                  )
+              )}
             </tbody>
           </table>
         </div>
