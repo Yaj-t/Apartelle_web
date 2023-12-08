@@ -18,6 +18,8 @@ For Admins:
 - Made the search bar functional in the rooms section
 - Downloaded date-fns library to display dates from database, so **npm i** it again
 - Fetched data from the database to the Personnel Admin
+- Can now edit the Active Status the Personnel Admin
+- Can now search and batch delete the Personnel Admin
 
 # What to Fix
 
