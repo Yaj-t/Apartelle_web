@@ -1,46 +1,44 @@
-import React, { useState, useEffect } from "react";
-import UserNavBar from "./NavBars/UserNavBar";
-import Footer from "./Footer";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import RoomDetailsCSS from "../styles/roomDetails.module.css";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import RoomImage from "../assets/Room_Picture.jpg";
-import { Link } from "react-router-dom";
-import BookRoom from "./01test/BookRoom";
+  import React, { useState, useEffect } from 'react';
+  import UserNavBar from './NavBars/UserNavBar';
+  import Footer from './Footer';
+  import Card from '@mui/material/Card';
+  import CardMedia from '@mui/material/CardMedia';
+  import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+  import RoomDetailsCSS from '../styles/roomDetails.module.css';
+  import axios from 'axios';
+  import { useParams } from 'react-router-dom';
+  import RoomImage from '../assets/Room_Picture.jpg';
+  import { Link } from 'react-router-dom'
+  import BookRoom from './BookRoom';
 
-const RoomDetails = () => {
-  const { roomId } = useParams();
-  const [room, setRoom] = useState(null);
-  const [error, setError] = useState("");
+  const RoomDetails = () => {
+    const { roomId } = useParams();
+    const [room, setRoom] = useState(null);
+    const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchRoomData = async () => {
-      try {
-        console.log(roomId);
-        const response = await axios.get(
-          `http://localhost:3001/room/${roomId}`
-        );
-        console.log(response.data);
-        setRoom(response.data);
-      } catch (err) {
-        setError("Room not found or an error occurred.");
-        console.error(err);
-      }
-    };
+    useEffect(() => {
+      const fetchRoomData = async () => {
+        try {
+          console.log(roomId)
+          const response = await axios.get(`http://localhost:3001/room/${roomId}`);
+          console.log(response.data)
+          setRoom(response.data);
+        } catch (err) {
+          setError('Room not found or an error occurred.');
+          console.error(err);
+        }
+      };
 
-    fetchRoomData();
-  }, [roomId]);
+      fetchRoomData();
+    }, [roomId]);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+    if (error) {
+      return <div>{error}</div>;
+    }
 
-  if (!room) {
-    return <div>error</div>;
-  }
+    if (!room) {
+      return <div>error</div>;
+    }
 
   return (
     <div>

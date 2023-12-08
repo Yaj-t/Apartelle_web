@@ -1,13 +1,64 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { format, isValid } from 'date-fns';
 import NavBarDashboard from '../../NavBars/NavBarDashboard';
-import SearchIcon from '@mui/icons-material/Search';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PersonnelsCSS from '../../../styles/admin/personnelsAdmin.module.css';
+import axios from 'axios';
 
 function PersonnelsAdmin() {
+  const [users, setUsers] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState({});
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/user/users', {
+        headers: { accessToken: sessionStorage.getItem('accessToken') }
+      });
+      console.log('users:', response.data);
+      setUsers(response.data.users);
+
+      // Initialize selectedStatus based on the isActive field
+      const initialSelectedStatus = {};
+      response.data.users.forEach(user => {
+        initialSelectedStatus[user.userId] = user.isActive
+          ? 'active'
+          : 'inactive';
+        console.log(user.isActive);
+      });
+      setSelectedStatus(initialSelectedStatus);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleStatusChange = async (userId, value) => {
+    try {
+      // Make a PUT request to update the active status
+      await axios.put(
+        `http://localhost:3001/user/profile/${userId}`,
+        { isActive: value === 'active' },
+        {
+          headers: {
+            accessToken: sessionStorage.getItem('accessToken')
+          }
+        }
+      );
+
+      // Update the local state with the new active status
+      setSelectedStatus(prevStatus => ({
+        ...prevStatus,
+        [userId]: value
+      }));
+    } catch (error) {
+      console.error(error);
+      // Handle errors here, e.g., show an error message to the user
+    }
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -17,9 +68,6 @@ function PersonnelsAdmin() {
           <div className={PersonnelsCSS.filterContainer}>
             <form action='' method='' className={PersonnelsCSS.searchBar}>
               <input type='text' placeholder='Search...' />
-              <button className={PersonnelsCSS.searchBtn}>
-                <SearchIcon fontSize='small' />
-              </button>
             </form>
           </div>
         </div>
@@ -31,33 +79,47 @@ function PersonnelsAdmin() {
                 <th>
                   <CheckBoxIcon fontSize='small' />
                 </th>
-                <th> Name </th>
                 <th> Type </th>
+                <th> Name </th>
+                <th> Email </th>
+                <th> Contact Number </th>
                 <th> Date Created </th>
                 <th> Last Login </th>
                 <th> Status </th>
-                <th> </th>
+                {/* <th> </th> */}
               </tr>
             </thead>
 
             <tbody>
-              <tr>
-                <td>
-                  <CheckBoxOutlineBlankIcon fontSize='very small' />
-                </td>
-                <td>
-                  <Link to='/admin/personnel/personnelDetails'>
-                    Macel Galanido
-                  </Link>
-                </td>
-                <td> Admin </td>
-                <td> 11/13/2023 </td>
-                <td> 11/23/2023 7:08 AM </td>
-                <td> Active </td>
-                <td>
-                  <MoreHorizIcon fontSize='small' />
-                </td>
-              </tr>
+              {users.map(user => (
+                <tr key={user.userId}>
+                  <td>
+                    <input type='checkbox' id={PersonnelsCSS.checkbox} />
+                  </td>
+                  <td>{user.userType}</td>
+                  <td>
+                    {user.firstName} {user.lastName}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.contactNumber}</td>
+                  <td>
+                    {isValid(new Date(user.createdAt))
+                      ? format(new Date(user.createdAt), 'MM/dd/yyyy HH:mm:ss')
+                      : 'Invalid Date'}
+                  </td>
+                  <td> Last Login</td>
+                  <td>
+                    <select
+                      value={selectedStatus[user.userId]}
+                      onChange={e =>
+                        handleStatusChange(user.userId, e.target.value)
+                      }>
+                      <option value='active'>Active</option>
+                      <option value='inactive'>Not Active</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

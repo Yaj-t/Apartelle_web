@@ -31,7 +31,7 @@ const RoomTypeForm = () => {
 
   const validationSchema = Yup.object().shape({
     typeName: Yup.string().required('Type Name is required'),
-    typeDescription: Yup.string().required('Type Description is required'),
+    typeDescription: Yup.string().required('Type Description is required')
   });
 
   const onSubmit = async values => {
@@ -39,7 +39,7 @@ const RoomTypeForm = () => {
       const response = await axios.put(
         `http://localhost:3001/roomType/${id}`,
         values,
-        {headers: { accessToken: sessionStorage.getItem('accessToken') }},
+        { headers: { accessToken: sessionStorage.getItem('accessToken') } }
       );
       console.log('Room Type Updated:', response.data);
       // Redirect or handle success message
@@ -52,7 +52,7 @@ const RoomTypeForm = () => {
   // If roomType is null (e.g., not fetched yet or creating new), set initialValues to empty
   const initialValues = roomType || {
     typeName: '',
-    typeDescription: '',
+    typeDescription: ''
   };
 
   return (
@@ -111,7 +111,10 @@ const RoomTypeForm = () => {
                         ) : null}
                       </div>
 
-                      <button type='submit' id={EditTypeCSS.formSaveButton}>
+                      <button
+                        type='submit'
+                        id={EditTypeCSS.formSaveButton}
+                        onClick={() => navigate('/admin/rooms/showRoomTypes')}>
                         SAVE
                       </button>
                     </div>

@@ -1,36 +1,37 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { requireAuth, authRole } = require('../middleware/authMiddleware');
-const { User } = require("../models");
+const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 
 // Fetch all users from the database
 router.get('/users', authRole(['ADMIN', 'Employee']), async (req, res) => {
   try {
-      const users = await User.findAll({
-          attributes: ['userId', 'firstName', 'lastName', 'email', 'userType', 'contactNumber'] // attributes to retrieve
-      });
-      
-      // Send the users as a response
-      res.status(200).json({
-          message: 'Users fetched successfully',
-          users: users
-      });
+    const users = await User.findAll();
+
+    // Send the users as a response
+    res.status(200).json({
+      message: 'Users fetched successfully',
+      users: users
+    });
   } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: 'Internal server error', error });
+    console.error(error);
+    res.status(500).send({ message: 'Internal server error', error });
   }
 });
 
 // Fetch a user based on user id
-router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res) => {
+router.get(
+  '/profile/:userId',
+  authRole(['ADMIN', 'Employee']),
+  async (req, res) => {
     try {
       const user = await User.findByPk(req.params.userId);
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
       }
-  
+
       res.status(200).json({
         message: 'User profile fetched successfully',
         user: {
@@ -40,51 +41,52 @@ router.get('/profile/:userId', authRole(['ADMIN', 'Employee']), async (req, res)
           email: user.email,
           userType: user.userType,
           contactNumber: user.contactNumber
-        },
+        }
       });
-    } catch (error) {
-        console.log(error)
-      res.status(500).send({ message: 'Internal server error' });
-    }
-  });
-
-// update a user based on user id
-router.put('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
-    try {
-      req.body.password = await bcrypt.hash(req.body.password, 10);
-      const user = await User.findByPk(req.params.userId);
-      if (!user) {
-        return res.status(404).send({ message: 'User not found' });
-      }
-  
-      await user.update(req.body);
-      res.status(200).send({ message: 'User updated successfully' });
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: 'Internal server error' });
     }
-  });
+  }
+);
+
+// update a user based on user id
+router.put('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
+  try {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    const user = await User.findByPk(req.params.userId);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    await user.update(req.body);
+    res.status(200).send({ message: 'User updated successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
 
 // delete a user based on user id
 router.delete('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
-    try {
-      const user = await User.findByPk(req.params.userId);
-      if (!user) {
-        return res.status(404).send({ message: 'User not found' });
-      }
-  
-      await user.destroy();
-      res.status(200).send({ message: 'User deleted successfully' });
-    } catch (error) {
-      res.status(500).send({ message: 'Internal server error' });
+  try {
+    const user = await User.findByPk(req.params.userId);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
     }
-  });
-  
+
+    await user.destroy();
+    res.status(200).send({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error' });
+  }
+});
+
 // fetch logged in user information
 router.get('/myprofile', requireAuth, async (req, res) => {
   try {
     const token = req.header('accessToken');
-    console.log(token)
+    console.log(token);
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
     const user = await User.findByPk(decodedToken.id);
 
@@ -135,7 +137,7 @@ router.put('/myprofile', requireAuth, async (req, res) => {
 // DELETE /myprofile - Delete own profile
 router.delete('/myprofile', requireAuth, async (req, res) => {
   try {
-    const token = req.header('accessToken')
+    const token = req.header('accessToken');
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
     const user = await User.findByPk(decodedToken.id);
 
@@ -150,6 +152,5 @@ router.delete('/myprofile', requireAuth, async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 });
-  
 
-module.exports = router
+module.exports = router;
