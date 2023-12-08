@@ -56,7 +56,7 @@
   color: rgb(6, 6, 6, 0.3);
 }
 
-#addRooms {
+#addRooms, #deleteRooms {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -104,4 +104,11 @@
   height: 15px;
   width: 15px;
   accent-color: #f57328;
+}
+
+#tableHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }

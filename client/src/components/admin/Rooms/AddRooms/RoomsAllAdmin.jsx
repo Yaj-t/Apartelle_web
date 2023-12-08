@@ -10,6 +10,12 @@ import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 function RoomsAllAdmin() {
   const [rooms, setRooms] = useState([]); // State to store room data
   const [roomTypes, setRoomTypes] = useState([]);
+  const [sortOrderRoomNumber, setSortOrderRoomNumber] = useState('original');
+  const [sortOrderRoomType, setSortOrderRoomType] = useState('original');
+  const [sortOrderCapacity, setSortOrderCapacity] = useState('original');
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -25,8 +31,8 @@ function RoomsAllAdmin() {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
       })
       .catch(error => {
+        setError('Error fetching room data');
         console.error('Error fetching room data:', error);
-        // Handle the error appropriately
       });
   }, []);
 
@@ -68,6 +74,131 @@ function RoomsAllAdmin() {
     navigate(url);
   };
 
+  const handleSortRoomNumber = () => {
+    setSortOrderRoomNumber(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const handleSortRoomType = () => {
+    setSortOrderRoomType(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const handleSortCapacity = () => {
+    setSortOrderCapacity(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const getSortedRooms = () => {
+    let sortedRooms = [...rooms];
+
+    // Apply search filter
+    if (searchQuery) {
+      sortedRooms = sortedRooms.filter(room => {
+        const searchableProperties = [
+          room.roomNumber,
+          getRoomTypeName(room.roomTypeId), // Room Type Name
+          room.description,
+          String(room.capacity) // Convert capacity to string for search
+        ];
+
+        // Check if any of the properties includes the search query
+        return searchableProperties
+          .map(property => property.toLowerCase())
+          .some(property => property.includes(searchQuery.toLowerCase()));
+      });
+    }
+
+    // Apply sorting
+    if (sortOrderRoomNumber !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderRoomNumber === 'asc' ? a.roomNumber : b.roomNumber;
+        const compareValueB =
+          sortOrderRoomNumber === 'asc' ? b.roomNumber : a.roomNumber;
+
+        return compareValueA.localeCompare(compareValueB);
+      });
+    }
+
+    if (sortOrderRoomType !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderRoomType === 'asc' ? a.roomTypeId : b.roomTypeId;
+        const compareValueB =
+          sortOrderRoomType === 'asc' ? b.roomTypeId : a.roomTypeId;
+
+        const roomTypeOrder = roomTypes.map(roomType => roomType.roomTypeId);
+
+        return (
+          roomTypeOrder.indexOf(compareValueA) -
+          roomTypeOrder.indexOf(compareValueB)
+        );
+      });
+    }
+
+    if (sortOrderCapacity !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderCapacity === 'asc' ? a.capacity : b.capacity;
+        const compareValueB =
+          sortOrderCapacity === 'asc' ? b.capacity : a.capacity;
+
+        return compareValueA - compareValueB;
+      });
+    }
+
+    return sortedRooms;
+  };
+
+  const handleCheckboxChange = roomId => {
+    setSelectedRooms(prevSelectedRooms => {
+      if (prevSelectedRooms.includes(roomId)) {
+        // Remove room from selection if already selected
+        return prevSelectedRooms.filter(id => id !== roomId);
+      } else {
+        // Add room to selection if not already selected
+        return [...prevSelectedRooms, roomId];
+      }
+    });
+  };
+
+  const handleBatchDelete = async () => {
+    try {
+      const deletePromises = selectedRooms.map(roomId => {
+        const url = `http://localhost:3001/room/${roomId}`;
+        return axios.delete(url, {
+          headers: { accessToken: sessionStorage.getItem('accessToken') }
+        });
+      });
+
+      await Promise.all(deletePromises);
+
+      // Update the front-end state after successful deletion
+      setRooms(prevRooms =>
+        prevRooms.filter(room => !selectedRooms.includes(room.roomId))
+      );
+
+      // Clear the selected rooms after deletion
+      setSelectedRooms([]);
+    } catch (error) {
+      // Handle error appropriately
+    }
+  };
+
+  const handleSearch = e => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -75,13 +206,22 @@ function RoomsAllAdmin() {
       <div className={RoomsAllCSS.roomContainer}>
         <div className={RoomsAllCSS.filterContainer}>
           <form action='' method='' className={RoomsAllCSS.searchBar}>
-            <input type='text' placeholder='Search...' />
-            <button className={RoomsAllCSS.searchBtn}>
-              <SearchIcon fontSize='small' />
-            </button>
+            <input
+              type='text'
+              placeholder='Search...'
+              value={searchQuery}
+              onChange={handleSearch}
+            />
           </form>
 
           <div className={RoomsAllCSS.btnContainer}>
+            <button
+              id={RoomsAllCSS.deleteRooms}
+              onClick={handleBatchDelete}
+              disabled={selectedRooms.length === 0}>
+              Delete Rooms
+            </button>
+
             <button
               id={RoomsAllCSS.addRooms}
               onClick={() => navigateAddRoom('addRooms')}>
@@ -97,19 +237,51 @@ function RoomsAllAdmin() {
                 <th>
                   <CheckBoxIcon fontSize='small' />
                 </th>
-                <th>Room Number</th>
-                <th>Room Type</th>
+                <th onClick={handleSortRoomNumber}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Room Number </p>
+                    <p>
+                      {sortOrderRoomNumber !== 'original' && (
+                        <span>{sortOrderRoomNumber === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
+                <th onClick={handleSortRoomType}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Room Type </p>
+                    <p>
+                      {sortOrderRoomType !== 'original' && (
+                        <span>{sortOrderRoomType === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
                 <th>Description</th>
-                <th>Capacity</th>
+                <th onClick={handleSortCapacity}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Capacity </p>
+                    <p>
+                      {sortOrderCapacity !== 'original' && (
+                        <span>{sortOrderCapacity === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {rooms.map(room => (
+              {getSortedRooms().map(room => (
                 <tr key={room.roomId}>
                   <td>
-                    <input type='checkbox' id={RoomsAllCSS.checkbox} />
+                    <input
+                      type='checkbox'
+                      id={RoomsAllCSS.checkbox}
+                      checked={selectedRooms.includes(room.roomId)}
+                      onChange={() => handleCheckboxChange(room.roomId)}
+                    />
                   </td>
                   <td>{room.roomNumber}</td>
                   <td>{getRoomTypeName(room.roomTypeId)}</td>

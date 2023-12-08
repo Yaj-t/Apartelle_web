@@ -85,6 +85,11 @@
   cursor: pointer;
 }
 
+.btnContainer {
+  display: flex;
+  gap: 10px;
+}
+
 #addRoomTypes {
   display: flex;
   align-items: center;
@@ -104,4 +109,10 @@
   height: 15px;
   width: 15px;
   accent-color: #f57328;
+}
+
+#tableHeader {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }

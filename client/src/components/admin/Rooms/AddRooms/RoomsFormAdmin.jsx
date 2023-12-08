@@ -69,7 +69,7 @@ function RoomsFormAdmin() {
     setAddSuccess(false);
 
     // Navigate to another module
-    let url = '/admin/rooms';
+    let url = '/admin/rooms/showAllRooms';
     console.log(url);
     navigate(url);
   };
@@ -77,8 +77,10 @@ function RoomsFormAdmin() {
   return (
     <div>
       <NavBarDashboard />
-      
-      <div id={RoomsFormCSS.backRooms} onClick={() => navigate('/admin/rooms/showAllRooms')}>
+
+      <div
+        id={RoomsFormCSS.backRooms}
+        onClick={() => navigate('/admin/rooms/showAllRooms')}>
         <ArrowBackIosNewIcon fontSize='small' />
         Back to Rooms
       </div>

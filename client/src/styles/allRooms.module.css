@@ -23,7 +23,7 @@
   gap: 10px;
 }
 
-.searchBar {
+.datePickers {
   width: 100%;
   max-width: 400px;
   height: 100%;
@@ -37,12 +37,12 @@
   backdrop-filter: blur(4px) saturate(180%);
 }
 
-.searchBar input {
+.datePickers input {
   background: transparent;
   flex: 1;
   border: 0;
   outline: none;
-  padding: 24px 20px;
+  padding: 24px 28px;
   font-size: 1rem;
   color: rgb(6, 6, 6, 1);
 }
