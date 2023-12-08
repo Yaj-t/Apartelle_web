@@ -35,7 +35,7 @@ const RoomDetails = () => {
   }
 
   if (!room) {
-    return <div>erro</div>;
+    return <div>error</div>;
   }
 
   return (
