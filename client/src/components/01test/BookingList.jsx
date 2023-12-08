@@ -14,7 +14,7 @@ const BookingsList = () => {
       try {
         const accessToken = sessionStorage.getItem('accessToken'); // Assuming the access token is stored in sessionStorage
         const response = await axios.get('http://localhost:3001/bookings/', {
-            headers: { accessToken: sessionStorage.getItem('accessToken') } 
+          headers: { accessToken: sessionStorage.getItem('accessToken') }
         });
         setBookings(response.data);
       } catch (err) {
@@ -33,14 +33,30 @@ const BookingsList = () => {
   return (
     <div>
       <h2>Booking List</h2>
-      <ul>
-        {bookings.map(booking => (
-          <li key={booking.bookingId}>
-            User ID: {booking.userId}, Room ID: {booking.roomId}, Start: {booking.dateStart}, End: {booking.dateEnd}, Amount: {booking.amount}
-            {/* Add more booking details as needed */}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Room ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Amount</th>
+            {/* Add more table headers for additional booking details */}
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map(booking => (
+            <tr key={booking.bookingId}>
+              <td>{booking.userId}</td>
+              <td>{booking.roomId}</td>
+              <td>{booking.dateStart}</td>
+              <td>{booking.dateEnd}</td>
+              <td>{booking.amount}</td>
+              {/* Add more table cells for additional booking details */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
