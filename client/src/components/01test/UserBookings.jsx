@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 function UserBookings() {
     const [bookings, setBookings] = useState([]);
@@ -102,7 +103,7 @@ function UserBookings() {
                     )}
                     {isPastBookingList && (
                         // Replace '/review' with the actual path where users can write reviews
-                        <button href={`/review/${booking.bookingId}`}>Write a Review</button>
+                        <Link to={`/review/${booking.bookingId}`}>Write a Review</Link>
                     )}
                 </li>
             ))}
