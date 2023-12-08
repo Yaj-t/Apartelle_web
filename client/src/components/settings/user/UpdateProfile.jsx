@@ -1,144 +1,193 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import Axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { Card } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import UserNavBar from '../../NavBars/UserNavBar';
-import SettingsSidebar from '../../NavBars/SettingsSidebar';
-import Footer from '../../Footer';
-import UserProfileEditCSS from '../../../styles/settings/userProfileEdit.module.css';
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import UserProfileEditCSS from "../../../styles/settings/userProfileEdit.module.css";
 
 const ProfileEditSchema = Yup.object().shape({
-  firstName: Yup.string().required('First Name is required'),
-  lastName: Yup.string().required('Last Name is required'),
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
   contactNumber: Yup.string()
-    .required('Contact Number is required')
-    .min(10, 'Must be at least 10 digits'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters'),
+    .required("Contact Number is required")
+    .min(10, "Must be at least 10 digits"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), ''], 'Passwords must match')
-    .when('password', (password, field) =>
-      password != '' ? field.required('Confirm Password is required') : field
-    )
+    .oneOf([Yup.ref("password"), ""], "Passwords must match")
+    .when("password", (password, field) =>
+      password != "" ? field.required("Confirm Password is required") : field
+    ),
 });
 
-
-const EditProfileForm = () => {
-  const [profile, setProfile] = useState(null);
+const EditProfileForm = ({ handleCloseModal }) => {
   const [initialValues, setInitialValues] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    contactNumber: '',
-    password: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    contactNumber: "",
+    password: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the current user profile data
-    Axios.get('http://localhost:3001/user/myprofile', {
-      headers: { accessToken: sessionStorage.getItem('accessToken') }
+    Axios.get("http://localhost:3001/user/myprofile", {
+      headers: { accessToken: sessionStorage.getItem("accessToken") },
     })
-      .then(response => {
+      .then((response) => {
+        const profileData = response.data.user;
         setInitialValues({
-          firstName: response.data.user.firstName,
-          lastName: response.data.user.lastName,
-          email: response.data.user.email,
-          contactNumber: response.data.user.contactNumber,
-          password: '',
-          confirmPassword: ''
+          firstName: profileData.firstName,
+          lastName: profileData.lastName,
+          email: profileData.email,
+          contactNumber: profileData.contactNumber,
+          password: "",
+          confirmPassword: "",
         });
       })
-      .catch(error => {
-        console.error('Error fetching profile data', error);
+      .catch((error) => {
+        console.error("Error fetching profile data", error);
       });
   }, []);
 
-  const handleSubmit = values => {
-    console.log('updating');
-    const requestData = {  
+  const handleSubmit = (values) => {
+    console.log("updating");
+    const requestData = {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
       contactNumber: values.contactNumber,
     };
-  
+
     if (values.password) {
       requestData.password = values.password;
     }
-  
-    Axios.put('http://localhost:3001/user/myprofile', requestData, {
-      headers: { accessToken: sessionStorage.getItem('accessToken') }
+
+    Axios.put("http://localhost:3001/user/myprofile", requestData, {
+      headers: { accessToken: sessionStorage.getItem("accessToken") },
     })
-      .then(response => {
-        console.log('Profile updated successfully');
-        navigate('/settings/manage-account/'); // Redirect to the profile page or another appropriate page
+      .then((response) => {
+        console.log("Profile updated successfully");
+        handleCloseModal();
+        navigate("/settings/manage-account/"); // Redirect to the profile page or another appropriate page
       })
-      .catch(error => {
-        console.error('Error updating profile', error);
+      .catch((error) => {
+        console.error("Error updating profile", error);
       });
   };
-  
 
   return (
-    <div>
-      <UserNavBar />
-      <div className={UserProfileEditCSS.profileContainer}>
-        <SettingsSidebar />
-
-        <div className={UserProfileEditCSS.userDetails}>
-          <div className={UserProfileEditCSS.userHeader}>
-            <h1>Profile Details</h1>
-            <h2>Update your personal information</h2>
-          </div>
-
-
-          <Formik
-            initialValues={initialValues}
-            validationSchema={ProfileEditSchema}
-            onSubmit={handleSubmit}
-            enableReinitialize // This is important to update the form when initialValues changes
-          >
-            <Form>
-              <Field name='firstName' type='text' placeholder='First Name' />
-              <ErrorMessage name='firstName' component='div' />
-
-              <Field name='lastName' type='text' placeholder='Last Name' />
-              <ErrorMessage name='lastName' component='div' />
-
-              <Field name='email' type='email' placeholder='Email' />
-              <ErrorMessage name='email' component='div' />
-
+    <Dialog
+      open
+      onClose={handleCloseModal}
+      classes={{
+        paper: `${UserProfileEditCSS.ModalLooks} ${UserProfileEditCSS.DialogContainer}`,
+      }}
+    >
+      <DialogTitle className={UserProfileEditCSS.Title}>
+        Update Profile
+      </DialogTitle>
+      <DialogContent className={UserProfileEditCSS.Content}>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={ProfileEditSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize // This is important to update the form when initialValues changes
+        >
+          <Form>
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="firstName">First Name</label>
               <Field
-                name='contactNumber'
-                type='text'
-                placeholder='Contact Number'
+                className={UserProfileEditCSS.Table}
+                name="firstName"
+                type="text"
               />
-              <ErrorMessage name='contactNumber' component='div' />
+              <ErrorMessage name="firstName" component="div" />
+            </div>
 
-              <Field name='password' type='text' placeholder='Password' />
-              <ErrorMessage name='password' component='div' />
-
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="lastName">Last Name</label>
               <Field
-                name='confirmPassword'
-                type='text'
-                placeholder='Confirm Password'
+                className={UserProfileEditCSS.Table}
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
               />
-              <ErrorMessage name='confirmPassword' component='div' />
+              <ErrorMessage name="lastName" component="div" />
+            </div>
 
-              <button type='submit'>Update Profile</button>
-            </Form>
-          </Formik>
-        </div>
-      </div>
-      <Footer />
-    </div>
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="Email">Email</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="email"
+                type="email"
+                placeholder="Email"
+              />
+              <ErrorMessage name="email" component="div" />
+            </div>
+
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="contactNumber">Contact Number</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="contactNumber"
+                type="text"
+                placeholder="Contact Number"
+              />
+              <ErrorMessage name="contactNumber" component="div" />
+            </div>
+
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="Password">Password</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="password"
+                type="text"
+                placeholder="Password"
+              />
+              <ErrorMessage name="password" component="div" />
+            </div>
+
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="ConfirmPassword">Confirm Password</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="confirmPassword"
+                type="text"
+                placeholder="Confirm Password"
+              />
+              <ErrorMessage name="confirmPassword" component="div" />
+            </div>
+
+            <div className={UserProfileEditCSS.bothButtons}>
+              <button
+                className={UserProfileEditCSS.changesButton}
+                type="submit"
+              >
+                Save Changes
+              </button>
+              <button
+                className={UserProfileEditCSS.changesButton}
+                type="button"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </button>
+            </div>
+          </Form>
+        </Formik>
+      </DialogContent>
+    </Dialog>
   );
 };
 

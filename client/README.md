@@ -1,4 +1,9 @@
 # Things I updated
+# things that bryce made
+
+1 I made a modal that pops out during the Edit Profile.
+
+There is a need to install something (npm install @mui/material @emotion/react @emotion/styled) which is for the modal.
 
 Global:
 
@@ -18,9 +23,8 @@ For Admins:
 - Added a Logout function on the Admin Navigation Sidebar
 - Added Alerts when adding a Room Type and also redirects to the Rooms Admin if added successfully
 - Fixed the style for Alerts when adding a Room and also redirects to the Rooms Admin if added successfully
-- Fixed the styling of the Room Forms Admin
+
 - Fixed the styling for the Room and Room Type Forms
-- Made the the Room admins into two buttons, manage room types and manage rooms
 
 # What to Fix
 
