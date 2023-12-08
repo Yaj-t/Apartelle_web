@@ -16,6 +16,8 @@ For Admins:
 - the filter headers of Room Types and Rooms are now available
 - Room and Room Types can now batch delete
 - Made the search bar functional in the rooms section
+- Downloaded date-fns library to display dates from database, so **npm i** it again
+- Fetched data from the database to the Personnel Admin
 
 # What to Fix
 
