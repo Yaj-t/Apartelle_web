@@ -116,55 +116,67 @@ function RoomsFormAdmin() {
                   <Form>
                     <div className={RoomsFormCSS.arrange}>
                       <div className={RoomsFormCSS.formRoom}>
-                        <div className={RoomsFormCSS.formInput}>
-                          <label htmlFor='roomTypeId'>Room Type</label>
-                          <Field as='select' name='roomTypeId'>
-                            <option value={-1}>Not Set</option>
-                            {roomTypes.map(roomType => (
-                              <option
-                                key={roomType.roomTypeId}
-                                value={roomType.roomTypeId}>
-                                {roomType.typeName}
-                              </option>
-                            ))}
-                          </Field>
-                          {formik.errors.roomTypeId && (
-                            <p className={RoomsFormCSS.error}>
-                              {formik.errors.roomTypeId}
-                            </p>
-                          )}
+                        <div className={RoomsFormCSS.formInputContainer}>
+                          <div className={RoomsFormCSS.formInput}>
+                            <label htmlFor='roomTypeId'>Room Type</label>
+                            <Field as='select' name='roomTypeId'>
+                              <option value={-1}>Not Set</option>
+                              {roomTypes.map(roomType => (
+                                <option
+                                  key={roomType.roomTypeId}
+                                  value={roomType.roomTypeId}>
+                                  {roomType.typeName}
+                                </option>
+                              ))}
+                            </Field>
+                            {formik.errors.roomTypeId && (
+                              <p className={RoomsFormCSS.error}>
+                                {formik.errors.roomTypeId}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className={RoomsFormCSS.formInput}>
+                            <label htmlFor='roomNumber'>Room Number</label>
+                            <Field type='text' name='roomNumber' />
+                            {formik.errors.roomNumber && (
+                              <p className={RoomsFormCSS.error}>
+                                {formik.errors.roomNumber}
+                              </p>
+                            )}
+                          </div>
                         </div>
 
-                        <div className={RoomsFormCSS.formInput}>
-                          <label htmlFor='price'>Price</label>
-                          <Field type='number' name='price' />
-                          {formik.errors.price && (
-                            <p className={RoomsFormCSS.error}>
-                              {formik.errors.price}
-                            </p>
-                          )}
-                        </div>
+                        <div className={RoomsFormCSS.formInputContainer}>
+                          <div className={RoomsFormCSS.formInput}>
+                            <label htmlFor='capacity'>Capacity</label>
+                            <Field
+                              type='number'
+                              name='capacity'
+                              placeholder='0'
+                              maxLength='2'
+                            />
+                            {formik.errors.capacity && (
+                              <p className={RoomsFormCSS.error}>
+                                {formik.errors.capacity}
+                              </p>
+                            )}
+                          </div>
 
-                        <div className={RoomsFormCSS.formInput}>
-                          <label htmlFor='roomNumber'>Room Number</label>
-                          <Field type='text' name='roomNumber' />
-                          {formik.errors.roomNumber && (
-                            <p className={RoomsFormCSS.error}>
-                              {formik.errors.roomNumber}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className={RoomsFormCSS.formRoom}>
-                        <div className={RoomsFormCSS.formInput}>
-                          <label htmlFor='capacity'>Capacity</label>
-                          <Field type='number' name='capacity' />
-                          {formik.errors.capacity && (
-                            <p className={RoomsFormCSS.error}>
-                              {formik.errors.capacity}
-                            </p>
-                          )}
+                          <div className={RoomsFormCSS.formInput}>
+                            <label htmlFor='price'>Price</label>
+                            <Field
+                              type='number'
+                              name='price'
+                              placeholder='0'
+                              maxLength='2'
+                            />
+                            {formik.errors.price && (
+                              <p className={RoomsFormCSS.error}>
+                                {formik.errors.price}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </div>
 
@@ -182,11 +194,9 @@ function RoomsFormAdmin() {
                             {formik.errors.description}
                           </p>
                         )}
-                        <input type='submit' />
-                        <button
-                          type='submit'
-                          style={{ backgroundColor: 'white' }}
-                        />
+                      </div>
+                      <div id={RoomsFormCSS.formBtn}>
+                        <input type='submit' value='SUBMIT' />
                       </div>
                     </div>
                   </Form>
