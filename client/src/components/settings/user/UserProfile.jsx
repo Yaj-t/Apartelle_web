@@ -9,8 +9,10 @@ import UserNavBar from "../../NavBars/UserNavBar";
 import SettingsSidebar from "../../NavBars/SettingsSidebar";
 import Footer from "../../Footer";
 import UserCSS from "../../../styles/settings/userProfile.module.css";
+import EditProfileForm from "./UpdateProfile";
 
 const ProfilePage = () => {
+  const [showEditModal, setShowEditModal] = useState(false);
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
@@ -31,6 +33,14 @@ const ProfilePage = () => {
 
     fetchProfile();
   }, []);
+
+  const handleEditProfileClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowEditModal(false);
+  };
 
   if (!profile) {
     return <div>Loading...</div>;
@@ -99,10 +109,18 @@ const ProfilePage = () => {
             </div>
           </div>
           <div id={UserCSS.editProfile}>
-            <Link to="update">
-              <button>Edit Profile</button>
-            </Link>
+            <button onClick={handleEditProfileClick}>Edit Profile</button>
           </div>
+          {showEditModal && (
+            <div className="modal">
+              <div className="modal-content">
+                <span className="close" onClick={handleCloseModal}>
+                  &times;
+                </span>
+                <EditProfileForm handleCloseModal={handleCloseModal} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
