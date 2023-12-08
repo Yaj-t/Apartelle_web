@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Booking, User, Room } = require("../models");
 const { requireAuth, authRole } = require('../middleware/authMiddleware');
+const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 
 // Get all bookings
 router.get('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
@@ -74,18 +76,56 @@ router.get('/room/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
 // Create a new booking
 router.post('/', requireAuth, async (req, res) => {
   try {
+    const token = req.header("accessToken")
+
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
-    const userId = decodedToken.userId;
+    const userId = decodedToken.id;
 
     const bookingData = req.body;
     bookingData.userId = userId;
 
+    // Check if the room is available in the given date range
+    const conflictingBookings = await Booking.findAll({
+      where: {
+        roomId: bookingData.roomId,
+        [Op.and]: [
+          { dateStart: { [Op.lte]: bookingData.dateEnd } },
+          { dateEnd: { [Op.gte]: bookingData.dateStart } }
+        ],
+        isCancelled: false
+      }
+      
+    });
+
+    if (conflictingBookings && conflictingBookings.length > 0) {
+      return res.status(400).send({ message: 'Room is not available for the selected dates' });
+    }
+
+    // Fetch the room price
+    const room = await Room.findByPk(bookingData.roomId);
+    if (!room) {
+      return res.status(404).send({ message: 'Room not found' });
+    }
+
+    // Calculate the number of days
+    const startDate = new Date(bookingData.dateStart);
+    const endDate = new Date(bookingData.dateEnd);
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Calculate the amount
+    bookingData.amount = room.price * diffDays;
+
+    // Create the booking
     const booking = await Booking.create(bookingData);
-    res.status(201).json(booking);
+    res.status(201).json({message: 'booking successful', booking});
   } catch (error) {
+    console.error('Error creating booking:', error);
     res.status(500).send({ message: 'Error creating booking', error });
   }
 });
+
+
 
 
 // Get the users bookings

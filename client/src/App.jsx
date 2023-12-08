@@ -24,56 +24,60 @@ import AccountSettings from './components/settings/AccountSettings';
 import Security from './components/settings/SecuritySettings';
 import ReservationsSettings from './components/settings/ReservationsSettings';
 import PersonalDetails from './PersonalDetails';
-// import RoomDetail from './components/01test/RoomDetail'
+// import RoomDetail from './components/01test/RoomDetail
+import ProtectedRoutes from './components/ProtectedRoute';
+import UnauthorizeError from './components/errorpages/UnauthorizeError';
+import AvailableRooms from './components/01test/AvailableRooms';
+import BookRoom from './components/01test/BookRoom';
+
 
 function App() {
   return (
     <>
-      {/* <Routes>
-        <Route path='/room/:roomId' element={<RoomDetail/>}></Route>
-      </Routes> */}
+      <Routes>
+        <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
+        <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
+      </Routes>
+      
+
+     
+
       {/* For the admin index modules */}
       <Routes>
-        <Route path='/admin' element={<MainPageAdmin />} />
-        <Route path='/admin/reservation' element={<ReservationAdmin />} />
-        <Route path='/admin/rooms' element={<RoomsAdmin />} />
-        <Route path='/admin/personnel' element={<PersonnelsAdmin />} />
-      </Routes>
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/admin' element={<MainPageAdmin />} />
+          <Route path='/admin/reservation' element={<ReservationAdmin />} />
+          <Route path='/admin/rooms' element={<RoomsAdmin />} />
+          <Route path='/admin/personnel' element={<PersonnelsAdmin />} />
 
-      {/* For the admin room type modules */}
-      <Routes>
-        <Route
-          path='admin/rooms/showRoomTypes/editRoomType/:id'
-          element={<EditRoomType />}
-        />
-        <Route path='admin/rooms/addRoomType' element={<RoomTypeForm />} />
-        <Route path='admin/rooms/showRoomTypes' element={<RoomTypes />} />
-      </Routes>
+          {/* For the admin room type modules */}
+          <Route
+            path='/admin/rooms/showRoomTypes/editRoomType/:id'
+            element={<EditRoomType />}
+          />
+          <Route path='/admin/rooms/addRoomType' element={<RoomTypeForm />} />
+          <Route path='/admin/rooms/showRoomTypes' element={<RoomTypes />} />
 
-      {/* For the admin rooms modules */}
-      <Routes>
-        <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />
-        <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin />} />
-        <Route
-          path='/admin/rooms/showAllRooms/roomDetails'
-          element={<RoomsDetailsAdmin />}
-        />
-      </Routes>
+          {/* For the admin rooms modules */}
+          <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />
+          <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin />} />
+          <Route
+            path='/admin/rooms/showAllRooms/roomDetails'
+            element={<RoomsDetailsAdmin />}
+          />
 
-      {/* For the admin reservation modules */}
-      <Routes>
-        <Route
-          path='/admin/reservation/details'
-          element={<ReservationDetails />}
-        />
-      </Routes>
+          {/* For the admin reservation modules */}
+          <Route
+            path='/admin/reservation/details'
+            element={<ReservationDetails />}
+          />
 
-      {/* For the admin personnel modules */}
-      <Routes>
-        <Route
-          path='/admin/personnel/personnelDetails'
-          element={<PersonnelDetailsAdmin />}
-        />
+          {/* For the admin personnel modules */}
+          <Route
+            path='/admin/personnel/personnelDetails'
+            element={<PersonnelDetailsAdmin />}
+          />
+        </Route>
       </Routes>
 
       {/* For the user modules */}
@@ -81,6 +85,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='/allRooms' element={<AllRooms />} />
         <Route path='/roomDetails/:roomId' element={<RoomDetails />} />
+        
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
@@ -99,6 +104,10 @@ function App() {
           path='/settings/reservation'
           element={<ReservationsSettings />}
         />
+      </Routes>
+
+      <Routes>
+        <Route path='/unauthorized' element={<UnauthorizeError />} />
       </Routes>
 
       {/* For the user profile modules */}

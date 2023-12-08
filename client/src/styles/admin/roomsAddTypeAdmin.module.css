@@ -75,13 +75,17 @@
 }
 
 #formButton {
+  margin: 4px 2px;
+  padding: 15px 45px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-weight: bolder;
+  text-decoration: none;
   background-color: white;
+  color: black;
   border: none;
   border-radius: 100px;
-  color: black;
-
-  text-decoration: none;
-  margin: 4px 2px;
   cursor: pointer;
+  appearance: none;
 }

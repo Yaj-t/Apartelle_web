@@ -48,8 +48,8 @@ h3 {
   padding: 50px;
 }
 
-.formRoom input[type="button"],
-.formInputAbout input[type="button"] {
+.formRoom input[type='button'],
+.formInputAbout input[type='button'] {
   font-weight: bolder;
   background-color: white;
   border: none;
@@ -59,6 +59,16 @@ h3 {
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.formRoom select {
+  padding: 6px 32px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.formRoom option{
+  background-color: #fff4cf;
 }
 
 .cardDetails {

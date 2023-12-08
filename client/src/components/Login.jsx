@@ -24,11 +24,20 @@ const Login = () => {
       .post('http://localhost:3001/auth/login', values)
       .then(response => {
         console.log('Login successful:', response.data);
-        sessionStorage.setItem("accessToken", response.data.accessToken)
-        sessionStorage.setItem("userType", response.data.userType)
+        sessionStorage.setItem('accessToken', response.data.accessToken);
+        sessionStorage.setItem('userType', response.data.userType);
+        const userType = sessionStorage.getItem('userType');
+        console.log('User Type after login:', userType);
 
-        // Handle successful login here 
         let url = '/';
+
+        // Handle successful login here
+        if (userType === 'ADMIN') {
+          url = '/admin';
+          console.log(url);
+          // navigate(url);
+        }
+
         console.log(url);
         navigate(url);
       })
