@@ -29,12 +29,17 @@ import ProtectedRoutes from './components/ProtectedRoute';
 import UnauthorizeError from './components/errorpages/UnauthorizeError';
 import AvailableRooms from './components/01test/AvailableRooms';
 import BookRoom from './components/01test/BookRoom';
-
+import AddReview from './components/01test/AddReview';
+import UserBoookings from './components/01test/UserBookings'
+import UserReviews from './components/01test/UserReviews'
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
+        <Route path='/user-bookings' element={<UserBoookings/>} />
+        <Route path='/addReview/:bookingIdParam' element={<AddReview/>}/>
         <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
         <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
       </Routes>
