@@ -84,7 +84,6 @@ function PersonnelsAdmin() {
                 <th> Email </th>
                 <th> Contact Number </th>
                 <th> Date Created </th>
-                <th> Last Login </th>
                 <th> Status </th>
                 {/* <th> </th> */}
               </tr>
@@ -107,7 +106,6 @@ function PersonnelsAdmin() {
                       ? format(new Date(user.createdAt), 'MM/dd/yyyy HH:mm:ss')
                       : 'Invalid Date'}
                   </td>
-                  <td> Last Login</td>
                   <td>
                     <select
                       value={selectedStatus[user.userId]}
