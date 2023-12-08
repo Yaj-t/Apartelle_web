@@ -28,7 +28,7 @@ function index() {
       .get('http://localhost:3001/room/')
       .then(response => {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch(error => {
         console.error('Error fetching room data:', error);
@@ -83,9 +83,7 @@ function index() {
           <div className={indexCSS.roomCarousel}>
             <Slider {...settings}>
               {rooms.map(room => (
-                <Link
-                  to={`/roomDetails/${room.roomId}`}
-                  key={room.id}>
+                <Link to={`/roomDetails/${room.roomId}`} key={room.id}>
                   <Card sx={{ width: 280 }}>
                     <CardMedia
                       sx={{ height: 240 }}
@@ -104,56 +102,6 @@ function index() {
         </div>
       </div>
 
-      <div className={indexCSS.roomsContainer}>
-        <div className={indexCSS.listContainer}>
-          <h1>
-            Top Rated <br /> Rooms
-          </h1>
-          <hr className={indexCSS.hr} />
-
-          <div className={indexCSS.cardContainer}>
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment</p>
-              <p>100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image='src/assets/Room_Picture.jpg'
-                title='room picture'
-              />
-              <p> Well Furnished Apartment </p>
-              <p> 100 Small Street, LA, USA</p>
-            </Card>
-          </div>
-        </div>
-      </div>
       <div className={indexCSS.otherContainer}>
         <div className={indexCSS.discoverContainer}>
           <div className={indexCSS.listContainer}>
