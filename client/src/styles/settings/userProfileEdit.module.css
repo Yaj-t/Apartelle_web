@@ -145,9 +145,8 @@
   font-size: 0.8em;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease; /* Add transition for smooth animation */
+  transition: all 0.3s ease; 
 
-  /* Additional styles for hover state */
   &:hover {
     background-color: black;
     color: white;

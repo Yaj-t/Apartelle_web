@@ -33,8 +33,9 @@
     justify-content: space-between; /* Adjust as needed */
   }
   .room-details{
-
+margin: 0px;
   }
+
   .details{
     display: flex;
     justify-content: space-evenly;
@@ -52,15 +53,6 @@
     margin: 0px;
   }
 
-  /* .picture-size{
-    width: 50%; 
-    height: 50%;
-  } */
-  /* .img-holder{
-    width: 20%; 
-  height: 50%; 
-  
-  } */
 .button-pos{
     display: flex;
   align-items: center; /* Vertically center items */
@@ -89,8 +81,9 @@
 .button2 {
   background-color: #F57328;
 }
+
 .button-pos{
-    display: flex;
+  display: flex;
   align-items: center; /* Vertically center items */
   justify-content: space-between; /* Adjust as needed */
   flex-direction: column;
@@ -98,8 +91,98 @@
 }
 
 .card-container{
-    display: flex;
-    justify-content: space-between;
-    gap: 0px;
-    width: 950px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.room-picture{
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.DialogTitle {
+  text-align: center;
+  font-weight: bold;
+  background-color: #F57328;
+  color: white;
+  font-family: 'Monserrat';
+}
+
+.dialogContent {
+  padding: 20px;
+  background-color: #F57328;
+  font-family: 'Montserrat';
+  color: white;
+  text-align: center;
+}
+
+.modalText {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-family: 'Montserrat';
+}
+
+.dialogActions {
+  justify-content: center;
+  padding: 20px;
+  background-color: #F57328;
+}
+
+
+.bothModalButtons{
+  padding: 5px;
+  background-color: #F57328;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modalButton1{
+  margin: 10px;
+  display: center;
+  gap: 5px;
+  appearance: none;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  font-size: 0.8em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease; 
+
+  &:hover {
+    background-color: #ccc;
+    color: black;
+  }
+}
+
+.modalButton2{
+    margin: 10px;
+    display: center;
+    gap: 5px;
+    appearance: none;
+    background-color: #FF0000;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+  
+    &:hover {
+      background-color: black;
+      color: white;
+    }
 }
