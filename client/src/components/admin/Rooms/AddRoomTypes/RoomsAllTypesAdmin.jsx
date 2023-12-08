@@ -9,6 +9,8 @@ import AllTypesCSS from '../../../../styles/admin/roomsAllTypesAdmin.module.css'
 const RoomTypes = () => {
   const [roomTypes, setRoomTypes] = useState([]);
   const [error, setError] = useState('');
+  const [sortOrder, setSortOrder] = useState(' '); // 'asc' for ascending, 'desc' for descending, 'original' for original order
+  const [sortedColumn, setSortedColumn] = useState(null);
 
   let navigate = useNavigate();
 
@@ -51,6 +53,40 @@ const RoomTypes = () => {
     navigate(url);
   };
 
+  const handleSort = () => {
+    // If sortOrder is 'asc', change it to 'desc'
+    // If sortOrder is 'desc', change it to 'original' (no sorting)
+    // If sortOrder is 'original', change it to 'asc'
+    setSortOrder(prevSortOrder =>
+      prevSortOrder === 'asc'
+        ? 'desc'
+        : prevSortOrder === 'desc'
+        ? 'original'
+        : 'asc'
+    );
+  };
+
+  const getSortedRoomTypes = () => {
+    let sortedRoomTypes = [...roomTypes];
+
+    if (sortOrder !== 'original') {
+      sortedRoomTypes.sort((a, b) => {
+        const compareValueA = a.typeName.toLowerCase();
+        const compareValueB = b.typeName.toLowerCase();
+
+        if (compareValueA < compareValueB) {
+          return sortOrder === 'asc' ? -1 : 1;
+        }
+        if (compareValueA > compareValueB) {
+          return sortOrder === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    return sortedRoomTypes;
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -83,14 +119,29 @@ const RoomTypes = () => {
                 <th>
                   <CheckBoxIcon fontSize='small' />
                 </th>
-                <th>Type Name</th>
+                <th onClick={handleSort}>
+                  <div id={AllTypesCSS.tableHeader}>
+                    <p>Type Name </p>
+                    <p>
+                      {sortOrder !== 'original' && (
+                        <span>
+                          {sortOrder === 'asc'
+                            ? '▲'
+                            : sortOrder === 'desc'
+                            ? '▼'
+                            : ''}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </th>
                 <th>Description</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {roomTypes.map(roomType => (
+              {getSortedRoomTypes().map(roomType => (
                 <tr key={roomType.roomTypeId}>
                   <td>
                     <input type='checkbox' id={AllTypesCSS.checkbox} />

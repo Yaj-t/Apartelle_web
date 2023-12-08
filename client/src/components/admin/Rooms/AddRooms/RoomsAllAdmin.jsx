@@ -10,6 +10,10 @@ import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 function RoomsAllAdmin() {
   const [rooms, setRooms] = useState([]); // State to store room data
   const [roomTypes, setRoomTypes] = useState([]);
+  const [sortOrderRoomNumber, setSortOrderRoomNumber] = useState('original');
+  const [sortOrderRoomType, setSortOrderRoomType] = useState('original');
+  const [sortOrderCapacity, setSortOrderCapacity] = useState('original');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -25,8 +29,8 @@ function RoomsAllAdmin() {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
       })
       .catch(error => {
+        setError('Error fetching room data');
         console.error('Error fetching room data:', error);
-        // Handle the error appropriately
       });
   }, []);
 
@@ -68,6 +72,74 @@ function RoomsAllAdmin() {
     navigate(url);
   };
 
+  const handleSortRoomNumber = () => {
+    setSortOrderRoomNumber(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const handleSortRoomType = () => {
+    setSortOrderRoomType(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const handleSortCapacity = () => {
+    setSortOrderCapacity(prevSortOrder => {
+      if (prevSortOrder === 'asc') return 'desc';
+      if (prevSortOrder === 'desc') return 'original';
+      return 'asc';
+    });
+  };
+
+  const getSortedRooms = () => {
+    let sortedRooms = [...rooms];
+
+    if (sortOrderRoomNumber !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderRoomNumber === 'asc' ? a.roomNumber : b.roomNumber;
+        const compareValueB =
+          sortOrderRoomNumber === 'asc' ? b.roomNumber : a.roomNumber;
+
+        return compareValueA.localeCompare(compareValueB);
+      });
+    }
+
+    if (sortOrderRoomType !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderRoomType === 'asc' ? a.roomTypeId : b.roomTypeId;
+        const compareValueB =
+          sortOrderRoomType === 'asc' ? b.roomTypeId : a.roomTypeId;
+
+        const roomTypeOrder = roomTypes.map(roomType => roomType.roomTypeId);
+
+        return (
+          roomTypeOrder.indexOf(compareValueA) -
+          roomTypeOrder.indexOf(compareValueB)
+        );
+      });
+    }
+
+    if (sortOrderCapacity !== 'original') {
+      sortedRooms.sort((a, b) => {
+        const compareValueA =
+          sortOrderCapacity === 'asc' ? a.capacity : b.capacity;
+        const compareValueB =
+          sortOrderCapacity === 'asc' ? b.capacity : a.capacity;
+
+        return compareValueA - compareValueB;
+      });
+    }
+
+    return sortedRooms;
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -82,6 +154,8 @@ function RoomsAllAdmin() {
           </form>
 
           <div className={RoomsAllCSS.btnContainer}>
+            <button id={RoomsAllCSS.deleteRooms}>Delete Rooms</button>
+
             <button
               id={RoomsAllCSS.addRooms}
               onClick={() => navigateAddRoom('addRooms')}>
@@ -97,16 +171,43 @@ function RoomsAllAdmin() {
                 <th>
                   <CheckBoxIcon fontSize='small' />
                 </th>
-                <th>Room Number</th>
-                <th>Room Type</th>
+                <th onClick={handleSortRoomNumber}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Room Number </p>
+                    <p>
+                      {sortOrderRoomNumber !== 'original' && (
+                        <span>{sortOrderRoomNumber === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
+                <th onClick={handleSortRoomType}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Room Type </p>
+                    <p>
+                      {sortOrderRoomType !== 'original' && (
+                        <span>{sortOrderRoomType === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
                 <th>Description</th>
-                <th>Capacity</th>
+                <th onClick={handleSortCapacity}>
+                  <div id={RoomsAllCSS.tableHeader}>
+                    <p>Capacity </p>
+                    <p>
+                      {sortOrderCapacity !== 'original' && (
+                        <span>{sortOrderCapacity === 'asc' ? '▲' : '▼'}</span>
+                      )}
+                    </p>
+                  </div>
+                </th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {rooms.map(room => (
+              {getSortedRooms().map(room => (
                 <tr key={room.roomId}>
                   <td>
                     <input type='checkbox' id={RoomsAllCSS.checkbox} />

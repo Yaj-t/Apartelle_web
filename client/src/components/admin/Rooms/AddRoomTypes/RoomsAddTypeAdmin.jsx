@@ -50,7 +50,7 @@ const RoomTypeForm = () => {
     setAddSuccess(false);
 
     // Navigate to another module
-    let url = '/admin/rooms';
+    let url = '/admin/rooms/showRoomTypes';
     console.log(url);
     navigate(url);
   };

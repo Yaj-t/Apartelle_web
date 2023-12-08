@@ -105,3 +105,9 @@
   width: 15px;
   accent-color: #f57328;
 }
+
+#tableHeader {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
