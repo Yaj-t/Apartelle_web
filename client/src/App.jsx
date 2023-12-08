@@ -39,6 +39,17 @@ function App() {
   return (
     <>
       <Routes>
+
+        <Route
+          path="/available-rooms"
+          element={<AvailableRooms></AvailableRooms>}
+        />
+        <Route
+          path="/book-room/:roomId"
+          element={<BookRoom></BookRoom>}
+        ></Route>
+        <Route path="/user-bookings" element={<UserBookings></UserBookings>} />
+
         <Route path='/booking-list' element={<BookingsList/>}></Route>
         <Route path="/update-review/:reviewIdParam" element={<UpdateReview/>} />
         <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
@@ -46,30 +57,33 @@ function App() {
         <Route path='/addReview/:bookingIdParam' element={<AddReview/>}/>
         <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
         <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
-      </Routes>
-      
 
-     
+      </Routes>
 
       {/* For the admin index modules */}
       <Routes>
         <Route element={<ProtectedRoutes />}>
-          <Route path='/admin' element={<MainPageAdmin />} />
-          <Route path='/admin/reservation' element={<ReservationAdmin />} />
-          <Route path='/admin/rooms' element={<RoomsAdmin />} />
-          <Route path='/admin/personnel' element={<PersonnelsAdmin />} />
+          <Route path="/admin" element={<MainPageAdmin />} />
+          <Route path="/admin/reservation" element={<ReservationAdmin />} />
+          <Route path="/admin/rooms" element={<RoomsAdmin />} />
+          <Route path="/admin/personnel" element={<PersonnelsAdmin />} />
 
           {/* For the admin room type modules */}
           <Route
-            path='/admin/rooms/showRoomTypes/editRoomType/:id'
+            path="/admin/rooms/showRoomTypes/editRoomType/:id"
             element={<EditRoomType />}
           />
-          <Route path='/admin/rooms/addRoomType' element={<RoomTypeForm />} />
-          <Route path='/admin/rooms/showRoomTypes' element={<RoomTypes />} />
+          <Route path="/admin/rooms/addRoomType" element={<RoomTypeForm />} />
+          <Route path="/admin/rooms/showRoomTypes" element={<RoomTypes />} />
 
           {/* For the admin rooms modules */}
-          <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />
-          <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin />} />
+          <Route path="/admin/rooms/addRooms" element={<RoomsFormAdmin />} />
+          <Route path="/admin/rooms/showAllRooms" element={<RoomsAllAdmin />} />
+          <Route
+
+            path="/admin/rooms/showAllRooms/roomDetails"
+            element={<RoomsDetailsAdmin />} 
+          />
           <Route
             path='/admin/rooms/showAllRooms/editRoom/:id'
             element={<RoomsEditDetailsAdmin />}
@@ -77,13 +91,13 @@ function App() {
 
           {/* For the admin reservation modules */}
           <Route
-            path='/admin/reservation/details'
+            path="/admin/reservation/details"
             element={<ReservationDetails />}
           />
 
           {/* For the admin personnel modules */}
           <Route
-            path='/admin/personnel/personnelDetails'
+            path="/admin/personnel/personnelDetails"
             element={<PersonnelDetailsAdmin />}
           />
         </Route>
@@ -91,32 +105,32 @@ function App() {
 
       {/* For the user modules */}
       <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/allRooms' element={<AllRooms />} />
-        <Route path='/roomDetails/:roomId' element={<RoomDetails />} />
-        
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/allRooms" element={<AllRooms />} />
+        <Route path="/roomDetails/:roomId" element={<RoomDetails />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
 
       {/* For the settings module */}
       <Routes>
-        <Route path='/settings' element={<AccountSettings />} />
-        <Route path='/settings/security' element={<Security />} />
-        <Route path='/settings/manage-account' element={<UserProfile />} />
+        <Route path="/settings" element={<AccountSettings />} />
+        <Route path="/settings/security" element={<Security />} />
+        <Route path="/settings/manage-account" element={<UserProfile />} />
         <Route
-          path='/settings/manage-account/update'
+          path="/settings/manage-account/update"
           element={<UpdateUserProfile />}
         />
         {/* userprofile in progress*/}
         <Route
-          path='/settings/reservation'
+          path="/settings/reservation"
           element={<ReservationsSettings />}
         />
       </Routes>
 
       <Routes>
-        <Route path='/unauthorized' element={<UnauthorizeError />} />
+        <Route path="/unauthorized" element={<UnauthorizeError />} />
       </Routes>
 
       {/* For the user profile modules */}
