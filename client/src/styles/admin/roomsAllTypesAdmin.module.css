@@ -1,5 +1,58 @@
 .tableContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 50px 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 200px;
+}
+
+.tableHeaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.roomTableContainer {
+  margin: 50px 50px;
+}
+
+.roomTableContainer td,
+.roomTableContainer th {
+  border-bottom: 1px solid #ddd;
+  padding: 30px;
+  text-align: center;
+  align-items: center;
+}
+
+.roomTableButtons button {
+  margin: 5px 5px;
+  width: 100px;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 24px;
+  border: none;
+  padding: 8px 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#addRoomTypes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  appearance: none;
+  background-color: #f57328;
+  color: white;
+  border-radius: 24px;
+  border: none;
+  padding: 8px 25px;
+  box-sizing: border-box;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#checkbox {
+  height: 15px;
+  width: 15px;
+  accent-color: #f57328;
 }

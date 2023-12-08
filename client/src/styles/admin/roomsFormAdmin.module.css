@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 10px 50px;
 }
 
 .formHeader {
@@ -18,9 +18,13 @@ h3 {
   padding: 0px;
 }
 
-.formDetails {
+.arrange {
+  padding: 50px;
+  color: white;
+  background-color: #f57328;
   display: flex;
   flex-direction: column;
+  gap: 10px 0px;
 }
 
 .formRoom {
@@ -28,15 +32,19 @@ h3 {
   gap: 30px;
 }
 
-.formInput,
-.formInputAbout {
+.formInputContainer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
-.formInput input,
-.formInputAbout input {
+.formInput {
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+}
+
+.formInput input {
   border-radius: 5px;
   border: 0;
   outline: none;
@@ -44,31 +52,51 @@ h3 {
   font-size: 1rem;
 }
 
-.formInputAbout input {
-  padding: 50px;
+.formInput input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
-.formRoom input[type='button'],
-.formInputAbout input[type='button'] {
+.formInput select {
+  border-radius: 5px;
+  border: 0;
+  outline: none;
+  padding: 6px 10px;
+  /* font-size: 1rem; */
+}
+
+.formInput option {
+  background-color: #fff4cf;
+}
+
+.formInputAbout textarea {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 0;
+  outline: none;
+  padding: 10px 10px;
+  font-size: 1rem;
+  width: calc(100% - 20px);
+}
+
+#formBtn {
+  display: flex;
+  justify-content: center;
+}
+
+#formBtn input[type='submit'] {
   font-weight: bolder;
   background-color: white;
   border: none;
   border-radius: 100px;
   color: black;
-  padding: 16px 32px;
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
-}
-
-.formRoom select {
-  padding: 6px 32px;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.formRoom option{
-  background-color: #fff4cf;
+  appearance: none;
+  padding: 15px 45px;
+  box-sizing: border-box;
+  font-size: 1em;
 }
 
 .cardDetails {
@@ -79,11 +107,11 @@ h3 {
   flex-direction: column;
 }
 
-.arrange {
-  padding: 50px;
-  color: white;
-  background-color: #f57328;
+#backRooms {
   display: flex;
-  flex-direction: column;
-  gap: 10px 0px;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10vh;
+  padding: 5vh 10vh;
+  cursor: pointer;
 }

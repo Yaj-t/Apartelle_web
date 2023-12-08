@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   gap: 70px;
-  padding: 150px 100px 0px 200px;
+  padding: 170px 100px 0px 200px;
 }
 
 .buttonContainer button {
@@ -12,8 +12,8 @@
   align-items: center;
   justify-content: center;
   width: 500px;
-  height: 200px;
-  font-size: 2rem;
+  height: 400px;
+  font-size: 3rem;
   background-color: #f57328;
   color: white;
   border-radius: 30px;
