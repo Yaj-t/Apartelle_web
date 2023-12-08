@@ -86,6 +86,9 @@ const ProfilePage = () => {
           <div id={UserCSS.editProfile}>
             <button onClick={handleEditProfileClick}>Edit Profile</button>
           </div>
+          <div id={UserCSS.deleteAccount}>
+            <button onClick={handleEditProfileClick}>Delete Account</button>
+          </div>
           {showEditModal && (
             <div className="modal">
               <div className="modal-content">
