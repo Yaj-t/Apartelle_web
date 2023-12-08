@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Card, Alert, AlertTitle } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import axios from 'axios';
 import * as Yup from 'yup';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
@@ -57,6 +58,11 @@ const RoomTypeForm = () => {
   return (
     <div>
       <NavBarDashboard />
+
+      <div id={AddTypeCSS.backRooms} onClick={() => navigate('/admin/rooms/showRoomTypes')}>
+        <ArrowBackIosNewIcon fontSize='small' />
+        Back to Rooms
+      </div>
 
       <div className={AddTypeCSS.addContainer}>
         <div className={AddTypeCSS.cardContainer}>

@@ -1,0 +1,16 @@
+.date-box{
+  height:25px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid ;
+  
+}
+.button{
+  background-color: #F57328;
+  border-radius: 5px;
+  height: 35px;
+  border: 0px;
+}
+.Namedate{
+  margin-top: 100px;
+}

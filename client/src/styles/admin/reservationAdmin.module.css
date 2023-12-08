@@ -83,7 +83,7 @@
 }
 
 .reservationTable td,
-th {
+.reservationTable th {
   border-bottom: 1px solid #ddd;
   padding: 30px;
   text-align: center;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import AllTypesCSS from '../../../../styles/admin/roomsAllTypesAdmin.module.css';
 
@@ -9,6 +10,10 @@ const RoomTypes = () => {
   const [error, setError] = useState('');
 
   let navigate = useNavigate();
+
+  const navigatePath = path => {
+    navigate(`/admin/rooms/${path}`, { replace: true });
+  };
 
   useEffect(() => {
     fetchRoomTypes();
@@ -24,21 +29,23 @@ const RoomTypes = () => {
     }
   };
 
-  const handleDelete = async roomTypeID => {
-    console.log('Delete Room Type:', roomTypeID);
+  const handleDelete = async roomTypeId => {
+    console.log('Delete Room Type:', roomTypeId);
     try {
-      const url = `http://localhost:3001/roomType/${roomTypeID}`;
-      const response = await axios.delete(url, {headers: { accessToken: sessionStorage.getItem('accessToken') }},);
+      const url = `http://localhost:3001/roomType/${roomTypeId}`;
+      const response = await axios.delete(url, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') }
+      });
       setRoomTypes(prevRoomTypes =>
-        prevRoomTypes.filter(rt => rt.roomTypeID !== roomTypeID)
+        prevRoomTypes.filter(rt => rt.roomTypeId !== roomTypeId)
       );
     } catch (error) {}
   };
 
-  const handleEdit = roomTypeID => {
-    console.log('Edit Room Type:', roomTypeID);
+  const handleEdit = roomTypeId => {
+    console.log('Edit Room Type:', roomTypeId);
     let currentpath = window.location.pathname;
-    const url = `${currentpath}/editRoomType/${roomTypeID}`;
+    const url = `${currentpath}/editRoomType/${roomTypeId}`;
     console.log(url);
     navigate(url);
   };
@@ -48,33 +55,54 @@ const RoomTypes = () => {
       <NavBarDashboard />
 
       <div className={AllTypesCSS.tableContainer}>
-        <h1>Room Types</h1>
-        {error && <p>{error}</p>}
-        <table>
-          <thead>
-            <tr>
-              <th>Type Name</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {roomTypes.map(roomType => (
-              <tr key={roomType.roomTypeID}>
-                <td>{roomType.typeName}</td>
-                <td>{roomType.typeDescription}</td>   
-                <td>
-                  <button onClick={() => handleEdit(roomType.roomTypeID)}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(roomType.roomTypeID)}>
-                    Delete
-                  </button>
-                </td>
+        <div className={AllTypesCSS.tableHeaderContainer}>
+          <div className={AllTypesCSS.tableHeader}>
+            <h1>Room Types</h1>
+            {error && <p>{error}</p>}
+          </div>
+
+          <div className={AllTypesCSS.tableHeader}>
+            <button
+              id={AllTypesCSS.addRoomTypes}
+              onClick={() => navigatePath('addRoomType')}>
+              Add Rooms
+            </button>
+          </div>
+        </div>
+
+        <div className={AllTypesCSS.roomTableContainer}>
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <CheckBoxIcon fontSize='small' />
+                </th>
+                <th>Type Name</th>
+                <th>Description</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {roomTypes.map(roomType => (
+                <tr key={roomType.roomTypeId}>
+                  <td>
+                    <input type="checkbox" id={AllTypesCSS.checkbox}/>
+                  </td>
+                  <td>{roomType.typeName}</td>
+                  <td>{roomType.typeDescription}</td>
+                  <td className={AllTypesCSS.roomTableButtons}>
+                    <button onClick={() => handleEdit(roomType.roomTypeId)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(roomType.roomTypeId)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
