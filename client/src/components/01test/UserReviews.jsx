@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { useParams } from 'react-router-dom'; // Import useParams hook if you're using React Router
+import { useParams, useNavigate } from 'react-router-dom'; // Import useParams hook if you're using React Router
 
 const UserReviews = ({ userIdProp }) => {
   const [reviews, setReviews] = useState([]);
   const { userIdParam } = useParams(); // Get userId from URL parameters
   const userId = userIdProp || userIdParam; // Use prop or URL param
+  const navigate = useNavigate()
   
   useEffect(() => {
     if (userId) {
@@ -35,8 +36,7 @@ const UserReviews = ({ userIdProp }) => {
   };
 
   const handleUpdate = (reviewId) => {
-    // Redirect to update page or show update form
-    // history.push(`/update-review/${reviewId}`);
+    navigate(`/update-review/${reviewId}`)
   };
 
   return (

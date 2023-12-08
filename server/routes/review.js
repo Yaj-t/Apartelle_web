@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 router.get('/:reviewId', async (req, res) => {
   try {
     const review = await Review.findByPk(req.params.reviewId, {
-      include: [Booking, User]
+      include: [{ model: Booking, include: [User] }]
     });
     if (!review) {
       return res.status(404).send({ message: 'Review not found' });
@@ -57,7 +57,7 @@ router.put('/:reviewId', async (req, res) => {
 
 // Delete a review by ID
 router.delete('/:reviewId', async (req, res) => {
-  try {
+  try {      
     const review = await Review.findByPk(req.params.reviewId);
     if (!review) {
       return res.status(404).send({ message: 'Review not found' });

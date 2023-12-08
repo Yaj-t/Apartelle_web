@@ -32,11 +32,13 @@ import BookRoom from './components/01test/BookRoom';
 import AddReview from './components/01test/AddReview';
 import UserBoookings from './components/01test/UserBookings'
 import UserReviews from './components/01test/UserReviews'
+import UpdateReview from './components/01test/UpdateReview';
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/update-review/:reviewIdParam" element={<UpdateReview/>} />
         <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
         <Route path='/user-bookings' element={<UserBoookings/>} />
         <Route path='/addReview/:bookingIdParam' element={<AddReview/>}/>
