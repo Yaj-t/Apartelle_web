@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import { Card, Alert, AlertTitle } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -76,6 +77,12 @@ function RoomsFormAdmin() {
   return (
     <div>
       <NavBarDashboard />
+      
+      <div id={RoomsFormCSS.backRooms} onClick={() => navigate('/admin/rooms/showAllRooms')}>
+        <ArrowBackIosNewIcon fontSize='small' />
+        Back to Rooms
+      </div>
+
       <div className={RoomsFormCSS.formContainer}>
         <Card>
           <div className={RoomsFormCSS.cardDetails}>

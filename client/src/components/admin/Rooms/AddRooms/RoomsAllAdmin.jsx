@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios
 import RoomsAllCSS from '../../../../styles/admin/roomsAllAdmin.module.css';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -12,13 +12,20 @@ import RoomImage from '../../../../assets/Room_Picture.jpg';
 function RoomsAllAdmin() {
   const [rooms, setRooms] = useState([]); // State to store room data
 
+  const navigate = useNavigate();
+
+  const navigatePath = path => {
+    navigate(`/admin/rooms/${path}`, { replace: true });
+  };
+
   useEffect(() => {
     // Fetch room data from 'http://localhost:3001/room/'
-    axios.get('http://localhost:3001/room/')
-      .then((response) => {
+    axios
+      .get('http://localhost:3001/room/')
+      .then(response => {
         setRooms(response.data); // Set the fetched data to the 'rooms' state
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error fetching room data:', error);
         // Handle the error appropriately
       });
@@ -37,15 +44,25 @@ function RoomsAllAdmin() {
             </button>
           </form>
 
-          <button id={RoomsAllCSS.filterBtn}>
-            <TuneIcon />
-            Filters
-          </button>
+          <div className={RoomsAllCSS.btnContainer}>
+            <button id={RoomsAllCSS.filterBtn}>
+              <TuneIcon />
+              Filters
+            </button>
+
+            <button
+              id={RoomsAllCSS.addRooms}
+              onClick={() => navigatePath('addRooms')}>
+              Add Rooms
+            </button>
+          </div>
         </div>
 
         <div className={RoomsAllCSS.cardContainer}>
-          {rooms.map((room) => (
-            <Link to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`} key={room.id}>
+          {rooms.map(room => (
+            <Link
+              to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`}
+              key={room.id}>
               <Card sx={{ width: 280 }}>
                 <CardMedia
                   sx={{ height: 240 }}

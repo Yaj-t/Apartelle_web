@@ -10,6 +10,10 @@ const RoomTypes = () => {
 
   let navigate = useNavigate();
 
+  const navigatePath = path => {
+    navigate(`/admin/rooms/${path}`, { replace: true });
+  };
+
   useEffect(() => {
     fetchRoomTypes();
   }, []);
@@ -28,7 +32,9 @@ const RoomTypes = () => {
     console.log('Delete Room Type:', roomTypeID);
     try {
       const url = `http://localhost:3001/roomType/${roomTypeID}`;
-      const response = await axios.delete(url, {headers: { accessToken: sessionStorage.getItem('accessToken') }},);
+      const response = await axios.delete(url, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') }
+      });
       setRoomTypes(prevRoomTypes =>
         prevRoomTypes.filter(rt => rt.roomTypeID !== roomTypeID)
       );
@@ -48,8 +54,21 @@ const RoomTypes = () => {
       <NavBarDashboard />
 
       <div className={AllTypesCSS.tableContainer}>
-        <h1>Room Types</h1>
-        {error && <p>{error}</p>}
+        <div className={AllTypesCSS.tableHeaderContainer}>
+          <div className={AllTypesCSS.tableHeader}>
+            <h1>Room Types</h1>
+            {error && <p>{error}</p>}
+          </div>
+
+          <div className={AllTypesCSS.tableHeader}>
+            <button
+              id={AllTypesCSS.addRoomTypes}
+              onClick={() => navigatePath('addRoomType')}>
+              Add Rooms
+            </button>
+          </div>
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -62,7 +81,7 @@ const RoomTypes = () => {
             {roomTypes.map(roomType => (
               <tr key={roomType.roomTypeID}>
                 <td>{roomType.typeName}</td>
-                <td>{roomType.typeDescription}</td>   
+                <td>{roomType.typeDescription}</td>
                 <td>
                   <button onClick={() => handleEdit(roomType.roomTypeID)}>
                     Edit

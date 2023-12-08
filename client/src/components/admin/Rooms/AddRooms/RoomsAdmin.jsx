@@ -9,16 +9,6 @@ function RoomsAdmin() {
     <div>
       <NavBarDashboard />
       <div className={RoomsAdminCSS.buttonContainer}>
-        <Link to='/admin/rooms/addRooms'>
-          <button>
-            <b>ADD ROOMS</b>
-          </button>
-        </Link>
-        <Link to='/admin/rooms/addRoomType'>
-          <button>
-            <b>ADD ROOM TYPE</b>
-          </button>
-        </Link>
         <Link to='/admin/rooms/showAllRooms'>
           <button>
             <b>MANAGE ROOMS</b>
