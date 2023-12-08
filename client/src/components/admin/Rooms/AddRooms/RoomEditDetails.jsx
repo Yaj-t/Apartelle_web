@@ -30,15 +30,11 @@ const fetchRoomTypes = async () => {
 const RoomsEditDetailsAdmin = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const [room, setRoom] = useState(null);
   const [roomTypes, setRoomTypes] = useState([]);
-  const [room, setRoom] = useState({});
+ 
   const [addSuccess, setAddSuccess] = useState(false);
   const [addError, setAddError] = useState(false);
-
-  useEffect(() => {
-    fetchRoomTypes().then(types => setRoomTypes(types));
-  }, []);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -56,11 +52,18 @@ const RoomsEditDetailsAdmin = () => {
     }
     console.log(room);
   }, [id]);
+  useEffect(() => {
+    fetchRoomTypes().then(types => setRoomTypes(types));
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(room);
+  // }, [room])
 
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values);
     try {
-      await axios.post('http://localhost:3001/room', values, {
+      await axios.put(`http://localhost:3001/room/${id}`, values, {
         headers: { accessToken: sessionStorage.getItem('accessToken') }
       });
       console.log('Room added successfully');
@@ -80,6 +83,7 @@ const RoomsEditDetailsAdmin = () => {
     navigate(url);
   };
 
+  
   return (
     <div>
       <NavBarDashboard />
@@ -90,8 +94,8 @@ const RoomsEditDetailsAdmin = () => {
         <ArrowBackIosNewIcon fontSize='small' />
         Back to Rooms
       </div>
-
-      <div className={RoomsDetailsCSS.formContainer}>
+      {room && (
+        <div className={RoomsDetailsCSS.formContainer}>
         <Card>
           <div className={RoomsDetailsCSS.cardDetails}>
             {addSuccess && (
@@ -220,6 +224,8 @@ const RoomsEditDetailsAdmin = () => {
           </div>
         </Card>
       </div>
+      )}
+      
     </div>
   );
 };
