@@ -99,7 +99,7 @@
                   <p> Medium Period: Php 2000 </p>
                   <p> Long Period: Php 2000 </p>
                 </div> */}
-                <BookRoom roomId={room.roomId}></BookRoom>
+                <BookRoom room={room}></BookRoom>
               </div>
             </Card>
           </div>
