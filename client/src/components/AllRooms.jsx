@@ -103,7 +103,6 @@ function AllRooms() {
     }
   }, [startDate, endDate]);
 
->>>>>>> 65028ec16f6208c2fd087811494d258bb0c704a1
   const getRoomTypeName = roomTypeId => {
     const roomType = roomTypes.find(type => type.roomTypeId === roomTypeId);
     return roomType ? roomType.typeName : 'Unknown Room Type';
