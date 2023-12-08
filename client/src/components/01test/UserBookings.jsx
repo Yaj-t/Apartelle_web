@@ -84,7 +84,7 @@ function UserBookings() {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    const renderBookingList = (bookingsList) => (
+    const renderBookingList = (bookingsList, isPastBookingList = false) => (
         <ul>
             {bookingsList.map(booking => (
                 <li key={booking.bookingId}>
@@ -100,10 +100,15 @@ function UserBookings() {
                             Cancel Booking
                         </button>
                     )}
+                    {isPastBookingList && (
+                        // Replace '/review' with the actual path where users can write reviews
+                        <button href={`/review/${booking.bookingId}`}>Write a Review</button>
+                    )}
                 </li>
             ))}
         </ul>
     );
+    
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -118,7 +123,7 @@ function UserBookings() {
             {renderBookingList(upcomingBookings)}
 
             <h3>Past Bookings</h3>
-            {renderBookingList(pastBookings)}
+            {renderBookingList(pastBookings, true)}
 
             <h3>Cancelled Bookings</h3>
             {renderBookingList(cancelledBookings)}
