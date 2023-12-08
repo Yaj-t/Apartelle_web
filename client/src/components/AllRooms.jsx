@@ -20,7 +20,7 @@ function AllRooms() {
   const [query, setQuery] = useState('');
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
   const [sortOrder, setSortOrder] = useState(''); // 'asc' for ascending, 'desc' for descending
-  const [startDate, setStartDate] = useState('');
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
   // Inside the useEffect, modify the fetchRooms function
@@ -49,6 +49,10 @@ function AllRooms() {
   };
 
   const fetchAvailableRooms = async () => {
+    if (!startDate || !endDate) {
+      console.log('Start date or end date is not set.');
+      return; // Exit the function if either date is null
+    }
     try {
       const formattedStartDate = startDate.toISOString().split('T')[0];
       const formattedEndDate = endDate.toISOString().split('T')[0];
@@ -202,7 +206,7 @@ function AllRooms() {
 
       <div className={AllRoomsCSS.cardContainer}>
         {rooms.map(room => (
-          <Link key={room.id} to={`/roomDetails/${room.roomId}`}>
+          <Link key={room.roomId} to={`/roomDetails/${room.roomId}`}>
             <Card sx={{ width: 280 }}>
               <CardMedia
                 sx={{ height: 240 }}
