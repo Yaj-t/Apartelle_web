@@ -1,9 +1,4 @@
 # Things I updated
-# things that bryce made
-
-1 I made a modal that pops out during the Edit Profile.
-
-There is a need to install something (npm install @mui/material @emotion/react @emotion/styled) which is for the modal.
 
 Global:
 
@@ -11,11 +6,7 @@ Global:
 
 For Users:
 
-- Fixed the issue where Users can access admin page even if logged in as users
-- When the link hovers, an animation occurs
-- Added react-slick as the carousels for the index page, so _npm install_ again
-- All Rooms Can now search filter
-- All Rooms can now use the filter button, where it can filter its room types and prices in ascending and descending order
+- Changed the Filtering to Checkbox
 
 For Admins:
 
@@ -23,8 +14,9 @@ For Admins:
 - Added a Logout function on the Admin Navigation Sidebar
 - Added Alerts when adding a Room Type and also redirects to the Rooms Admin if added successfully
 - Fixed the style for Alerts when adding a Room and also redirects to the Rooms Admin if added successfully
-
+- Fixed the styling of the Room Forms Admin
 - Fixed the styling for the Room and Room Type Forms
+- Made the the Room admins into two buttons, manage room types and manage rooms
 
 # What to Fix
 
@@ -34,3 +26,4 @@ For User:
 - Contents of the UpdateProfile
 - The filter button for the All Rooms should be focused to avoid confusion
 - All Rooms filter "Price" can be ascending or descending
+- The Edit Forms

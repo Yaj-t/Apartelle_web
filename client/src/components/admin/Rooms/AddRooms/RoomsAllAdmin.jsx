@@ -9,10 +9,11 @@ import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 
 function RoomsAllAdmin() {
   const [rooms, setRooms] = useState([]); // State to store room data
+  const [roomTypes, setRoomTypes] = useState([]);
 
   const navigate = useNavigate();
 
-  const navigatePath = path => {
+  const navigateAddRoom = path => {
     navigate(`/admin/rooms/${path}`, { replace: true });
   };
 
@@ -29,6 +30,44 @@ function RoomsAllAdmin() {
       });
   }, []);
 
+  const fetchRoomTypes = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/roomType/');
+      setRoomTypes(response.data);
+    } catch (err) {
+      setError('Error fetching room types');
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchRoomTypes();
+  }, []);
+
+  const getRoomTypeName = roomTypeId => {
+    const roomType = roomTypes.find(type => type.roomTypeId === roomTypeId);
+    return roomType ? roomType.typeName : 'Unknown Room Type';
+  };
+
+  const handleDelete = async roomId => {
+    console.log('Delete Room:', roomId);
+    try {
+      const url = `http://localhost:3001/room/${roomId}`;
+      const response = await axios.delete(url, {
+        headers: { accessToken: sessionStorage.getItem('accessToken') }
+      });
+      setRooms(prevRooms => prevRooms.filter(r => r.roomId !== roomId));
+    } catch (error) {}
+  };
+
+  const handleEdit = roomId => {
+    console.log('Edit Room:', roomId);
+    let currentpath = window.location.pathname;
+    const url = `${currentpath}/editRoom/${roomId}`;
+    console.log(url);
+    navigate(url);
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -43,14 +82,9 @@ function RoomsAllAdmin() {
           </form>
 
           <div className={RoomsAllCSS.btnContainer}>
-            <button id={RoomsAllCSS.filterBtn}>
-              <TuneIcon />
-              Filters
-            </button>
-
             <button
               id={RoomsAllCSS.addRooms}
-              onClick={() => navigatePath('addRooms')}>
+              onClick={() => navigateAddRoom('addRooms')}>
               Add Rooms
             </button>
           </div>
@@ -70,22 +104,26 @@ function RoomsAllAdmin() {
                 <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {rooms.map(room => (
-                <Link
-                  to={`/admin/rooms/showAllRooms/roomDetails/${room.id}`}
-                  key={room.roomId}>
-                  <tr>
-                    <td>
-                      <input type='checkbox' id={RoomsAllCSS.checkbox} />
-                    </td>
-                    <td>{room.roomNumber}</td>
-                    <td>{room.roomTypeId}</td>
-                    <td>{room.description}</td>
-                    <td>{room.capacity}</td>
-                    <td>button</td>
-                  </tr>
-                </Link>
+                <tr key={room.roomId}>
+                  <td>
+                    <input type='checkbox' id={RoomsAllCSS.checkbox} />
+                  </td>
+                  <td>{room.roomNumber}</td>
+                  <td>{getRoomTypeName(room.roomTypeId)}</td>
+                  <td>{room.description}</td>
+                  <td>{room.capacity}</td>
+                  <td className={RoomsAllCSS.roomTableButtons}>
+                    <button onClick={() => handleEdit(room.roomId)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(room.roomId)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

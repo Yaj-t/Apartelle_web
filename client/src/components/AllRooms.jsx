@@ -91,25 +91,11 @@ function AllRooms() {
     fetchRoomTypes();
   }, []);
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
-
-  let menuRef = useRef();
-
   useEffect(() => {
-    let handler = e => {
-      if (!menuRef.current.contains(e.target)) {
-        setMenuVisible(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handler);
-
-    return () => {
-      document.removeEventListener('mousedown', handler);
-    };
-  });
+    if (startDate && endDate && endDate <= startDate) {
+      setEndDate(null);
+    }
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (startDate && endDate && endDate <= startDate) {
@@ -117,6 +103,7 @@ function AllRooms() {
     }
   }, [startDate, endDate]);
 
+>>>>>>> 65028ec16f6208c2fd087811494d258bb0c704a1
   const getRoomTypeName = roomTypeId => {
     const roomType = roomTypes.find(type => type.roomTypeId === roomTypeId);
     return roomType ? roomType.typeName : 'Unknown Room Type';
@@ -136,89 +123,87 @@ function AllRooms() {
     console.log('success:', roomTypeId);
   };
 
-  const handleSortOrderChange = () => {
-    // If sortOrder is 'asc', change it to 'desc'
-    // If sortOrder is 'desc', change it to null (no sorting)
-    // If sortOrder is null, change it to 'asc'
-    setSortOrder(prevSortOrder => {
-      if (prevSortOrder === 'asc') return 'desc';
-      if (prevSortOrder === 'desc') return null;
-      return 'asc';
-    });
+  const handleSortOrderChange = newSortOrder => {
+    setSortOrder(newSortOrder === sortOrder ? null : newSortOrder);
   };
 
   return (
     <div>
       <UserNavBar />
 
-      <div className={AllRoomsCSS.filterContainer}>
-        <div className={AllRoomsCSS.datePickers}>
-          <DatePicker
-            selected={startDate}
-            onChange={date => setStartDate(date)}
-            placeholderText="Start Date"
-            minDate={new Date()}
-            maxDate={endDate}
-          />
-          <DatePicker
-            selected={endDate}
-            onChange={date => setEndDate(date)}
-            placeholderText="End Date"
-            minDate={startDate}
-          />
-        </div>
-
-        <div className={AllRoomsCSS.dropdownFilter} ref={menuRef}>
-          <button id={AllRoomsCSS.filterBtn} onClick={toggleMenu}>
-            <TuneIcon />
-            Filters
-          </button>
-
-          <div
-            className={`${AllRoomsCSS.dropdownMenu} ${
-              menuVisible ? AllRoomsCSS.visible : ''
-            }`}>
+      <div className={AllRoomsCSS.allRooms}>
+        <div className={AllRoomsCSS.filterContainer}>
+          <div className={AllRoomsCSS.filterMenu}>
             <ul>
               {roomTypes.map(roomType => (
-                <li
-                  key={roomType.roomTypeId}
-                  onClick={() => handleRoomTypeChange(roomType.roomTypeId)}>
-                  {roomType.typeName}
+                <li>
+                  <input
+                    type='checkbox'
+                    onClick={() => handleRoomTypeChange(roomType.roomTypeId)}
+                  />
+                  <label>{roomType.typeName}</label>
                 </li>
               ))}
-              <li onClick={handleSortOrderChange}>
-                {sortOrder === 'asc' ? (
-                  <>
-                    Price <ArrowUpwardIcon fontSize='1rem'/>
-                  </>
-                ) : sortOrder === 'desc' ? (
-                  <>
-                    Price <ArrowDownwardIcon fontSize='1rem'/>
-                  </>
-                ) : (
-                  'Price'
-                )}
+              <li>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={sortOrder === 'asc'}
+                    onChange={() => handleSortOrderChange('asc')}
+                  />
+                  Price <ArrowUpwardIcon fontSize='1rem' />
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input
+                    type='checkbox'
+                    checked={sortOrder === 'desc'}
+                    onChange={() => handleSortOrderChange('desc')}
+                  />
+                  Price <ArrowDownwardIcon fontSize='1rem' />
+                </label>
               </li>
             </ul>
           </div>
         </div>
-      </div>
 
-      <div className={AllRoomsCSS.cardContainer}>
-        {rooms.map(room => (
-          <Link key={room.roomId} to={`/roomDetails/${room.roomId}`}>
-            <Card sx={{ width: 280 }}>
-              <CardMedia
-                sx={{ height: 240 }}
-                image={RoomImage} // Use the image property from your API response
-                title='room picture'
+        <div className={AllRoomsCSS.roomContainer}>
+          <div className={AllRoomsCSS.filterContainer}>
+            <div className={AllRoomsCSS.datePickers}>
+              <DatePicker
+            selected={startDate}
+                onChange={date => setStartDate(date)}
+                placeholderText="Start Date"
+                minDate={new Date()}
+            maxDate={endDate}
+          />
+          <DatePicker
+            selected={endDate}
+                onChange={date => setEndDate(date)}
+            placeholderText="End Date"
+            minDate={startDate}
               />
-              <p>{room.description}</p>
-              <p>{room.price}</p>
-              <p>{getRoomTypeName(room.roomTypeId)}</p>
-            </Card>
-          </Link>
-        ))}
+            </div>
+          </div>
+
+          <div className={AllRoomsCSS.cardContainer}>
+            {rooms.map(room => (
+              <Link key={room.roomId} to={`/roomDetails/${room.roomId}`}>
+                <Card sx={{ width: 280 }}>
+                  <CardMedia
+                    sx={{ height: 240 }}
+                    image={RoomImage} // Use the image property from your API response
+                    title='room picture'
+                  />
+                  <p>{room.description}</p>
+                  <p>{room.price}</p>
+                  <p>{getRoomTypeName(room.roomTypeId)}</p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Footer />
