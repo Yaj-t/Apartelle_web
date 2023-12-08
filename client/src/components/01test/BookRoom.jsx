@@ -4,35 +4,30 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from 'react-router-dom';
 
-function BookRoom({ roomId: propRoomId }) {
-    const [room, setRoom] = useState(null);
+function BookRoom({ room }) {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [totalPrice, setTotalPrice] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     
-    const params = useParams();
-    const roomId = propRoomId || params.roomId; 
-    
+    const roomId = room.roomId;
+    const roomPrice = room.price;
 
     useEffect(() => {
-        const fetchRoomDetails = async () => {
-            try {
-                setIsLoading(true);
-                const response = await axios.get(`http://localhost:3001/room/${roomId}`);   
-                setRoom(response.data);
-                setIsLoading(false);
-            } catch (err) {
-                console.error('Error fetching room details:', err);
-                setError('Error fetching room details');
-                setIsLoading(false);
-            }
-        };
-
-        fetchRoomDetails();
-    }, [roomId]);
+        if (startDate && endDate && startDate < endDate) {
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            setTotalPrice(diffDays * roomPrice);
+        }
+    }, [startDate, endDate, roomPrice]);
 
     const handleBooking = async () => {
+        if (!startDate || !endDate || startDate >= endDate) {
+            alert('Please select a valid date range.');
+            return;
+        }
+
         try {
             setIsLoading(true);
             const bookingData = {
@@ -42,7 +37,7 @@ function BookRoom({ roomId: propRoomId }) {
             };
             const response = await axios.post('http://localhost:3001/booking/', bookingData, {
                 headers: { accessToken: sessionStorage.getItem('accessToken') }
-            });
+            }); 
             console.log(response.data);
             alert('Booking successful!');
         } catch (err) {
@@ -52,7 +47,6 @@ function BookRoom({ roomId: propRoomId }) {
             setIsLoading(false);
         }
     };
-    
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -70,6 +64,7 @@ function BookRoom({ roomId: propRoomId }) {
             <div>
                 <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
                 <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+                <p>Total Price: {totalPrice}</p>
                 <button onClick={handleBooking}>Book Now</button>
             </div>
         </div>
