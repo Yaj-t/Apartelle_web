@@ -18,8 +18,9 @@ For Admins:
 - Added a Logout function on the Admin Navigation Sidebar
 - Added Alerts when adding a Room Type and also redirects to the Rooms Admin if added successfully
 - Fixed the style for Alerts when adding a Room and also redirects to the Rooms Admin if added successfully
-
+- Fixed the styling of the Room Forms Admin
 - Fixed the styling for the Room and Room Type Forms
+- Made the the Room admins into two buttons, manage room types and manage rooms
 
 # What to Fix
 
