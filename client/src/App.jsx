@@ -1,45 +1,44 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import LandingPage from './components';
-import RoomDetails from './components/RoomDetails';
-import AllRooms from './components/AllRooms';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ReservationAdmin from './components/admin/Reservation/ReservationAdmin';
-import ReservationDetails from './components/admin/Reservation/ReservationDetails';
-import RoomsAdmin from './components/admin/Rooms/AddRooms/RoomsAdmin';
-import RoomsFormAdmin from './components/admin/Rooms/AddRooms/RoomsFormAdmin';
-import RoomsAllAdmin from './components/admin/Rooms/AddRooms/RoomsAllAdmin';
-import RoomsEditDetailsAdmin from './components/admin/Rooms/AddRooms/RoomEditDetails';
-import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin';
-import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin';
-import MainPageAdmin from './components/admin/MainPageAdmin';
-import EditRoomType from './components/admin/Rooms/AddRoomTypes/RoomEditType';
-import RoomTypeForm from './components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin';
-import RoomTypes from './components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin';
-import UserProfile from './components/settings/user/UserProfile';
-import UpdateUserProfile from './components/settings/user/UpdateProfile';
-import './App.css';
-import AccountSettings from './components/settings/AccountSettings';
-import Security from './components/settings/SecuritySettings';
-import ReservationsSettings from './components/settings/ReservationsSettings';
-import PersonalDetails from './PersonalDetails';
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./components";
+import RoomDetails from "./components/RoomDetails";
+import AllRooms from "./components/AllRooms";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import ReservationAdmin from "./components/admin/Reservation/ReservationAdmin";
+import ReservationDetails from "./components/admin/Reservation/ReservationDetails";
+import RoomsAdmin from "./components/admin/Rooms/AddRooms/RoomsAdmin";
+import RoomsFormAdmin from "./components/admin/Rooms/AddRooms/RoomsFormAdmin";
+import RoomsAllAdmin from "./components/admin/Rooms/AddRooms/RoomsAllAdmin";
+import RoomsEditDetailsAdmin from "./components/admin/Rooms/AddRooms/RoomEditDetails";
+import PersonnelsAdmin from "./components/admin/Personnel/PersonnelsAdmin";
+import PersonnelDetailsAdmin from "./components/admin/Personnel/PersonnelDetailsAdmin";
+import MainPageAdmin from "./components/admin/MainPageAdmin";
+import EditRoomType from "./components/admin/Rooms/AddRoomTypes/RoomEditType";
+import RoomTypeForm from "./components/admin/Rooms/AddRoomTypes/RoomsAddTypeAdmin";
+import RoomTypes from "./components/admin/Rooms/AddRoomTypes/RoomsAllTypesAdmin";
+import UserProfile from "./components/settings/user/UserProfile";
+import UpdateUserProfile from "./components/settings/user/UpdateProfile";
+import "./App.css";
+import AccountSettings from "./components/settings/AccountSettings";
+import Security from "./components/settings/SecuritySettings";
+import ReservationsSettings from "./components/settings/ReservationsSettings";
+import PersonalDetails from "./PersonalDetails";
 // import RoomDetail from './components/01test/RoomDetail
-import ProtectedRoutes from './components/ProtectedRoute';
-import UnauthorizeError from './components/errorpages/UnauthorizeError';
-import AvailableRooms from './components/01test/AvailableRooms';
-import BookRoom from './components/01test/BookRoom';
-import AddReview from './components/01test/AddReview';
-import UserBoookings from './components/01test/UserBookings'
-import UserReviews from './components/01test/UserReviews'
-import UpdateReview from './components/01test/UpdateReview';
-import BookingsList from './components/01test/BookingList';
+import ProtectedRoutes from "./components/ProtectedRoute";
+import UnauthorizeError from "./components/errorpages/UnauthorizeError";
+import AvailableRooms from "./components/01test/AvailableRooms";
+import BookRoom from "./components/01test/BookRoom";
+import AddReview from "./components/01test/AddReview";
+import UserBookings from "./components/01test/UserBookings";
+import UserReviews from "./components/01test/UserReviews";
+import UpdateReview from "./components/01test/UpdateReview";
+import BookingsList from "./components/01test/BookingList";
 
 function App() {
   return (
     <>
       <Routes>
-
         <Route
           path="/available-rooms"
           element={<AvailableRooms></AvailableRooms>}
@@ -50,14 +49,21 @@ function App() {
         ></Route>
         <Route path="/user-bookings" element={<UserBookings></UserBookings>} />
 
-        <Route path='/booking-list' element={<BookingsList/>}></Route>
-        <Route path="/update-review/:reviewIdParam" element={<UpdateReview/>} />
-        <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
-        <Route path='/user-bookings' element={<UserBoookings/>} />
-        <Route path='/addReview/:bookingIdParam' element={<AddReview/>}/>
-        <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
-        <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
-
+        <Route path="/booking-list" element={<BookingsList />}></Route>
+        <Route
+          path="/update-review/:reviewIdParam"
+          element={<UpdateReview />}
+        />
+        <Route path="/user-reviews/:userIdParam" element={<UserReviews />} />
+        <Route path="/addReview/:bookingIdParam" element={<AddReview />} />
+        <Route
+          path="/available-rooms"
+          element={<AvailableRooms></AvailableRooms>}
+        />
+        <Route
+          path="/book-room/:roomId"
+          element={<BookRoom></BookRoom>}
+        ></Route>
       </Routes>
 
       {/* For the admin index modules */}
@@ -80,12 +86,11 @@ function App() {
           <Route path="/admin/rooms/addRooms" element={<RoomsFormAdmin />} />
           <Route path="/admin/rooms/showAllRooms" element={<RoomsAllAdmin />} />
           <Route
-
-            path="/admin/rooms/showAllRooms/roomDetails"
-            element={<RoomsDetailsAdmin />} 
-          />
-          <Route
-            path='/admin/rooms/showAllRooms/editRoom/:id'
+            //   path="/admin/rooms/showAllRooms/roomDetails"
+            //   element={<RoomsDetailsAdmin />}
+            // />
+            // <Route
+            path="/admin/rooms/showAllRooms/editRoom/:id"
             element={<RoomsEditDetailsAdmin />}
           />
 
