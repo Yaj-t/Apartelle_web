@@ -13,6 +13,7 @@ function RoomsAllAdmin() {
   const [sortOrderRoomNumber, setSortOrderRoomNumber] = useState('original');
   const [sortOrderRoomType, setSortOrderRoomType] = useState('original');
   const [sortOrderCapacity, setSortOrderCapacity] = useState('original');
+  const [selectedRooms, setSelectedRooms] = useState([]);
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -140,6 +141,41 @@ function RoomsAllAdmin() {
     return sortedRooms;
   };
 
+  const handleCheckboxChange = roomId => {
+    setSelectedRooms(prevSelectedRooms => {
+      if (prevSelectedRooms.includes(roomId)) {
+        // Remove room from selection if already selected
+        return prevSelectedRooms.filter(id => id !== roomId);
+      } else {
+        // Add room to selection if not already selected
+        return [...prevSelectedRooms, roomId];
+      }
+    });
+  };
+
+  const handleBatchDelete = async () => {
+    try {
+      const deletePromises = selectedRooms.map(roomId => {
+        const url = `http://localhost:3001/room/${roomId}`;
+        return axios.delete(url, {
+          headers: { accessToken: sessionStorage.getItem('accessToken') }
+        });
+      });
+
+      await Promise.all(deletePromises);
+
+      // Update the front-end state after successful deletion
+      setRooms(prevRooms =>
+        prevRooms.filter(room => !selectedRooms.includes(room.roomId))
+      );
+
+      // Clear the selected rooms after deletion
+      setSelectedRooms([]);
+    } catch (error) {
+      // Handle error appropriately
+    }
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -154,7 +190,12 @@ function RoomsAllAdmin() {
           </form>
 
           <div className={RoomsAllCSS.btnContainer}>
-            <button id={RoomsAllCSS.deleteRooms}>Delete Rooms</button>
+            <button
+              id={RoomsAllCSS.deleteRooms}
+              onClick={handleBatchDelete}
+              disabled={selectedRooms.length === 0}>
+              Delete Rooms
+            </button>
 
             <button
               id={RoomsAllCSS.addRooms}
@@ -210,7 +251,12 @@ function RoomsAllAdmin() {
               {getSortedRooms().map(room => (
                 <tr key={room.roomId}>
                   <td>
-                    <input type='checkbox' id={RoomsAllCSS.checkbox} />
+                    <input
+                      type='checkbox'
+                      id={RoomsAllCSS.checkbox}
+                      checked={selectedRooms.includes(room.roomId)}
+                      onChange={() => handleCheckboxChange(room.roomId)}
+                    />
                   </td>
                   <td>{room.roomNumber}</td>
                   <td>{getRoomTypeName(room.roomTypeId)}</td>

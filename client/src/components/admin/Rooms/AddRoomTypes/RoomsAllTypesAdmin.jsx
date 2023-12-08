@@ -10,7 +10,7 @@ const RoomTypes = () => {
   const [roomTypes, setRoomTypes] = useState([]);
   const [error, setError] = useState('');
   const [sortOrder, setSortOrder] = useState(' '); // 'asc' for ascending, 'desc' for descending, 'original' for original order
-  const [sortedColumn, setSortedColumn] = useState(null);
+  const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
 
   let navigate = useNavigate();
 
@@ -87,6 +87,41 @@ const RoomTypes = () => {
     return sortedRoomTypes;
   };
 
+  const handleCheckboxChange = roomTypeId => {
+    setSelectedRoomTypes(prevSelectedRoomTypes => {
+      if (prevSelectedRoomTypes.includes(roomTypeId)) {
+        // Remove room type from selection if already selected
+        return prevSelectedRoomTypes.filter(id => id !== roomTypeId);
+      } else {
+        // Add room type to selection if not already selected
+        return [...prevSelectedRoomTypes, roomTypeId];
+      }
+    });
+  };
+
+  const handleBatchDelete = async () => {
+    try {
+      const deletePromises = selectedRoomTypes.map(roomTypeId => {
+        const url = `http://localhost:3001/roomType/${roomTypeId}`;
+        return axios.delete(url, {
+          headers: { accessToken: sessionStorage.getItem('accessToken') }
+        });
+      });
+
+      await Promise.all(deletePromises);
+
+      // Update the front-end state after successful deletion
+      setRoomTypes(prevRoomTypes =>
+        prevRoomTypes.filter(rt => !selectedRoomTypes.includes(rt.roomTypeId))
+      );
+
+      // Clear the selected room types after deletion
+      setSelectedRoomTypes([]);
+    } catch (error) {
+      // Handle error appropriately
+    }
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -104,11 +139,20 @@ const RoomTypes = () => {
           </div>
 
           <div className={AllTypesCSS.tableHeader}>
-            <button
-              id={AllTypesCSS.addRoomTypes}
-              onClick={() => navigatePath('addRoomType')}>
-              Add Rooms
-            </button>
+            <div className={AllTypesCSS.btnContainer}>
+              <button
+                id={AllTypesCSS.addRoomTypes}
+                onClick={handleBatchDelete}
+                disabled={selectedRoomTypes.length === 0}>
+                Delete Room Types
+              </button>
+
+              <button
+                id={AllTypesCSS.addRoomTypes}
+                onClick={() => navigatePath('addRoomType')}>
+                Add Room Types
+              </button>
+            </div>
           </div>
         </div>
 
@@ -144,7 +188,12 @@ const RoomTypes = () => {
               {getSortedRoomTypes().map(roomType => (
                 <tr key={roomType.roomTypeId}>
                   <td>
-                    <input type='checkbox' id={AllTypesCSS.checkbox} />
+                    <input
+                      type='checkbox'
+                      id={AllTypesCSS.checkbox}
+                      checked={selectedRoomTypes.includes(roomType.roomTypeId)}
+                      onChange={() => handleCheckboxChange(roomType.roomTypeId)}
+                    />
                   </td>
                   <td>{roomType.typeName}</td>
                   <td>{roomType.typeDescription}</td>
