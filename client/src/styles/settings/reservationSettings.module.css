@@ -27,3 +27,79 @@
     background-color: #ccc;
     margin-bottom: 20px;
   }
+  .room-booking{
+    display: flex;
+    align-items: center; /* Vertically center items */
+    justify-content: space-between; /* Adjust as needed */
+  }
+  .room-details{
+
+  }
+  .details{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  .para{
+    margin-right: 15px;
+  }
+  .blurey{
+    color:#9A9A9A
+  }
+
+  .text{
+    margin: 0px;
+  }
+
+  /* .picture-size{
+    width: 50%; 
+    height: 50%;
+  } */
+  /* .img-holder{
+    width: 20%; 
+  height: 50%; 
+  
+  } */
+.button-pos{
+    display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Adjust as needed */
+  flex-direction: column;
+  gap:10px
+}
+
+.button1,
+.button2 {
+  width: 150px; /* Adjust the width as needed */
+  height: 35px;
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: white;
+  border: 0px;
+  margin-bottom: 10px; /* Add margin between buttons */
+  margin-top: 10px;
+}
+
+.button1 {
+  background-color: #FF0000;
+}
+
+.button2 {
+  background-color: #F57328;
+}
+.button-pos{
+    display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Adjust as needed */
+  flex-direction: column;
+  gap:0px
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 0px;
+    width: 950px;
+}
