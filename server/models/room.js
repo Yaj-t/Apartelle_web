@@ -36,7 +36,8 @@
     });
 
     Room.associate = function (models) {
-      Room.belongsTo(models.RoomType, { foreignKey: 'roomTypeId' }); 
+      Room.belongsTo(models.RoomType, { foreignKey: 'roomTypeId' });
+      Room.hasMany(models.Booking, { foreignKey: 'roomId' }) 
     };
 
     return Room;

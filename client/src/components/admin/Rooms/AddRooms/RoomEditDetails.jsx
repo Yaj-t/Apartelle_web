@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
-import { Card, Alert, AlertTitle } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import RoomsDetailsCSS from '../../../../styles/admin/roomsEditDetailsAdmin.module.css';
+import { Card, Alert, AlertTitle } from '@mui/material';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import RoomsFormCSS from '../../../../styles/admin/roomsFormAdmin.module.css';
 
 const schema = Yup.object().shape({
   roomTypeId: Yup.number().required('Room type is required'),
@@ -27,10 +27,12 @@ const fetchRoomTypes = async () => {
   }
 };
 
-function RoomsFormAdmin() {
+function RoomsEditDetailsAdmin() {
   const navigate = useNavigate();
 
   const [roomTypes, setRoomTypes] = React.useState([]);
+  const [room, setRoom] = useState(null);
+  const { id } = useParams();
 
   const [addSuccess, setAddSuccess] = useState(false);
   const [addError, setAddError] = useState(false);
@@ -74,18 +76,36 @@ function RoomsFormAdmin() {
     navigate(url);
   };
 
+  useEffect(() => {
+    const fetchRoom = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/room/${id}`);
+        setRoom(response.data);
+        console.log(response.data);
+      } catch (err) {
+        console.error('Error fetching room type', err);
+      }
+    };
+
+    if (id) {
+      fetchRoom();
+    }
+  }, [id]);
+
   return (
     <div>
       <NavBarDashboard />
-      
-      <div id={RoomsFormCSS.backRooms} onClick={() => navigate('/admin/rooms/showAllRooms')}>
+
+      <div
+        id={RoomsDetailsCSS.backRooms}
+        onClick={() => navigate('/admin/rooms/showAllRooms')}>
         <ArrowBackIosNewIcon fontSize='small' />
         Back to Rooms
       </div>
 
-      <div className={RoomsFormCSS.formContainer}>
+      <div className={RoomsDetailsCSS.formContainer}>
         <Card>
-          <div className={RoomsFormCSS.cardDetails}>
+          <div className={RoomsDetailsCSS.cardDetails}>
             {/* Conditionally render the Alert component */}
             {addSuccess && (
               <Alert severity='success' onClose={handleSuccessfulAlertClose}>
@@ -103,28 +123,28 @@ function RoomsFormAdmin() {
               </Alert>
             )}
 
-            <div className={RoomsFormCSS.formHeader}>
+            <div className={RoomsDetailsCSS.formHeader}>
               <h1>ADD ROOM</h1>
               <h3>fill up the form below to add a room</h3>
             </div>
 
-            <div className={RoomsFormCSS.formDetails}>
+            <div className={RoomsDetailsCSS.formDetails}>
               <Formik
                 initialValues={{
-                  roomTypeId: '',
-                  price: 0.0,
-                  roomNumber: '',
-                  capacity: 0,
-                  description: ''
+                  roomTypeId: room.roomTypeId,
+                  price: room.price,
+                  roomNumber: room.roomNumber,
+                  capacity: room.capacity,
+                  description: room.description
                 }}
                 validationSchema={schema}
                 onSubmit={handleSubmit}>
                 {formik => (
                   <Form>
-                    <div className={RoomsFormCSS.arrange}>
-                      <div className={RoomsFormCSS.formRoom}>
-                        <div className={RoomsFormCSS.formInputContainer}>
-                          <div className={RoomsFormCSS.formInput}>
+                    <div className={RoomsDetailsCSS.arrange}>
+                      <div className={RoomsDetailsCSS.formRoom}>
+                        <div className={RoomsDetailsCSS.formInputContainer}>
+                          <div className={RoomsDetailsCSS.formInput}>
                             <label htmlFor='roomTypeId'>Room Type</label>
                             <Field as='select' name='roomTypeId'>
                               <option value={-1}>Not Set</option>
@@ -137,25 +157,25 @@ function RoomsFormAdmin() {
                               ))}
                             </Field>
                             {formik.errors.roomTypeId && (
-                              <p className={RoomsFormCSS.error}>
+                              <p className={RoomsDetailsCSS.error}>
                                 {formik.errors.roomTypeId}
                               </p>
                             )}
                           </div>
 
-                          <div className={RoomsFormCSS.formInput}>
+                          <div className={RoomsDetailsCSS.formInput}>
                             <label htmlFor='roomNumber'>Room Number</label>
                             <Field type='text' name='roomNumber' />
                             {formik.errors.roomNumber && (
-                              <p className={RoomsFormCSS.error}>
+                              <p className={RoomsDetailsCSS.error}>
                                 {formik.errors.roomNumber}
                               </p>
                             )}
                           </div>
                         </div>
 
-                        <div className={RoomsFormCSS.formInputContainer}>
-                          <div className={RoomsFormCSS.formInput}>
+                        <div className={RoomsDetailsCSS.formInputContainer}>
+                          <div className={RoomsDetailsCSS.formInput}>
                             <label htmlFor='capacity'>Capacity</label>
                             <Field
                               type='number'
@@ -164,13 +184,13 @@ function RoomsFormAdmin() {
                               maxLength='2'
                             />
                             {formik.errors.capacity && (
-                              <p className={RoomsFormCSS.error}>
+                              <p className={RoomsDetailsCSS.error}>
                                 {formik.errors.capacity}
                               </p>
                             )}
                           </div>
 
-                          <div className={RoomsFormCSS.formInput}>
+                          <div className={RoomsDetailsCSS.formInput}>
                             <label htmlFor='price'>Price</label>
                             <Field
                               type='number'
@@ -179,7 +199,7 @@ function RoomsFormAdmin() {
                               maxLength='2'
                             />
                             {formik.errors.price && (
-                              <p className={RoomsFormCSS.error}>
+                              <p className={RoomsDetailsCSS.error}>
                                 {formik.errors.price}
                               </p>
                             )}
@@ -187,7 +207,7 @@ function RoomsFormAdmin() {
                         </div>
                       </div>
 
-                      <div className={RoomsFormCSS.formInputAbout}>
+                      <div className={RoomsDetailsCSS.formInputAbout}>
                         <label htmlFor='description'>Room Description</label>
                         <Field
                           type='text'
@@ -197,12 +217,12 @@ function RoomsFormAdmin() {
                           cols={33}
                         />
                         {formik.errors.description && (
-                          <p className={RoomsFormCSS.error}>
+                          <p className={RoomsDetailsCSS.error}>
                             {formik.errors.description}
                           </p>
                         )}
                       </div>
-                      <div id={RoomsFormCSS.formBtn}>
+                      <div id={RoomsDetailsCSS.formBtn}>
                         <input type='submit' value='SUBMIT' />
                       </div>
                     </div>
@@ -217,4 +237,4 @@ function RoomsFormAdmin() {
   );
 }
 
-export default RoomsFormAdmin;
+export default RoomsEditDetailsAdmin;

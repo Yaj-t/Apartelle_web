@@ -1,7 +1,7 @@
 .addContainer {
   display: flex;
   flex-direction: column;
-  padding: 30px 250px;
+  padding: 0px 250px;
 }
 
 .cardContainer {
@@ -88,4 +88,13 @@
   border-radius: 100px;
   cursor: pointer;
   appearance: none;
+}
+
+#backRooms {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10vh;
+  padding: 5vh 10vh;
+  cursor: pointer;
 }
