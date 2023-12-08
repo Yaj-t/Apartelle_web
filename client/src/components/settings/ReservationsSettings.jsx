@@ -5,6 +5,8 @@ import Footer from '../Footer';
 import { Card, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ReserveSettingsCSS from '../../styles/settings/reservationSettings.module.css';
+import UserBookings from '../01test/UserBookings'
+
 import picture from '../../assets/Room_Picture.jpg'
 const ReservationsSettings = () => {
   return (

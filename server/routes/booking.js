@@ -6,6 +6,25 @@ const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 
 // Get all bookings
+
+// Get the users bookings
+router.get('/my-bookings', requireAuth, async (req, res) => {
+  try {
+    console.log('problem\n\n\n\n\n')
+    const token = req.header("accessToken")
+    const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
+    console.log(decodedToken)
+    const userId = decodedToken.id;
+    const bookings = await Booking.findAll({
+      where: { userid: userId },
+      include: [User, Room]
+    });
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error', error });
+  }
+});
+
 router.get('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
   try {
     const bookings = await Booking.findAll({
@@ -126,22 +145,6 @@ router.post('/', requireAuth, async (req, res) => {
 });
 
 
-
-
-// Get the users bookings
-router.get('/my-bookings', requireAuth, async (req, res) => {
-  try {
-    const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
-    const userId = decodedToken.userId;
-    const bookings = await Booking.findAll({
-      where: { userId: userId },
-      include: [User, Room]
-    });
-    res.status(200).json(bookings);
-  } catch (error) {
-    res.status(500).send({ message: 'Internal server error', error });
-  }
-});
 
 router.put('/my-bookings/:bookingId', requireAuth, async (req, res) => {
   try {
