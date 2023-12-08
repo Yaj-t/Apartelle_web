@@ -4,12 +4,16 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from 'react-router-dom';
 
-function BookRoom({ roomId }) {
+function BookRoom({ roomId: propRoomId }) {
     const [room, setRoom] = useState(null);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    
+    const params = useParams();
+    const roomId = propRoomId || params.roomId; 
+    
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
