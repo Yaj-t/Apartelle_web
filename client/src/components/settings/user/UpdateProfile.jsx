@@ -10,13 +10,6 @@ import {
 } from "@mui/material";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { Card } from "@mui/material";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import VisibilityIcon from "@mui/icons-material/Visibility";
-// import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-// import UserNavBar from "../../NavBars/UserNavBar";
-// import SettingsSidebar from "../../NavBars/SettingsSidebar";
-// import Footer from "../../Footer";
 import UserProfileEditCSS from "../../../styles/settings/userProfileEdit.module.css";
 
 const ProfileEditSchema = Yup.object().shape({
@@ -93,9 +86,17 @@ const EditProfileForm = ({ handleCloseModal }) => {
   };
 
   return (
-    <Dialog open onClose={handleCloseModal}>
-      <DialogTitle>Update Profile</DialogTitle>
-      <DialogContent>
+    <Dialog
+      open
+      onClose={handleCloseModal}
+      classes={{
+        paper: `${UserProfileEditCSS.ModalLooks} ${UserProfileEditCSS.DialogContainer}`,
+      }}
+    >
+      <DialogTitle className={UserProfileEditCSS.Title}>
+        Update Profile
+      </DialogTitle>
+      <DialogContent className={UserProfileEditCSS.Content}>
         <Formik
           initialValues={initialValues}
           validationSchema={ProfileEditSchema}
@@ -103,47 +104,90 @@ const EditProfileForm = ({ handleCloseModal }) => {
           enableReinitialize // This is important to update the form when initialValues changes
         >
           <Form>
-            <Field name="firstName" type="text" placeholder="First Name" />
-            <ErrorMessage name="firstName" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="firstName">First Name</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="firstName"
+                type="text"
+              />
+              <ErrorMessage name="firstName" component="div" />
+            </div>
 
-            <Field name="lastName" type="text" placeholder="Last Name" />
-            <ErrorMessage name="lastName" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="lastName">Last Name</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="lastName"
+                type="text"
+                placeholder="Last Name"
+              />
+              <ErrorMessage name="lastName" component="div" />
+            </div>
 
-            <Field name="email" type="email" placeholder="Email" />
-            <ErrorMessage name="email" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="Email">Email</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="email"
+                type="email"
+                placeholder="Email"
+              />
+              <ErrorMessage name="email" component="div" />
+            </div>
 
-            <Field
-              name="contactNumber"
-              type="text"
-              placeholder="Contact Number"
-            />
-            <ErrorMessage name="contactNumber" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="contactNumber">Contact Number</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="contactNumber"
+                type="text"
+                placeholder="Contact Number"
+              />
+              <ErrorMessage name="contactNumber" component="div" />
+            </div>
 
-            <Field name="password" type="text" placeholder="Password" />
-            <ErrorMessage name="password" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="Password">Password</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="password"
+                type="text"
+                placeholder="Password"
+              />
+              <ErrorMessage name="password" component="div" />
+            </div>
 
-            <Field
-              name="confirmPassword"
-              type="text"
-              placeholder="Confirm Password"
-            />
-            <ErrorMessage name="confirmPassword" component="div" />
+            <div className={UserProfileEditCSS.outerbox}>
+              <label htmlFor="ConfirmPassword">Confirm Password</label>
+              <Field
+                className={UserProfileEditCSS.Table}
+                name="confirmPassword"
+                type="text"
+                placeholder="Confirm Password"
+              />
+              <ErrorMessage name="confirmPassword" component="div" />
+            </div>
 
-            <button type="submit">Update Profile</button>
+            <div className={UserProfileEditCSS.bothButtons}>
+              <button
+                className={UserProfileEditCSS.changesButton}
+                type="submit"
+              >
+                Save Changes
+              </button>
+              <button
+                className={UserProfileEditCSS.changesButton}
+                type="button"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </button>
+            </div>
           </Form>
         </Formik>
       </DialogContent>
     </Dialog>
-    //       <div className={UserProfileEditCSS.saveButtons}>
-    //         <button type="submit">Save Changes</button>
-    //         <button type="button" onClick={handleCloseModal}>
-    //           Cancel
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <Footer />
-    // </div>
   );
 };
 

@@ -60,35 +60,12 @@ const ProfilePage = () => {
           </div>
 
           <div className={UserCSS.userInfoContainer}>
-            {/* <div className={UserCSS.photoDetails}>
-              <Card className={UserCSS.userPhotoCard}>
-                <div className={UserCSS.userPhoto}>
-                  <AccountCircleIcon id={UserCSS.userPhotoIcon} />
-                  <h4>Upload Photo</h4>
-                </div>
-              </Card>
-
-              <div id={UserCSS.editProfile}>
-                <Link to="update">
-                  <button>Edit Profile</button>
-                </Link>
-              </div>
-            </div> */}
-
             <div className={UserCSS.userInfoDetails}>
               <div className={UserCSS.userInfoHeader}>
                 <h1>
                   Hello, {profile.firstName} {profile.lastName}
                 </h1>
-                {/* <p>Joined in </p> */}
               </div>
-
-              {/* <div className={UserCSS.userAddresstoAge}>
-                <div className={UserCSS.userContainer}>
-                  <h3>Address</h3>
-                  <p>Purok 7, Bunga-Mar, Jagna, Bohol</p>
-                </div>
-              </div> */}
 
               <div className={UserCSS.userEmailtoPass}>
                 <p>
@@ -102,8 +79,6 @@ const ProfilePage = () => {
                     <b> Password: </b>
                   </p>
                   <p>**********</p>
-                  {/* <VisibilityIcon />
-                  <VisibilityOffIcon /> */}
                 </div>
               </div>
             </div>
