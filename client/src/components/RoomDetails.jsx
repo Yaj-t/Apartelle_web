@@ -40,37 +40,35 @@
       return <div>error</div>;
     }
 
-    return (
-      <div>
-        <UserNavBar />
+  return (
+    <div>
+      <UserNavBar />
 
-        <div className={RoomDetailsCSS.photocardsContainer}>
-          <CardMedia
-            id='discover-picture'
-            sx={{ height: 700, width: 1000 }}
-            image={RoomImage}
-            title='room picture'
-          />
-        </div>
+      <div className={RoomDetailsCSS.photocardsContainer}>
+        <CardMedia
+          id="discover-picture"
+          sx={{ height: 700, width: 1000 }}
+          image={RoomImage}
+          title="room picture"
+        />
+      </div>
 
-        <div className={RoomDetailsCSS.roomDetails}>
-          <div className={RoomDetailsCSS.roomContainer}>
-            <div className={RoomDetailsCSS.roomHeader}>
-              <div className={RoomDetailsCSS.roomTitle}>
-                <h1> {room.roomNumber} </h1>
-                <h3> {room.RoomType.typeName} </h3>
-                <h2> Capacity </h2>
-                <h3> {room.capacity} </h3>
-              </div>
-
-              <FavoriteBorderIcon />
+      <div className={RoomDetailsCSS.roomDetails}>
+        <div className={RoomDetailsCSS.roomContainer}>
+          <div className={RoomDetailsCSS.roomHeader}>
+            <div className={RoomDetailsCSS.roomTitle}>
+              <h1> {room.roomNumber} </h1>
+              <h3> {room.RoomType.typeName} </h3>
+              <h2> Capacity </h2>
+              <h3> {room.capacity} </h3>
             </div>
 
-            <p>
-              {room.description}
-            </p>
+            <FavoriteBorderIcon />
+          </div>
 
-            {/* <div className={RoomDetailsCSS.amenitiesContainer}>
+          <p>{room.description}</p>
+
+          {/* <div className={RoomDetailsCSS.amenitiesContainer}>
               <div className={RoomDetailsCSS.amenitiesDetails}>
                 <h1>Offered Amenities</h1>
                 <ul>
@@ -84,30 +82,30 @@
 
               <button> Show All Amenities </button>
             </div> */}
-          </div>
+        </div>
 
-          <div className={RoomDetailsCSS.roomCard}>
-            <Card sx={{ width: 400 }}>
-              <div className={RoomDetailsCSS.cardDetails}>
-                <div id={RoomDetailsCSS.titleHeader}>
-                  <h2> Php {room.price} </h2>
-                  <hr />
-                </div>
+        <div className={RoomDetailsCSS.roomCard}>
+          <Card sx={{ width: 400 }}>
+            <div className={RoomDetailsCSS.cardDetails}>
+              <div id={RoomDetailsCSS.titleHeader}>
+                <h2> Php {room.price} </h2>
+                <hr />
+              </div>
 
-                {/* <div id={RoomDetailsCSS.bodyContent}>
+              {/* <div id={RoomDetailsCSS.bodyContent}>
                   <p> Short Period: Php 1000 </p>
                   <p> Medium Period: Php 2000 </p>
                   <p> Long Period: Php 2000 </p>
                 </div> */}
-                <BookRoom room={room}></BookRoom>
-              </div>
-            </Card>
-          </div>
+              <BookRoom room={room}></BookRoom>
+            </div>
+          </Card>
         </div>
-
-        <Footer />
       </div>
-    );
-  }
 
-  export default RoomDetails;
+      <Footer />
+    </div>
+  );
+};
+
+export default RoomDetails;
