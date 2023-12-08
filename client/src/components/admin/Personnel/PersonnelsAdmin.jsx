@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import NavBarDashboard from '../../NavBars/NavBarDashboard';
 import SearchIcon from '@mui/icons-material/Search';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import PersonnelsCSS from '../../../styles/admin/personnelsAdmin.module.css';
 
@@ -43,7 +42,7 @@ function PersonnelsAdmin() {
             <tbody>
               <tr>
                 <td>
-                  <CheckBoxOutlineBlankIcon fontSize='very small' />
+                  <input type="checkbox" id={PersonnelsCSS.checkbox}/>
                 </td>
                 <td>
                   <Link to='/admin/personnel/personnelDetails'>

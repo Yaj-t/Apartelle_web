@@ -10,7 +10,7 @@ import ReservationDetails from './components/admin/Reservation/ReservationDetail
 import RoomsAdmin from './components/admin/Rooms/AddRooms/RoomsAdmin';
 import RoomsFormAdmin from './components/admin/Rooms/AddRooms/RoomsFormAdmin';
 import RoomsAllAdmin from './components/admin/Rooms/AddRooms/RoomsAllAdmin';
-import RoomsDetailsAdmin from './components/admin/Rooms/AddRooms/RoomsDetailsAdmin';
+import RoomsEditDetailsAdmin from './components/admin/Rooms/AddRooms/RoomEditDetails';
 import PersonnelsAdmin from './components/admin/Personnel/PersonnelsAdmin';
 import PersonnelDetailsAdmin from './components/admin/Personnel/PersonnelDetailsAdmin';
 import MainPageAdmin from './components/admin/MainPageAdmin';
@@ -61,8 +61,8 @@ function App() {
           <Route path='/admin/rooms/addRooms' element={<RoomsFormAdmin />} />
           <Route path='/admin/rooms/showAllRooms' element={<RoomsAllAdmin />} />
           <Route
-            path='/admin/rooms/showAllRooms/roomDetails'
-            element={<RoomsDetailsAdmin />}
+            path='/admin/rooms/showAllRooms/editRoom/:id'
+            element={<RoomsEditDetailsAdmin />}
           />
 
           {/* For the admin reservation modules */}

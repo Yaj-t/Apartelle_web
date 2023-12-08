@@ -78,3 +78,9 @@
 .personnelTable {
   margin: 50px 150px;
 }
+
+#checkbox {
+  height: 15px;
+  width: 15px;
+  accent-color: #f57328;
+}

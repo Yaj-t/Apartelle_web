@@ -1,26 +1,15 @@
 # Things I updated
 
-Global:
-
-- Fixed the stylings that was changed because of the global css
-
 For Users:
 
-- Fixed the issue where Users can access admin page even if logged in as users
-- When the link hovers, an animation occurs
-- Added react-slick as the carousels for the index page, so _npm install_ again
-- All Rooms Can now search filter
-- All Rooms can now use the filter button, where it can filter its room types and prices in ascending and descending order
+- Changed the Filtering to Checkbox
 
 For Admins:
 
-- When the admin logs in, it redirects to the dashboard
-- Added a Logout function on the Admin Navigation Sidebar
-- Added Alerts when adding a Room Type and also redirects to the Rooms Admin if added successfully
-- Fixed the style for Alerts when adding a Room and also redirects to the Rooms Admin if added successfully
-- Fixed the styling of the Room Forms Admin
-- Fixed the styling for the Room and Room Type Forms
 - Made the the Room admins into two buttons, manage room types and manage rooms
+- Changed the style of managing all rooms for selecting to input type checkbox
+- Fixed the bugs of the Rooms section (navigation and search bars)
+- Removed the filter buttons in the Rooms Section, making the table headers as the filter buttons
 
 # What to Fix
 
@@ -30,3 +19,4 @@ For User:
 - Contents of the UpdateProfile
 - The filter button for the All Rooms should be focused to avoid confusion
 - All Rooms filter "Price" can be ascending or descending
+- The Edit Forms

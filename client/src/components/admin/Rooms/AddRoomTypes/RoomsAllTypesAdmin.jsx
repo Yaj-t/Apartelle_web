@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import SearchIcon from '@mui/icons-material/Search';
 import NavBarDashboard from '../../../NavBars/NavBarDashboard';
 import AllTypesCSS from '../../../../styles/admin/roomsAllTypesAdmin.module.css';
 
@@ -57,8 +58,13 @@ const RoomTypes = () => {
       <div className={AllTypesCSS.tableContainer}>
         <div className={AllTypesCSS.tableHeaderContainer}>
           <div className={AllTypesCSS.tableHeader}>
-            <h1>Room Types</h1>
             {error && <p>{error}</p>}
+            <form action='' method='' className={AllTypesCSS.searchBar}>
+              <input type='text' placeholder='Search...' />
+              <button className={AllTypesCSS.searchBtn}>
+                <SearchIcon fontSize='small' />
+              </button>
+            </form>
           </div>
 
           <div className={AllTypesCSS.tableHeader}>
@@ -82,11 +88,12 @@ const RoomTypes = () => {
                 <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {roomTypes.map(roomType => (
                 <tr key={roomType.roomTypeId}>
                   <td>
-                    <input type="checkbox" id={AllTypesCSS.checkbox}/>
+                    <input type='checkbox' id={AllTypesCSS.checkbox} />
                   </td>
                   <td>{roomType.typeName}</td>
                   <td>{roomType.typeDescription}</td>
