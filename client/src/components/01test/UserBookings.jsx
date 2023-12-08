@@ -103,7 +103,7 @@ function UserBookings() {
                     )}
                     {isPastBookingList && (
                         // Replace '/review' with the actual path where users can write reviews
-                        <Link to={`/review/${booking.bookingId}`}>Write a Review</Link>
+                        <Link to={`/addReview/${booking.bookingId}`}>Write a Review</Link>
                     )}
                 </li>
             ))}
