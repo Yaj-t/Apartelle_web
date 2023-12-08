@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Review, Booking, User } = require("../models");
+const { Review, Booking, User, Room } = require("../models");
 
 // Get all reviews
 router.get('/', async (req, res) => {
@@ -11,6 +11,15 @@ router.get('/', async (req, res) => {
     res.status(200).json(reviews);
   } catch (error) {
     res.status(500).send({ message: 'Internal server error', error });
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const review = await Review.create(req.body);
+    res.status(201).json(review);
+  } catch (error) {
+    res.status(500).send({ message: 'Error creating review', error });
   }
 });
 
@@ -30,14 +39,7 @@ router.get('/:reviewId', async (req, res) => {
 });
 
 // Create a new review
-router.post('/', async (req, res) => {
-  try {
-    const review = await Review.create(req.body);
-    res.status(201).json(review);
-  } catch (error) {
-    res.status(500).send({ message: 'Error creating review', error });
-  }
-});
+
 
 // Update a review by ID
 router.put('/:reviewId', async (req, res) => {
@@ -66,5 +68,29 @@ router.delete('/:reviewId', async (req, res) => {
     res.status(500).send({ message: 'Error deleting review', error });
   }
 });
+
+// Get all reviews by a specific user
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const reviews = await Review.findAll({
+      include: [{
+        model: Booking,
+        include: [{
+          model: User,
+          where: { userId: userId } 
+        },
+        {
+          model: Room,
+        }
+      ]
+      }]
+    });
+    res.status(200).json(reviews);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error', error });
+  }
+});
+
 
 module.exports = router;
