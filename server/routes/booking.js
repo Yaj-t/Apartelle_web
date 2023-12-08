@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Booking, User, Room } = require("../models");
 const { requireAuth, authRole } = require('../middleware/authMiddleware');
+const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 
 // Get all bookings
 router.get('/', authRole(['ADMIN', 'Staff']), async (req, res) => {
@@ -74,8 +76,10 @@ router.get('/room/:roomId', authRole(['ADMIN', 'Staff']), async (req, res) => {
 // Create a new booking
 router.post('/', requireAuth, async (req, res) => {
   try {
+    const token = req.header("accessToken")
+
     const decodedToken = jwt.verify(token, 'Apartelle Secret Website');
-    const userId = decodedToken.userId;
+    const userId = decodedToken.id;
 
     const bookingData = req.body;
     bookingData.userId = userId;
@@ -114,7 +118,7 @@ router.post('/', requireAuth, async (req, res) => {
 
     // Create the booking
     const booking = await Booking.create(bookingData);
-    res.status(201).json(booking);
+    res.status(201).json({message: 'booking successful', booking});
   } catch (error) {
     console.error('Error creating booking:', error);
     res.status(500).send({ message: 'Error creating booking', error });

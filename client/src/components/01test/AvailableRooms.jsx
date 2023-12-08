@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from 'react-router-dom';
 
 function AvailableRooms() {
     const [startDate, setStartDate] = useState(new Date());
@@ -39,7 +40,9 @@ function AvailableRooms() {
                     {availableRooms.length > 0 ? (
                         <ul>
                             {availableRooms.map(room => (
-                                <li key={room.roomId}>{room.description} - {room.price}</li>
+                                <Link key={room.id} to={`/roomDetails/${room.roomId}`}>
+                                    <li key={room.roomId}>{room.description} - {room.price}</li>
+                                </Link>
                             ))}
                         </ul>
                     ) : <p>No rooms available for the selected dates.</p>}
