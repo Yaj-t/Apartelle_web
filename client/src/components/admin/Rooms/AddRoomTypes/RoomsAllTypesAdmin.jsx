@@ -10,6 +10,7 @@ const RoomTypes = () => {
   const [roomTypes, setRoomTypes] = useState([]);
   const [error, setError] = useState('');
   const [sortOrder, setSortOrder] = useState(' '); // 'asc' for ascending, 'desc' for descending, 'original' for original order
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
 
   let navigate = useNavigate();
@@ -69,6 +70,22 @@ const RoomTypes = () => {
   const getSortedRoomTypes = () => {
     let sortedRoomTypes = [...roomTypes];
 
+    // Apply search filter
+    if (searchQuery) {
+      sortedRoomTypes = sortedRoomTypes.filter(roomType => {
+        const searchableProperties = [
+          roomType.typeName,
+          roomType.typeDescription
+        ];
+
+        // Check if any of the properties includes the search query
+        return searchableProperties
+          .map(property => property.toLowerCase())
+          .some(property => property.includes(searchQuery.toLowerCase()));
+      });
+    }
+
+    //Apply Sorting
     if (sortOrder !== 'original') {
       sortedRoomTypes.sort((a, b) => {
         const compareValueA = a.typeName.toLowerCase();
@@ -122,6 +139,10 @@ const RoomTypes = () => {
     }
   };
 
+  const handleSearch = e => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -131,10 +152,12 @@ const RoomTypes = () => {
           <div className={AllTypesCSS.tableHeader}>
             {error && <p>{error}</p>}
             <form action='' method='' className={AllTypesCSS.searchBar}>
-              <input type='text' placeholder='Search...' />
-              <button className={AllTypesCSS.searchBtn}>
-                <SearchIcon fontSize='small' />
-              </button>
+              <input
+                type='text'
+                placeholder='Search...'
+                value={searchQuery}
+                onChange={handleSearch}
+              />
             </form>
           </div>
 

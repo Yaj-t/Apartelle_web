@@ -14,6 +14,7 @@ function RoomsAllAdmin() {
   const [sortOrderRoomType, setSortOrderRoomType] = useState('original');
   const [sortOrderCapacity, setSortOrderCapacity] = useState('original');
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -100,6 +101,24 @@ function RoomsAllAdmin() {
   const getSortedRooms = () => {
     let sortedRooms = [...rooms];
 
+    // Apply search filter
+    if (searchQuery) {
+      sortedRooms = sortedRooms.filter(room => {
+        const searchableProperties = [
+          room.roomNumber,
+          getRoomTypeName(room.roomTypeId), // Room Type Name
+          room.description,
+          String(room.capacity) // Convert capacity to string for search
+        ];
+
+        // Check if any of the properties includes the search query
+        return searchableProperties
+          .map(property => property.toLowerCase())
+          .some(property => property.includes(searchQuery.toLowerCase()));
+      });
+    }
+
+    // Apply sorting
     if (sortOrderRoomNumber !== 'original') {
       sortedRooms.sort((a, b) => {
         const compareValueA =
@@ -176,6 +195,10 @@ function RoomsAllAdmin() {
     }
   };
 
+  const handleSearch = e => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -183,10 +206,12 @@ function RoomsAllAdmin() {
       <div className={RoomsAllCSS.roomContainer}>
         <div className={RoomsAllCSS.filterContainer}>
           <form action='' method='' className={RoomsAllCSS.searchBar}>
-            <input type='text' placeholder='Search...' />
-            <button className={RoomsAllCSS.searchBtn}>
-              <SearchIcon fontSize='small' />
-            </button>
+            <input
+              type='text'
+              placeholder='Search...'
+              value={searchQuery}
+              onChange={handleSearch}
+            />
           </form>
 
           <div className={RoomsAllCSS.btnContainer}>

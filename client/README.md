@@ -15,6 +15,7 @@ For Admins:
 - Made the the Room admins into two buttons, manage room types and manage rooms
 - the filter headers of Room Types and Rooms are now available
 - Room and Room Types can now batch delete
+- Made the search bar functional in the rooms section
 
 # What to Fix
 
