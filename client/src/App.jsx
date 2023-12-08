@@ -28,6 +28,7 @@ import PersonalDetails from './PersonalDetails';
 import ProtectedRoutes from './components/ProtectedRoute';
 import UnauthorizeError from './components/errorpages/UnauthorizeError';
 import AvailableRooms from './components/01test/AvailableRooms';
+import BookRoom from './components/01test/BookRoom';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
     <>
       <Routes>
         <Route path='/available-rooms' element={<AvailableRooms></AvailableRooms>}/>  
-
+        <Route path='/book-room/:roomId' element={<BookRoom></BookRoom>}></Route>
       </Routes>
       
 

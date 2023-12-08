@@ -4,6 +4,7 @@ import UserNavBar from '../NavBars/UserNavBar';
 import Footer from '../Footer';
 import { Link } from 'react-router-dom';
 import ReserveSettingsCSS from '../../styles/settings/reservationSettings.module.css';
+import UserBookings from '../01test/UserBookings'
 
 const ReservationsSettings = () => {
   return (
@@ -17,7 +18,9 @@ const ReservationsSettings = () => {
             Track your bookings here
           </h2>
           <hr className={ReserveSettingsCSS.dividerBookings} />
-          {/* Add more content related to bookings here */}
+          <div>
+            <UserBookings />
+          </div>
         </div>
       </div>
       <Footer />
