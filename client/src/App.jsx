@@ -33,11 +33,13 @@ import AddReview from './components/01test/AddReview';
 import UserBoookings from './components/01test/UserBookings'
 import UserReviews from './components/01test/UserReviews'
 import UpdateReview from './components/01test/UpdateReview';
+import BookingsList from './components/01test/BookingList';
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/booking-list' element={<BookingsList/>}></Route>
         <Route path="/update-review/:reviewIdParam" element={<UpdateReview/>} />
         <Route path="/user-reviews/:userIdParam" element={<UserReviews/>} />
         <Route path='/user-bookings' element={<UserBoookings/>} />
