@@ -10,6 +10,8 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AllRoomsCSS from '../styles/allRooms.module.css';
 import axios from 'axios'; // Import axios
 import RoomImage from '../assets/Room_Picture.jpg';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function AllRooms() {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -18,6 +20,8 @@ function AllRooms() {
   const [query, setQuery] = useState('');
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
   const [sortOrder, setSortOrder] = useState(''); // 'asc' for ascending, 'desc' for descending
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState(null);
 
   // Inside the useEffect, modify the fetchRooms function
   const fetchRooms = async () => {
@@ -44,6 +48,21 @@ function AllRooms() {
     }
   };
 
+  const fetchAvailableRooms = async () => {
+    try {
+      const formattedStartDate = startDate.toISOString().split('T')[0];
+      const formattedEndDate = endDate.toISOString().split('T')[0];
+      const response = await axios.get(`http://localhost:3001/room/available-rooms?startDate=${formattedStartDate}&endDate=${formattedEndDate}`);
+      setRooms(response.data);
+    } catch (error) {
+      console.error('Error fetching available rooms:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAvailableRooms();
+  }, [startDate, endDate]);
+
   // Update the dependency array to include sortOrder
   useEffect(() => {
     // Fetch rooms when the component mounts and whenever the query, selected room types, or sort order changes
@@ -59,6 +78,10 @@ function AllRooms() {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    fetchAvailableRooms();
+  }, [startDate, endDate]);
 
   useEffect(() => {
     fetchRoomTypes();
@@ -83,6 +106,12 @@ function AllRooms() {
       document.removeEventListener('mousedown', handler);
     };
   });
+
+  useEffect(() => {
+    if (startDate && endDate && endDate <= startDate) {
+      setEndDate(null);
+    }
+  }, [startDate, endDate]);
 
   const getRoomTypeName = roomTypeId => {
     const roomType = roomTypes.find(type => type.roomTypeId === roomTypeId);
@@ -119,12 +148,19 @@ function AllRooms() {
       <UserNavBar />
 
       <div className={AllRoomsCSS.filterContainer}>
-        <div className={AllRoomsCSS.searchBar}>
-          <input
-            type='text'
-            placeholder='Search...'
-            value={query}
-            onChange={e => setQuery(e.target.value)}
+        <div className={AllRoomsCSS.datePickers}>
+          <DatePicker
+            selected={startDate}
+            onChange={date => setStartDate(date)}
+            placeholderText="Start Date"
+            minDate={new Date()}
+            maxDate={endDate}
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={date => setEndDate(date)}
+            placeholderText="End Date"
+            minDate={startDate}
           />
         </div>
 
