@@ -13,9 +13,10 @@ const BookingsList = () => {
 
       try {
         const accessToken = sessionStorage.getItem('accessToken'); // Assuming the access token is stored in sessionStorage
-        const response = await axios.get('http://localhost:3001/bookings/', {
+        const response = await axios.get('http://localhost:3001/booking/', {
             headers: { accessToken: sessionStorage.getItem('accessToken') } 
         });
+
         setBookings(response.data);
       } catch (err) {
         setError(err.message);
