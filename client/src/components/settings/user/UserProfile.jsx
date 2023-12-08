@@ -69,7 +69,7 @@ const ProfilePage = () => {
 
               <div className={UserCSS.userEmailtoPass}>
                 <p>
-                  <b>Email:</b> {profile.email}
+                  <b>Emailssssssssssssssssssssss:</b> {profile.email}
                 </p>
                 <p>
                   <b>Contact Number:</b> {profile.contactNumber}
