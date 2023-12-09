@@ -54,8 +54,9 @@ function BookRoom({ room }) {
             console.log(response.data);
             alert('Booking successful!');
         } catch (err) {
-            console.error('Error creating booking:', err.response?.data || err.message);
-            alert('Error creating booking: ' + (err.response?.data?.message || err.message));
+            console.log(err)
+            console.error('Error creating booking:', err.response.data.error);
+            alert('Error creating booking: ' + (err.response?.data?.error));
         } finally {
             setIsLoading(false);
         }
