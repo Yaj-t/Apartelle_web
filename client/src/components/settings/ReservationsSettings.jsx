@@ -215,12 +215,14 @@ const ReservationsSettings = () => {
               </div>
 
               <div className={ReserveSettingsCSS["button-pos"]}>
-                <button
-                  className={ReserveSettingsCSS["button1"]}
-                  onClick={handleCancelClick}
-                >
-                  Cancel Reservation
-                </button>
+                {canCancelBooking(booking) && (
+                  <button
+                    className={ReserveSettingsCSS["button1"]}
+                    onClick={() => handleCancelClick(booking.bookingId)}
+                  >
+                    Cancel Reservation
+                  </button>
+                )}
                 <Dialog open={isModalOpen} onClose={handleCloseModal}>
                   <DialogTitle className={ReserveSettingsCSS.DialogTitle}>
                     You are about to cancel your booking.
