@@ -10,10 +10,13 @@ import SettingsSidebar from "../../NavBars/SettingsSidebar";
 import Footer from "../../Footer";
 import UserCSS from "../../../styles/settings/userProfile.module.css";
 import EditProfileForm from "./UpdateProfile";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [profile, setProfile] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -38,8 +41,28 @@ const ProfilePage = () => {
     setShowEditModal(true);
   };
 
+  const handleDeleteAccountClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
   const handleCloseModal = () => {
     setShowEditModal(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await Axios.delete("http://localhost:3001/user/myprofile", {
+        headers: { accessToken: sessionStorage.getItem("accessToken") },
+      });
+      sessionStorage.removeItem("accessToken");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (!profile) {
@@ -85,20 +108,34 @@ const ProfilePage = () => {
           </div>
           <div id={UserCSS.editProfile}>
             <button onClick={handleEditProfileClick}>Edit Profile</button>
+            {showEditModal && (
+              <EditProfileForm handleCloseModal={handleCloseModal} />
+            )}
           </div>
           <div id={UserCSS.deleteAccount}>
-            <button onClick={handleEditProfileClick}>Delete Account</button>
-          </div>
-          {showEditModal && (
-            <div className="modal">
-              <div className="modal-content">
-                <span className="close" onClick={handleCloseModal}>
-                  &times;
-                </span>
-                <EditProfileForm handleCloseModal={handleCloseModal} />
+            <button onClick={handleDeleteAccountClick}>Delete Account</button>
+
+            {showDeleteModal && (
+              <div className={UserCSS.modalBackground}>
+                <div className={UserCSS.modalContent}>
+                  <span
+                    className={UserCSS.close}
+                    onClick={handleCloseDeleteModal}
+                  >
+                    &times;
+                  </span>
+                  <div>
+                    <h2>Are you sure you want to delete your account?</h2>
+                    <p>This change is permanent and cannot be undone.</p>
+                    <div className={UserCSS.twoButtons}>
+                      <button onClick={handleConfirmDelete}>Yes</button>
+                      <button onClick={handleCloseDeleteModal}>No</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <Footer />
