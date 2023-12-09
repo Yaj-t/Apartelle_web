@@ -173,7 +173,7 @@ const EditProfileForm = ({ handleCloseModal }) => {
               <Field
                 className={UserProfileEditCSS.Table}
                 name="password"
-                type="text"
+                type="password"
                 placeholder="Password"
               />
               <ErrorMessage name="password" component="div" />
@@ -184,7 +184,7 @@ const EditProfileForm = ({ handleCloseModal }) => {
               <Field
                 className={UserProfileEditCSS.Table}
                 name="confirmPassword"
-                type="text"
+                type="password"
                 placeholder="Confirm Password"
               />
               <ErrorMessage name="confirmPassword" component="div" />
