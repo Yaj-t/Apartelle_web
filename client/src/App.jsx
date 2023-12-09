@@ -34,11 +34,14 @@ import UserBookings from "./components/01test/UserBookings";
 import UserReviews from "./components/01test/UserReviews";
 import UpdateReview from "./components/01test/UpdateReview";
 import BookingsList from "./components/01test/BookingList";
+import BookingAnalytics from "./components/01test/BookingAnalytics";
 
 function App() {
   return (
     <>
       <Routes>
+
+        <Route path="/admin/booking-analytics" element={<BookingAnalytics/>} />
         <Route
           path="/available-rooms"
           element={<AvailableRooms></AvailableRooms>}
