@@ -33,7 +33,7 @@ const Login = () => {
 
         // Handle successful login here
         if (userType === 'ADMIN') {
-          url = '/admin';
+          url = '/admin/rooms';
           console.log(url);
           // navigate(url);
         }

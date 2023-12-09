@@ -10,7 +10,6 @@ function PersonnelDetailsAdmin() {
       <NavBarDashboard />
       </div>
       <div>
-        <BookingAnalytics></BookingAnalytics>
       </div>
       
     </div>

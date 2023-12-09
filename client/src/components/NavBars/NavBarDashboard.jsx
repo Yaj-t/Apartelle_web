@@ -16,9 +16,9 @@ function NavBarDashboard() {
           <Link to='/admin'>
             <img src={Logo} alt='logo' width='80px' />
           </Link>
-          <Link to='/admin'>
-            <HomeIcon />
-          </Link>
+            {/* <Link to='/admin'>
+              <HomeIcon />
+            </Link> */}
           <Link to='/admin/reservation'>
             <EventNoteIcon />
           </Link>
