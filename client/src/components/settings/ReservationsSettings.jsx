@@ -71,7 +71,7 @@ const ReservationsSettings = () => {
     try {
         // Making a PUT request to update the booking's isCancelled field
         const response = await axios.put(`http://localhost:3001/booking/${bookingId}`, 
-            { isCancelled: true }, // Update this field to true
+            { isCancelled: true }, // Update this field to true`
             { headers: { accessToken: sessionStorage.getItem('accessToken') } }
         );
         // Update the bookings list after successful cancellation
@@ -199,8 +199,12 @@ const ReservationsSettings = () => {
                     {bookingData ? (
                       <div>
                         {/* Display the fetched data */}
-                        <p>Room ID: {bookingData.roomId}</p>
-                        <p>Check-in Date: {bookingData.checkInDate}</p>
+                        <p>Room Number: {booking.Room.roomNumber}</p>
+                        <p>Check-in Date: {booking.dateStart}</p>
+                        <p>Check-out Date: {booking.dateEnd}</p>
+                        <p>Capacity: {booking.Room.capacity}</p>
+                        <p>Total Amount: Php{booking.amount}</p>
+
                         {/* Add other properties as needed */}
                       </div>
                     ) : (
