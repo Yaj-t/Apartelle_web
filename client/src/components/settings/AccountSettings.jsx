@@ -28,7 +28,7 @@ const AccountSettings = () => {
             </button>
           </Link>
 
-          <Link to='security/'>
+          {/* <Link to='security/'>
             <button>
               <LockIcon fontSize='large' />
               <div className={SettingsCSS.label}>
@@ -36,7 +36,7 @@ const AccountSettings = () => {
                 <p>Manage your account security</p>
               </div>
             </button>
-          </Link>
+          </Link> */}
 
           <Link to='reservation/'>
             <button>

@@ -12,9 +12,6 @@ const SettingsSidebar = () => {
             <Link to='/settings/manage-account/'>Personal Details</Link>
           </li>
           <li>
-            <Link to='/settings/security/'>Security</Link>
-          </li>
-          <li>
             <Link to='/settings/reservation/'>Bookings</Link>
           </li>
         </ul>

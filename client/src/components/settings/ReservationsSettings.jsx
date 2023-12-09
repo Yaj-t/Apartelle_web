@@ -204,6 +204,7 @@ const ReservationsSettings = () => {
                         <p>Check-out Date: {booking.dateEnd}</p>
                         <p>Capacity: {booking.Room.capacity}</p>
                         <p>Total Amount: Php{booking.amount}</p>
+                        <p>Booked in: {booking.createdAt}</p>
 
                         {/* Add other properties as needed */}
                       </div>
