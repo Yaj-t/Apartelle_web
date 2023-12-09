@@ -59,8 +59,8 @@
             <div className={RoomDetailsCSS.roomTitle}>
               <h1> {room.roomNumber} </h1>
               <h3> {room.RoomType.typeName} </h3>
-              <h2> Capacity </h2>
-              <h3> {room.capacity} </h3>
+              <h2> Capacity: {room.capacity} </h2>
+              <h3> Description:</h3>
             </div>
 
             <FavoriteBorderIcon />
