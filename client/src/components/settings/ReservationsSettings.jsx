@@ -22,6 +22,7 @@ const ReservationsSettings = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [bookingData, setBookingData] = useState(null);
   const [error, setError] = useState(null);
+  const [bookingCancelled, setBookingCancelled] = useState(null)
 
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -47,6 +48,60 @@ const ReservationsSettings = () => {
     setIsModalOpen(true);
   };
 
+  const handleCancelBooking = async (bookingId) => {
+    try {
+      console.log(sessionStorage.getItem("accessToken"))
+      const response = await axios.delete(`http://localhost:3001/booking/my-bookings/${bookingId}`, {
+        headers: { accessToken: sessionStorage.getItem("accessToken") }
+      });
+  
+      if (response.status === 200) {
+        // Remove the cancelled booking from the bookingData state
+        const updatedBookings = bookingData.filter(booking => booking.bookingId !== bookingId);
+        setBookingData(updatedBookings);
+        setBookingCancelled(true); // You might want to handle this state differently
+        setIsModalOpen(false);
+      }
+    } catch (err) {
+      console.error('Error canceling booking:', err);
+      setError('Error occurred while canceling the booking.');
+    }
+  };
+  const cancelBooking = async (bookingId) => {
+    try {
+        // Making a PUT request to update the booking's isCancelled field
+        const response = await axios.put(`http://localhost:3001/booking/${bookingId}`, 
+            { isCancelled: true }, // Update this field to true
+            { headers: { accessToken: sessionStorage.getItem('accessToken') } }
+        );
+        // Update the bookings list after successful cancellation
+        setBookings(currentBookings => currentBookings.map(booking => 
+            booking.bookingId === bookingId ? { ...booking, isCancelled: true } : booking
+        ));
+    } catch (error) {
+        console.error('Error cancelling booking:', error);
+        // Handle error response appropriately
+    }
+};
+
+  const canCancelBooking = (booking) => {
+      const bookingStartTime = new Date(booking.dateStart);
+      const bookingEndTime = new Date(booking.dateEnd);
+      const currentTime = new Date();
+      const hoursDiff = Math.abs(currentTime - new Date(booking.createdAt)) / 36e5;
+      
+      const isPastBooking = bookingEndTime < currentTime;
+      const isCurrentBooking = bookingStartTime <= currentTime && bookingEndTime >= currentTime;
+
+      // Booking cannot be cancelled if:
+      // - It's already cancelled
+      // - It's a past booking
+      // - It's a current booking
+      // - It was booked more than 12 hours ago
+      return !booking.isCancelled && !isPastBooking && !isCurrentBooking && hoursDiff <= 12;
+  };
+  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -64,6 +119,14 @@ const ReservationsSettings = () => {
     setIsDetailsModalOpen(false);
   };
 
+  const calculateDuration = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diffTime = Math.abs(endDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    return diffDays;
+  };
+
   return (
     <div>
       <UserNavBar />
@@ -76,6 +139,7 @@ const ReservationsSettings = () => {
             Track your bookings here
           </h2>
           <hr className={ReserveSettingsCSS.dividerBookings} />
+          {bookingData && bookingData.map((booking, index) => (
           <Card>
             <div className={ReserveSettingsCSS["card-container"]}>
               <CardMedia
@@ -85,15 +149,16 @@ const ReservationsSettings = () => {
               />
               <div className={ReserveSettingsCSS["room-booking"]}>
                 <div className={ReserveSettingsCSS["room-details"]}>
+                  
                   <h4 className={ReserveSettingsCSS["text"]}>
-                    Fully Furnished Apartment
+                    Room# {booking.Room.roomNumber}
                   </h4>
                   <div className={ReserveSettingsCSS["details"]}>
                     <div className={ReserveSettingsCSS["para"]}>
                       <p>
                         Check In:{" "}
                         <span className={ReserveSettingsCSS["blurey"]}>
-                          12 Mar 2021
+                          {booking.dateStart}
                         </span>
                       </p>
                     </div>
@@ -101,20 +166,20 @@ const ReservationsSettings = () => {
                       <p>
                         Duration:{" "}
                         <span className={ReserveSettingsCSS["blurey"]}>
-                          Long ( 2 - 5 Years )
+                          {calculateDuration(booking.dateStart, booking.dateEnd)} days
                         </span>{" "}
                       </p>
                     </div>
                     <div className={ReserveSettingsCSS["para"]}>
                       <p>
-                        Guests:{" "}
+                        Capacity:{" "}
                         <span className={ReserveSettingsCSS["blurey"]}>
-                          4 Adults
+                          {booking.Room.capacity}
                         </span>
                       </p>
                     </div>
                   </div>
-                  <h4 className={ReserveSettingsCSS["text"]}>$ 1000 USD</h4>
+                  <h4 className={ReserveSettingsCSS["text"]}>PHP {booking.amount}</h4>
                 </div>
               </div>
 
@@ -161,12 +226,12 @@ const ReservationsSettings = () => {
                   </DialogContent>
 
                   <div className={ReserveSettingsCSS.bothModalButtons}>
-                    <button
-                      onClick={handleConfirmCancel}
-                      className={ReserveSettingsCSS.modalButton2}
-                    >
-                      Proceed to Cancel
-                    </button>
+                  <button
+                    className={ReserveSettingsCSS["button1"]}
+                    onClick={() => handleCancelBooking(booking.bookingId)}
+                  >
+                    Cancel Reservation
+                  </button>
                     <button
                       onClick={handleCloseModal}
                       className={ReserveSettingsCSS.modalButton1}
@@ -178,6 +243,7 @@ const ReservationsSettings = () => {
               </div>
             </div>
           </Card>
+          ))}
         </div>
       </div>
       <Footer />
