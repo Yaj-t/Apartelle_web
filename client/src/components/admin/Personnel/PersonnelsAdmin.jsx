@@ -8,6 +8,8 @@ import axios from 'axios';
 function PersonnelsAdmin() {
   const [users, setUsers] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState({});
+  const [selectedUsersForDeletion, setSelectedUsersForDeletion] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -16,18 +18,16 @@ function PersonnelsAdmin() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:3001/user/users', {
-        headers: { accessToken: sessionStorage.getItem('accessToken') }
+        headers: { accessToken: sessionStorage.getItem('accessToken') },
+        params: { search: searchQuery } // Pass the search query as a parameter
       });
-      console.log('users:', response.data);
+
       setUsers(response.data.users);
 
       // Initialize selectedStatus based on the isActive field
       const initialSelectedStatus = {};
       response.data.users.forEach(user => {
-        initialSelectedStatus[user.userId] = user.isActive
-          ? 'active'
-          : 'inactive';
-        console.log(user.isActive);
+        initialSelectedStatus[user.userId] = user.isActive ? '1' : '0';
       });
       setSelectedStatus(initialSelectedStatus);
     } catch (err) {
@@ -36,11 +36,14 @@ function PersonnelsAdmin() {
   };
 
   const handleStatusChange = async (userId, value) => {
+    console.log('Request Payload:', { isActive: value });
+    console.log(userId);
+
     try {
       // Make a PUT request to update the active status
       await axios.put(
         `http://localhost:3001/user/profile/${userId}`,
-        { isActive: value === 'active' },
+        { isActive: value },
         {
           headers: {
             accessToken: sessionStorage.getItem('accessToken')
@@ -59,6 +62,44 @@ function PersonnelsAdmin() {
     }
   };
 
+  const handleCheckboxChange = userId => {
+    setSelectedUsersForDeletion(prevSelectedUsers => {
+      const updatedSelectedUsers = prevSelectedUsers.includes(userId)
+        ? prevSelectedUsers.filter(id => id !== userId)
+        : [...prevSelectedUsers, userId];
+      return updatedSelectedUsers;
+    });
+  };
+
+  const handleBatchDelete = async () => {
+    try {
+      const deletePromises = selectedUsersForDeletion.map(userId => {
+        const url = `http://localhost:3001/user/profile/${userId}`;
+        return axios.delete(url, {
+          headers: { accessToken: sessionStorage.getItem('accessToken') }
+        });
+      });
+
+      await Promise.all(deletePromises);
+
+      // Update the front-end state after successful deletion
+      setUsers(prevUsers =>
+        prevUsers.filter(
+          user => !selectedUsersForDeletion.includes(user.userId)
+        )
+      );
+
+      // Clear the selected users after deletion
+      setSelectedUsersForDeletion([]);
+    } catch (error) {
+      // Handle error appropriately
+    }
+  };
+
+  const handleSearchChange = e => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div>
       <NavBarDashboard />
@@ -67,8 +108,19 @@ function PersonnelsAdmin() {
         <div className={PersonnelsCSS.contents}>
           <div className={PersonnelsCSS.filterContainer}>
             <form action='' method='' className={PersonnelsCSS.searchBar}>
-              <input type='text' placeholder='Search...' />
+              <input
+                type='text'
+                placeholder='Search...'
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             </form>
+          </div>
+
+          <div>
+            <button id={PersonnelsCSS.deleteUser} onClick={handleBatchDelete}>
+              Delete Rooms
+            </button>
           </div>
         </div>
 
@@ -84,42 +136,81 @@ function PersonnelsAdmin() {
                 <th> Email </th>
                 <th> Contact Number </th>
                 <th> Date Created </th>
-                <th> Last Login </th>
                 <th> Status </th>
-                {/* <th> </th> */}
               </tr>
             </thead>
 
             <tbody>
-              {users.map(user => (
-                <tr key={user.userId}>
-                  <td>
-                    <input type='checkbox' id={PersonnelsCSS.checkbox} />
-                  </td>
-                  <td>{user.userType}</td>
-                  <td>
-                    {user.firstName} {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.contactNumber}</td>
-                  <td>
-                    {isValid(new Date(user.createdAt))
-                      ? format(new Date(user.createdAt), 'MM/dd/yyyy HH:mm:ss')
-                      : 'Invalid Date'}
-                  </td>
-                  <td> Last Login</td>
-                  <td>
-                    <select
-                      value={selectedStatus[user.userId]}
-                      onChange={e =>
-                        handleStatusChange(user.userId, e.target.value)
-                      }>
-                      <option value='active'>Active</option>
-                      <option value='inactive'>Not Active</option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
+              {users
+                .filter(
+                  user =>
+                    user.userType !== 'ADMIN' &&
+                    (user.firstName
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                      user.lastName
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase()) ||
+                      user.email
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase()) ||
+                      user.contactNumber.includes(searchQuery) ||
+                      (isValid(new Date(user.createdAt)) &&
+                        format(new Date(user.createdAt), 'MM/dd/yyyy HH:mm:ss')
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())))
+                )
+                .map(
+                  user =>
+                    // Check if the user type is not ADMIN before rendering the row
+                    user.userType !== 'ADMIN' && (
+                      <tr key={user.userId}>
+                        <td>
+                          <input
+                            type='checkbox'
+                            id={PersonnelsCSS.checkbox}
+                            checked={selectedUsersForDeletion.includes(
+                              user.userId
+                            )}
+                            onChange={() => handleCheckboxChange(user.userId)}
+                          />
+                        </td>
+                        <td>{user.userType}</td>
+                        <td>
+                          {user.firstName} {user.lastName}
+                        </td>
+                        <td>{user.email}</td>
+                        <td>{user.contactNumber}</td>
+                        <td>
+                          {isValid(new Date(user.createdAt))
+                            ? format(
+                                new Date(user.createdAt),
+                                'MM/dd/yyyy HH:mm:ss'
+                              )
+                            : 'Invalid Date'}
+                        </td>
+                        <td>
+                          <select
+                            value={selectedStatus[user.userId]}
+                            onChange={e =>
+                              handleStatusChange(user.userId, e.target.value)
+                            }
+                            id={
+                              selectedStatus[user.userId] === '1'
+                                ? PersonnelsCSS.active
+                                : PersonnelsCSS.notActive
+                            }>
+                            <option value='1' id={PersonnelsCSS.options}>
+                              Active
+                            </option>
+                            <option value='0' id={PersonnelsCSS.options}>
+                              Not Active
+                            </option>
+                          </select>
+                        </td>
+                      </tr>
+                    )
+                )}
             </tbody>
           </table>
         </div>

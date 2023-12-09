@@ -53,7 +53,9 @@ router.get(
 // update a user based on user id
 router.put('/profile/:userId', authRole(['ADMIN']), async (req, res) => {
   try {
-    req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
     const user = await User.findByPk(req.params.userId);
     if (!user) {
       return res.status(404).send({ message: 'User not found' });
