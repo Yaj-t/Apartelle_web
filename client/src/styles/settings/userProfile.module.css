@@ -37,11 +37,27 @@
   gap: 20px;
 }
 
+#deleteAccount,
 #editProfile {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-top: 20px;
+}
+
+#deleteAccount button{
+  display: flex;
+  gap: 5px;
+  appearance: none;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  border: #555454 solid 1px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  font-size: 0.8em;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 #editProfile button {
@@ -50,7 +66,7 @@
   appearance: none;
   background-color: white;
   color: black;
-  border-radius: 5px;
+  border-radius: 20px;
   border: #555454 solid 1px;
   padding: 10px 15px;
   box-sizing: border-box;
@@ -112,4 +128,48 @@
   display: flex;
   align-items: center;
   gap: 30px;
+}
+
+.modalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.modalContent {
+  text-align: center;
+}
+
+.modalContent button {
+  margin: 5px;
+}
+
+.twoButtons{
+  display: flex;
+}
+
+.twoButtons button{
+width: 100%;
+align-items: center;
+justify-content: center;
 }
