@@ -121,9 +121,9 @@ const Login = () => {
                     </div>
 
                     <div className={loginCSS.forPass}>
-                      <Link to='/'>
+                      {/* <Link to='/'>
                         <p>Forgot Password?</p>
-                      </Link>
+                      </Link> */}
                     </div>
 
                     <div className={loginCSS.loginButtonContainer}>
